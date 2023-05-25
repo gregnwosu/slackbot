@@ -103,8 +103,8 @@ def handle_mentions(body, say):
 
     say("Sure, I'll get right on that!")
     #response = my_function(text)
-    #response = draft_email(text)
-    response = more_clever(text)
+    response = draft_email(text)
+    #response = more_clever(text)
     say(response)
 
 
