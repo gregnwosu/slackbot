@@ -1,11 +1,6 @@
 
 
 
-resource "null_resource" "load_env" {
-  provisioner "local-exec" {
-    command = "dotenv -f ../.env set"
-  }
-}
 
 resource "azurerm_resource_group" "LangChain-Experiments" {
   location = var.resource_group_location
