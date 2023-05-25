@@ -1,4 +1,3 @@
-from functools import wraps
 import os
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
@@ -6,8 +5,19 @@ from slack_sdk.signature import SignatureVerifier
 from slack_bolt.adapter.flask import SlackRequestHandler
 from slack_bolt import App
 from dotenv import find_dotenv, load_dotenv
-from flask import Flask, request
-from functions import draft_email,more_clever
+from flask import Flask, request, abort
+from functions import draft_email
+import logging
+from functools import wraps
+import time
+import sys
+
+# Configure the logging level and format
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    stream=sys.stdout,
+)
 
 # Load environment variables from .env file
 load_dotenv(find_dotenv())
@@ -19,15 +29,12 @@ SLACK_BOT_USER_ID = os.environ["SLACK_BOT_USER_ID"]
 
 # Initialize the Slack app
 app = App(token=SLACK_BOT_TOKEN)
+signature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)
 
 # Initialize the Flask app
-# Flask is a web application framework written in Python
 flask_app = Flask(__name__)
 handler = SlackRequestHandler(app)
 
-
-
-signature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)
 
 def require_slack_verification(f):
     @wraps(f)
@@ -55,6 +62,7 @@ def verify_slack_request():
         timestamp=timestamp,
         signature=signature,
     )
+
 
 def get_bot_user_id():
     """
@@ -100,14 +108,16 @@ def handle_mentions(body, say):
 
     mention = f"<@{SLACK_BOT_USER_ID}>"
     text = text.replace(mention, "").strip()
+    logging.info("Received text: " + text.replace("\n", " "))
 
     say("Sure, I'll get right on that!")
-    #response = my_function(text)
-    #response = draft_email(text)
-    response = more_clever(text)
+    # response = my_function(text)
+    response = draft_email(text)
+    logging.info("Generated response: " + response.replace("\n", " "))
     say(response)
 
 
+# Demo
 @flask_app.route("/slack/events", methods=["POST"])
 @require_slack_verification
 def slack_events():
@@ -118,9 +128,11 @@ def slack_events():
     Returns:
         Response: The result of handling the request.
     """
+
     return handler.handle(request)
 
 
 # Run the Flask app
 if __name__ == "__main__":
+    logging.info("Flask app started")
     flask_app.run(host="0.0.0.0", port=8000)
