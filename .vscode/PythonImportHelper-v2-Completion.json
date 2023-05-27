@@ -1,0 +1,1118 @@
+[
+    {
+        "label": "find_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "find_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "find_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "find_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "find_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "find_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "find_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "OpenAI",
+        "importPath": "langchain.llms",
+        "description": "langchain.llms",
+        "isExtraImport": true,
+        "detail": "langchain.llms",
+        "documentation": {}
+    },
+    {
+        "label": "OpenAI",
+        "importPath": "langchain.llms",
+        "description": "langchain.llms",
+        "isExtraImport": true,
+        "detail": "langchain.llms",
+        "documentation": {}
+    },
+    {
+        "label": "PromptTemplate",
+        "importPath": "langchain",
+        "description": "langchain",
+        "isExtraImport": true,
+        "detail": "langchain",
+        "documentation": {}
+    },
+    {
+        "label": "ConversationChain",
+        "importPath": "langchain",
+        "description": "langchain",
+        "isExtraImport": true,
+        "detail": "langchain",
+        "documentation": {}
+    },
+    {
+        "label": "PromptTemplate",
+        "importPath": "langchain",
+        "description": "langchain",
+        "isExtraImport": true,
+        "detail": "langchain",
+        "documentation": {}
+    },
+    {
+        "label": "OpenAI",
+        "importPath": "langchain",
+        "description": "langchain",
+        "isExtraImport": true,
+        "detail": "langchain",
+        "documentation": {}
+    },
+    {
+        "label": "LLMChain",
+        "importPath": "langchain.chains",
+        "description": "langchain.chains",
+        "isExtraImport": true,
+        "detail": "langchain.chains",
+        "documentation": {}
+    },
+    {
+        "label": "LLMChain",
+        "importPath": "langchain.chains",
+        "description": "langchain.chains",
+        "isExtraImport": true,
+        "detail": "langchain.chains",
+        "documentation": {}
+    },
+    {
+        "label": "LLMChain",
+        "importPath": "langchain.chains",
+        "description": "langchain.chains",
+        "isExtraImport": true,
+        "detail": "langchain.chains",
+        "documentation": {}
+    },
+    {
+        "label": "LLMChain",
+        "importPath": "langchain.chains",
+        "description": "langchain.chains",
+        "isExtraImport": true,
+        "detail": "langchain.chains",
+        "documentation": {}
+    },
+    {
+        "label": "LLMChain",
+        "importPath": "langchain.chains",
+        "description": "langchain.chains",
+        "isExtraImport": true,
+        "detail": "langchain.chains",
+        "documentation": {}
+    },
+    {
+        "label": "load_tools",
+        "importPath": "langchain.agents",
+        "description": "langchain.agents",
+        "isExtraImport": true,
+        "detail": "langchain.agents",
+        "documentation": {}
+    },
+    {
+        "label": "initialize_agent",
+        "importPath": "langchain.agents",
+        "description": "langchain.agents",
+        "isExtraImport": true,
+        "detail": "langchain.agents",
+        "documentation": {}
+    },
+    {
+        "label": "AgentType",
+        "importPath": "langchain.agents",
+        "description": "langchain.agents",
+        "isExtraImport": true,
+        "detail": "langchain.agents",
+        "documentation": {}
+    },
+    {
+        "label": "initialize_agent",
+        "importPath": "langchain.agents",
+        "description": "langchain.agents",
+        "isExtraImport": true,
+        "detail": "langchain.agents",
+        "documentation": {}
+    },
+    {
+        "label": "get_all_tool_names",
+        "importPath": "langchain.agents.load_tools",
+        "description": "langchain.agents.load_tools",
+        "isExtraImport": true,
+        "detail": "langchain.agents.load_tools",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "WebClient",
+        "importPath": "slack_sdk",
+        "description": "slack_sdk",
+        "isExtraImport": true,
+        "detail": "slack_sdk",
+        "documentation": {}
+    },
+    {
+        "label": "WebClient",
+        "importPath": "slack_sdk",
+        "description": "slack_sdk",
+        "isExtraImport": true,
+        "detail": "slack_sdk",
+        "documentation": {}
+    },
+    {
+        "label": "SlackApiError",
+        "importPath": "slack_sdk.errors",
+        "description": "slack_sdk.errors",
+        "isExtraImport": true,
+        "detail": "slack_sdk.errors",
+        "documentation": {}
+    },
+    {
+        "label": "SlackApiError",
+        "importPath": "slack_sdk.errors",
+        "description": "slack_sdk.errors",
+        "isExtraImport": true,
+        "detail": "slack_sdk.errors",
+        "documentation": {}
+    },
+    {
+        "label": "SignatureVerifier",
+        "importPath": "slack_sdk.signature",
+        "description": "slack_sdk.signature",
+        "isExtraImport": true,
+        "detail": "slack_sdk.signature",
+        "documentation": {}
+    },
+    {
+        "label": "SignatureVerifier",
+        "importPath": "slack_sdk.signature",
+        "description": "slack_sdk.signature",
+        "isExtraImport": true,
+        "detail": "slack_sdk.signature",
+        "documentation": {}
+    },
+    {
+        "label": "SlackRequestHandler",
+        "importPath": "slack_bolt.adapter.flask",
+        "description": "slack_bolt.adapter.flask",
+        "isExtraImport": true,
+        "detail": "slack_bolt.adapter.flask",
+        "documentation": {}
+    },
+    {
+        "label": "SlackRequestHandler",
+        "importPath": "slack_bolt.adapter.flask",
+        "description": "slack_bolt.adapter.flask",
+        "isExtraImport": true,
+        "detail": "slack_bolt.adapter.flask",
+        "documentation": {}
+    },
+    {
+        "label": "App",
+        "importPath": "slack_bolt",
+        "description": "slack_bolt",
+        "isExtraImport": true,
+        "detail": "slack_bolt",
+        "documentation": {}
+    },
+    {
+        "label": "App",
+        "importPath": "slack_bolt",
+        "description": "slack_bolt",
+        "isExtraImport": true,
+        "detail": "slack_bolt",
+        "documentation": {}
+    },
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "abort",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "draft_email",
+        "importPath": "functions",
+        "description": "functions",
+        "isExtraImport": true,
+        "detail": "functions",
+        "documentation": {}
+    },
+    {
+        "label": "draft_email",
+        "importPath": "functions",
+        "description": "functions",
+        "isExtraImport": true,
+        "detail": "functions",
+        "documentation": {}
+    },
+    {
+        "label": "more_clever",
+        "importPath": "functions",
+        "description": "functions",
+        "isExtraImport": true,
+        "detail": "functions",
+        "documentation": {}
+    },
+    {
+        "label": "logging",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "logging",
+        "description": "logging",
+        "detail": "logging",
+        "documentation": {}
+    },
+    {
+        "label": "wraps",
+        "importPath": "functools",
+        "description": "functools",
+        "isExtraImport": true,
+        "detail": "functools",
+        "documentation": {}
+    },
+    {
+        "label": "wraps",
+        "importPath": "functools",
+        "description": "functools",
+        "isExtraImport": true,
+        "detail": "functools",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "ChatOpenAI",
+        "importPath": "langchain.chat_models",
+        "description": "langchain.chat_models",
+        "isExtraImport": true,
+        "detail": "langchain.chat_models",
+        "documentation": {}
+    },
+    {
+        "label": "ChatOpenAI",
+        "importPath": "langchain.chat_models",
+        "description": "langchain.chat_models",
+        "isExtraImport": true,
+        "detail": "langchain.chat_models",
+        "documentation": {}
+    },
+    {
+        "label": "ChatOpenAI",
+        "importPath": "langchain.chat_models",
+        "description": "langchain.chat_models",
+        "isExtraImport": true,
+        "detail": "langchain.chat_models",
+        "documentation": {}
+    },
+    {
+        "label": "ChatPromptTemplate",
+        "importPath": "langchain.prompts.chat",
+        "description": "langchain.prompts.chat",
+        "isExtraImport": true,
+        "detail": "langchain.prompts.chat",
+        "documentation": {}
+    },
+    {
+        "label": "SystemMessagePromptTemplate",
+        "importPath": "langchain.prompts.chat",
+        "description": "langchain.prompts.chat",
+        "isExtraImport": true,
+        "detail": "langchain.prompts.chat",
+        "documentation": {}
+    },
+    {
+        "label": "HumanMessagePromptTemplate",
+        "importPath": "langchain.prompts.chat",
+        "description": "langchain.prompts.chat",
+        "isExtraImport": true,
+        "detail": "langchain.prompts.chat",
+        "documentation": {}
+    },
+    {
+        "label": "ChatPromptTemplate",
+        "importPath": "langchain.prompts.chat",
+        "description": "langchain.prompts.chat",
+        "isExtraImport": true,
+        "detail": "langchain.prompts.chat",
+        "documentation": {}
+    },
+    {
+        "label": "SystemMessagePromptTemplate",
+        "importPath": "langchain.prompts.chat",
+        "description": "langchain.prompts.chat",
+        "isExtraImport": true,
+        "detail": "langchain.prompts.chat",
+        "documentation": {}
+    },
+    {
+        "label": "HumanMessagePromptTemplate",
+        "importPath": "langchain.prompts.chat",
+        "description": "langchain.prompts.chat",
+        "isExtraImport": true,
+        "detail": "langchain.prompts.chat",
+        "documentation": {}
+    },
+    {
+        "label": "ChatPromptTemplate",
+        "importPath": "langchain.prompts.chat",
+        "description": "langchain.prompts.chat",
+        "isExtraImport": true,
+        "detail": "langchain.prompts.chat",
+        "documentation": {}
+    },
+    {
+        "label": "SystemMessagePromptTemplate",
+        "importPath": "langchain.prompts.chat",
+        "description": "langchain.prompts.chat",
+        "isExtraImport": true,
+        "detail": "langchain.prompts.chat",
+        "documentation": {}
+    },
+    {
+        "label": "HumanMessagePromptTemplate",
+        "importPath": "langchain.prompts.chat",
+        "description": "langchain.prompts.chat",
+        "isExtraImport": true,
+        "detail": "langchain.prompts.chat",
+        "documentation": {}
+    },
+    {
+        "label": "YoutubeLoader",
+        "importPath": "langchain.document_loaders",
+        "description": "langchain.document_loaders",
+        "isExtraImport": true,
+        "detail": "langchain.document_loaders",
+        "documentation": {}
+    },
+    {
+        "label": "YoutubeLoader",
+        "importPath": "langchain.document_loaders",
+        "description": "langchain.document_loaders",
+        "isExtraImport": true,
+        "detail": "langchain.document_loaders",
+        "documentation": {}
+    },
+    {
+        "label": "RecursiveCharacterTextSplitter",
+        "importPath": "langchain.text_splitter",
+        "description": "langchain.text_splitter",
+        "isExtraImport": true,
+        "detail": "langchain.text_splitter",
+        "documentation": {}
+    },
+    {
+        "label": "RecursiveCharacterTextSplitter",
+        "importPath": "langchain.text_splitter",
+        "description": "langchain.text_splitter",
+        "isExtraImport": true,
+        "detail": "langchain.text_splitter",
+        "documentation": {}
+    },
+    {
+        "label": "OpenAIEmbeddings",
+        "importPath": "langchain.embeddings.openai",
+        "description": "langchain.embeddings.openai",
+        "isExtraImport": true,
+        "detail": "langchain.embeddings.openai",
+        "documentation": {}
+    },
+    {
+        "label": "OpenAIEmbeddings",
+        "importPath": "langchain.embeddings.openai",
+        "description": "langchain.embeddings.openai",
+        "isExtraImport": true,
+        "detail": "langchain.embeddings.openai",
+        "documentation": {}
+    },
+    {
+        "label": "FAISS",
+        "importPath": "langchain.vectorstores",
+        "description": "langchain.vectorstores",
+        "isExtraImport": true,
+        "detail": "langchain.vectorstores",
+        "documentation": {}
+    },
+    {
+        "label": "FAISS",
+        "importPath": "langchain.vectorstores",
+        "description": "langchain.vectorstores",
+        "isExtraImport": true,
+        "detail": "langchain.vectorstores",
+        "documentation": {}
+    },
+    {
+        "label": "textwrap",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "textwrap",
+        "description": "textwrap",
+        "detail": "textwrap",
+        "documentation": {}
+    },
+    {
+        "label": "GmailToolkit",
+        "importPath": "langchain.agents.agent_toolkits",
+        "description": "langchain.agents.agent_toolkits",
+        "isExtraImport": true,
+        "detail": "langchain.agents.agent_toolkits",
+        "documentation": {}
+    },
+    {
+        "label": "AgentType",
+        "importPath": "langchain.agents.agent",
+        "description": "langchain.agents.agent",
+        "isExtraImport": true,
+        "detail": "langchain.agents.agent",
+        "documentation": {}
+    },
+    {
+        "label": "llm",
+        "kind": 5,
+        "importPath": "introduction.quickstart_guide",
+        "description": "introduction.quickstart_guide",
+        "peekOfCode": "llm = OpenAI(model_name=\"text-davinci-003\")\nprompt = \"Write a poem about python and ai\"\nprint(llm(prompt))\n# --------------------------------------------------------------\n# Prompt Templates: Manage prompts for LLMs\n# --------------------------------------------------------------\nprompt = PromptTemplate(\n    input_variables=[\"product\"],\n    template=\"What is a good name for a company that makes {product}?\",\n)",
+        "detail": "introduction.quickstart_guide",
+        "documentation": {}
+    },
+    {
+        "label": "prompt",
+        "kind": 5,
+        "importPath": "introduction.quickstart_guide",
+        "description": "introduction.quickstart_guide",
+        "peekOfCode": "prompt = \"Write a poem about python and ai\"\nprint(llm(prompt))\n# --------------------------------------------------------------\n# Prompt Templates: Manage prompts for LLMs\n# --------------------------------------------------------------\nprompt = PromptTemplate(\n    input_variables=[\"product\"],\n    template=\"What is a good name for a company that makes {product}?\",\n)\nprompt.format(product=\"Smart Apps using Large Language Models (LLMs)\")",
+        "detail": "introduction.quickstart_guide",
+        "documentation": {}
+    },
+    {
+        "label": "prompt",
+        "kind": 5,
+        "importPath": "introduction.quickstart_guide",
+        "description": "introduction.quickstart_guide",
+        "peekOfCode": "prompt = PromptTemplate(\n    input_variables=[\"product\"],\n    template=\"What is a good name for a company that makes {product}?\",\n)\nprompt.format(product=\"Smart Apps using Large Language Models (LLMs)\")\n# --------------------------------------------------------------\n# Chains: Combine LLMs and prompts in multi-step workflows\n# --------------------------------------------------------------\nllm = OpenAI()\nprompt = PromptTemplate(",
+        "detail": "introduction.quickstart_guide",
+        "documentation": {}
+    },
+    {
+        "label": "llm",
+        "kind": 5,
+        "importPath": "introduction.quickstart_guide",
+        "description": "introduction.quickstart_guide",
+        "peekOfCode": "llm = OpenAI()\nprompt = PromptTemplate(\n    input_variables=[\"product\"],\n    template=\"What is a good name for a company that makes {product}?\",\n)\nchain = LLMChain(llm=llm, prompt=prompt)\nprint(chain.run(\"AI Chatbots for Dental Offices\"))\n# --------------------------------------------------------------\n# Agents: Dynamically Call Chains Based on User Input\n# --------------------------------------------------------------",
+        "detail": "introduction.quickstart_guide",
+        "documentation": {}
+    },
+    {
+        "label": "prompt",
+        "kind": 5,
+        "importPath": "introduction.quickstart_guide",
+        "description": "introduction.quickstart_guide",
+        "peekOfCode": "prompt = PromptTemplate(\n    input_variables=[\"product\"],\n    template=\"What is a good name for a company that makes {product}?\",\n)\nchain = LLMChain(llm=llm, prompt=prompt)\nprint(chain.run(\"AI Chatbots for Dental Offices\"))\n# --------------------------------------------------------------\n# Agents: Dynamically Call Chains Based on User Input\n# --------------------------------------------------------------\nllm = OpenAI()",
+        "detail": "introduction.quickstart_guide",
+        "documentation": {}
+    },
+    {
+        "label": "chain",
+        "kind": 5,
+        "importPath": "introduction.quickstart_guide",
+        "description": "introduction.quickstart_guide",
+        "peekOfCode": "chain = LLMChain(llm=llm, prompt=prompt)\nprint(chain.run(\"AI Chatbots for Dental Offices\"))\n# --------------------------------------------------------------\n# Agents: Dynamically Call Chains Based on User Input\n# --------------------------------------------------------------\nllm = OpenAI()\nget_all_tool_names()\ntools = load_tools([\"wikipedia\", \"llm-math\"], llm=llm)\n# Finally, let's initialize an agent with the tools, the language model, and the type of agent we want to use.\nagent = initialize_agent(",
+        "detail": "introduction.quickstart_guide",
+        "documentation": {}
+    },
+    {
+        "label": "llm",
+        "kind": 5,
+        "importPath": "introduction.quickstart_guide",
+        "description": "introduction.quickstart_guide",
+        "peekOfCode": "llm = OpenAI()\nget_all_tool_names()\ntools = load_tools([\"wikipedia\", \"llm-math\"], llm=llm)\n# Finally, let's initialize an agent with the tools, the language model, and the type of agent we want to use.\nagent = initialize_agent(\n    tools, llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True\n)\n# Now let's test it out!\nresult = agent.run(\n    \"In what year was python released and who is the original creator? Multiply the year by 3\"",
+        "detail": "introduction.quickstart_guide",
+        "documentation": {}
+    },
+    {
+        "label": "tools",
+        "kind": 5,
+        "importPath": "introduction.quickstart_guide",
+        "description": "introduction.quickstart_guide",
+        "peekOfCode": "tools = load_tools([\"wikipedia\", \"llm-math\"], llm=llm)\n# Finally, let's initialize an agent with the tools, the language model, and the type of agent we want to use.\nagent = initialize_agent(\n    tools, llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True\n)\n# Now let's test it out!\nresult = agent.run(\n    \"In what year was python released and who is the original creator? Multiply the year by 3\"\n)\nprint(result)",
+        "detail": "introduction.quickstart_guide",
+        "documentation": {}
+    },
+    {
+        "label": "agent",
+        "kind": 5,
+        "importPath": "introduction.quickstart_guide",
+        "description": "introduction.quickstart_guide",
+        "peekOfCode": "agent = initialize_agent(\n    tools, llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True\n)\n# Now let's test it out!\nresult = agent.run(\n    \"In what year was python released and who is the original creator? Multiply the year by 3\"\n)\nprint(result)\n# --------------------------------------------------------------\n# Memory: Add State to Chains and Agents",
+        "detail": "introduction.quickstart_guide",
+        "documentation": {}
+    },
+    {
+        "label": "result",
+        "kind": 5,
+        "importPath": "introduction.quickstart_guide",
+        "description": "introduction.quickstart_guide",
+        "peekOfCode": "result = agent.run(\n    \"In what year was python released and who is the original creator? Multiply the year by 3\"\n)\nprint(result)\n# --------------------------------------------------------------\n# Memory: Add State to Chains and Agents\n# --------------------------------------------------------------\nllm = OpenAI()\nconversation = ConversationChain(llm=llm, verbose=True)\noutput = conversation.predict(input=\"Hi there!\")",
+        "detail": "introduction.quickstart_guide",
+        "documentation": {}
+    },
+    {
+        "label": "llm",
+        "kind": 5,
+        "importPath": "introduction.quickstart_guide",
+        "description": "introduction.quickstart_guide",
+        "peekOfCode": "llm = OpenAI()\nconversation = ConversationChain(llm=llm, verbose=True)\noutput = conversation.predict(input=\"Hi there!\")\nprint(output)\noutput = conversation.predict(\n    input=\"I'm doing well! Just having a conversation with an AI.\"\n)\nprint(output)",
+        "detail": "introduction.quickstart_guide",
+        "documentation": {}
+    },
+    {
+        "label": "conversation",
+        "kind": 5,
+        "importPath": "introduction.quickstart_guide",
+        "description": "introduction.quickstart_guide",
+        "peekOfCode": "conversation = ConversationChain(llm=llm, verbose=True)\noutput = conversation.predict(input=\"Hi there!\")\nprint(output)\noutput = conversation.predict(\n    input=\"I'm doing well! Just having a conversation with an AI.\"\n)\nprint(output)",
+        "detail": "introduction.quickstart_guide",
+        "documentation": {}
+    },
+    {
+        "label": "output",
+        "kind": 5,
+        "importPath": "introduction.quickstart_guide",
+        "description": "introduction.quickstart_guide",
+        "peekOfCode": "output = conversation.predict(input=\"Hi there!\")\nprint(output)\noutput = conversation.predict(\n    input=\"I'm doing well! Just having a conversation with an AI.\"\n)\nprint(output)",
+        "detail": "introduction.quickstart_guide",
+        "documentation": {}
+    },
+    {
+        "label": "output",
+        "kind": 5,
+        "importPath": "introduction.quickstart_guide",
+        "description": "introduction.quickstart_guide",
+        "peekOfCode": "output = conversation.predict(\n    input=\"I'm doing well! Just having a conversation with an AI.\"\n)\nprint(output)",
+        "detail": "introduction.quickstart_guide",
+        "documentation": {}
+    },
+    {
+        "label": "require_slack_verification",
+        "kind": 2,
+        "importPath": "slack.app",
+        "description": "slack.app",
+        "peekOfCode": "def require_slack_verification(f):\n    @wraps(f)\n    def decorated_function(*args, **kwargs):\n        if not verify_slack_request():\n            abort(403)\n        return f(*args, **kwargs)\n    return decorated_function\ndef verify_slack_request():\n    # Get the request headers\n    timestamp = request.headers.get(\"X-Slack-Request-Timestamp\", \"\")",
+        "detail": "slack.app",
+        "documentation": {}
+    },
+    {
+        "label": "verify_slack_request",
+        "kind": 2,
+        "importPath": "slack.app",
+        "description": "slack.app",
+        "peekOfCode": "def verify_slack_request():\n    # Get the request headers\n    timestamp = request.headers.get(\"X-Slack-Request-Timestamp\", \"\")\n    signature = request.headers.get(\"X-Slack-Signature\", \"\")\n    # Check if the timestamp is within five minutes of the current time\n    current_timestamp = int(time.time())\n    if abs(current_timestamp - int(timestamp)) > 60 * 5:\n        return False\n    # Verify the request signature\n    return signature_verifier.is_valid(",
+        "detail": "slack.app",
+        "documentation": {}
+    },
+    {
+        "label": "get_bot_user_id",
+        "kind": 2,
+        "importPath": "slack.app",
+        "description": "slack.app",
+        "peekOfCode": "def get_bot_user_id():\n    \"\"\"\n    Get the bot user ID using the Slack API.\n    Returns:\n        str: The bot user ID.\n    \"\"\"\n    try:\n        # Initialize the Slack client with your bot token\n        slack_client = WebClient(token=os.environ[\"SLACK_BOT_TOKEN\"])\n        response = slack_client.auth_test()",
+        "detail": "slack.app",
+        "documentation": {}
+    },
+    {
+        "label": "my_function",
+        "kind": 2,
+        "importPath": "slack.app",
+        "description": "slack.app",
+        "peekOfCode": "def my_function(text):\n    \"\"\"\n    Custom function to process the text and return a response.\n    In this example, the function converts the input text to uppercase.\n    Args:\n        text (str): The input text to process.\n    Returns:\n        str: The processed text.\n    \"\"\"\n    response = text.upper()",
+        "detail": "slack.app",
+        "documentation": {}
+    },
+    {
+        "label": "handle_mentions",
+        "kind": 2,
+        "importPath": "slack.app",
+        "description": "slack.app",
+        "peekOfCode": "def handle_mentions(body, say):\n    \"\"\"\n    Event listener for mentions in Slack.\n    When the bot is mentioned, this function processes the text and sends a response.\n    Args:\n        body (dict): The event data received from Slack.\n        say (callable): A function for sending a response to the channel.\n    \"\"\"\n    text = body[\"event\"][\"text\"]\n    mention = f\"<@{SLACK_BOT_USER_ID}>\"",
+        "detail": "slack.app",
+        "documentation": {}
+    },
+    {
+        "label": "slack_events",
+        "kind": 2,
+        "importPath": "slack.app",
+        "description": "slack.app",
+        "peekOfCode": "def slack_events():\n    \"\"\"\n    Route for handling Slack events.\n    This function passes the incoming HTTP request to the SlackRequestHandler for processing.\n    Returns:\n        Response: The result of handling the request.\n    \"\"\"\n    return handler.handle(request)\n# Run the Flask app\nif __name__ == \"__main__\":",
+        "detail": "slack.app",
+        "documentation": {}
+    },
+    {
+        "label": "SLACK_BOT_TOKEN",
+        "kind": 5,
+        "importPath": "slack.app",
+        "description": "slack.app",
+        "peekOfCode": "SLACK_BOT_TOKEN = os.environ[\"SLACK_BOT_TOKEN\"]\nSLACK_SIGNING_SECRET = os.environ[\"SLACK_SIGNING_SECRET\"]\nSLACK_BOT_USER_ID = os.environ[\"SLACK_BOT_USER_ID\"]\n# Initialize the Slack app\napp = App(token=SLACK_BOT_TOKEN)\nsignature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)\n# Initialize the Flask app\nflask_app = Flask(__name__)\nhandler = SlackRequestHandler(app)\ndef require_slack_verification(f):",
+        "detail": "slack.app",
+        "documentation": {}
+    },
+    {
+        "label": "SLACK_SIGNING_SECRET",
+        "kind": 5,
+        "importPath": "slack.app",
+        "description": "slack.app",
+        "peekOfCode": "SLACK_SIGNING_SECRET = os.environ[\"SLACK_SIGNING_SECRET\"]\nSLACK_BOT_USER_ID = os.environ[\"SLACK_BOT_USER_ID\"]\n# Initialize the Slack app\napp = App(token=SLACK_BOT_TOKEN)\nsignature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)\n# Initialize the Flask app\nflask_app = Flask(__name__)\nhandler = SlackRequestHandler(app)\ndef require_slack_verification(f):\n    @wraps(f)",
+        "detail": "slack.app",
+        "documentation": {}
+    },
+    {
+        "label": "SLACK_BOT_USER_ID",
+        "kind": 5,
+        "importPath": "slack.app",
+        "description": "slack.app",
+        "peekOfCode": "SLACK_BOT_USER_ID = os.environ[\"SLACK_BOT_USER_ID\"]\n# Initialize the Slack app\napp = App(token=SLACK_BOT_TOKEN)\nsignature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)\n# Initialize the Flask app\nflask_app = Flask(__name__)\nhandler = SlackRequestHandler(app)\ndef require_slack_verification(f):\n    @wraps(f)\n    def decorated_function(*args, **kwargs):",
+        "detail": "slack.app",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "slack.app",
+        "description": "slack.app",
+        "peekOfCode": "app = App(token=SLACK_BOT_TOKEN)\nsignature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)\n# Initialize the Flask app\nflask_app = Flask(__name__)\nhandler = SlackRequestHandler(app)\ndef require_slack_verification(f):\n    @wraps(f)\n    def decorated_function(*args, **kwargs):\n        if not verify_slack_request():\n            abort(403)",
+        "detail": "slack.app",
+        "documentation": {}
+    },
+    {
+        "label": "signature_verifier",
+        "kind": 5,
+        "importPath": "slack.app",
+        "description": "slack.app",
+        "peekOfCode": "signature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)\n# Initialize the Flask app\nflask_app = Flask(__name__)\nhandler = SlackRequestHandler(app)\ndef require_slack_verification(f):\n    @wraps(f)\n    def decorated_function(*args, **kwargs):\n        if not verify_slack_request():\n            abort(403)\n        return f(*args, **kwargs)",
+        "detail": "slack.app",
+        "documentation": {}
+    },
+    {
+        "label": "flask_app",
+        "kind": 5,
+        "importPath": "slack.app",
+        "description": "slack.app",
+        "peekOfCode": "flask_app = Flask(__name__)\nhandler = SlackRequestHandler(app)\ndef require_slack_verification(f):\n    @wraps(f)\n    def decorated_function(*args, **kwargs):\n        if not verify_slack_request():\n            abort(403)\n        return f(*args, **kwargs)\n    return decorated_function\ndef verify_slack_request():",
+        "detail": "slack.app",
+        "documentation": {}
+    },
+    {
+        "label": "handler",
+        "kind": 5,
+        "importPath": "slack.app",
+        "description": "slack.app",
+        "peekOfCode": "handler = SlackRequestHandler(app)\ndef require_slack_verification(f):\n    @wraps(f)\n    def decorated_function(*args, **kwargs):\n        if not verify_slack_request():\n            abort(403)\n        return f(*args, **kwargs)\n    return decorated_function\ndef verify_slack_request():\n    # Get the request headers",
+        "detail": "slack.app",
+        "documentation": {}
+    },
+    {
+        "label": "draft_email",
+        "kind": 2,
+        "importPath": "slack.functions",
+        "description": "slack.functions",
+        "peekOfCode": "def draft_email(user_input, name=\"Dave\"):\n    chat = ChatOpenAI(model_name=\"gpt-3.5-turbo\", temperature=1)\n    template = \"\"\"\n    You are a helpful assistant that drafts an email reply based on an a new email.\n    Your goal is to help the user quickly create a perfect email reply.\n    Keep your reply short and to the point and mimic the style of the email so you reply in a similar manner to match the tone.\n    Start your reply by saying: \"Hi {name}, here's a draft for your reply:\". And then proceed with the reply on a new line.\n    Make sure to sign of with {signature}.\n    \"\"\"\n    signature = f\"Kind regards, \\n\\{name}\"",
+        "detail": "slack.functions",
+        "documentation": {}
+    },
+    {
+        "label": "create_db_from_youtube_video_url",
+        "kind": 2,
+        "importPath": "youtube.youtube_chat",
+        "description": "youtube.youtube_chat",
+        "peekOfCode": "def create_db_from_youtube_video_url(video_url, embeddings) -> FAISS:\n    loader = YoutubeLoader.from_youtube_url(video_url)\n    transcript = loader.load()\n    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)\n    docs = text_splitter.split_documents(transcript)\n    return FAISS.from_documents(docs, embeddings)\ndef get_response_from_query(db, query, k=4):\n    \"\"\"\n    gpt-3.5-turbo can handle up to 4097 tokens. Setting the chunksize to 1000 and k to 4 maximizes\n    the number of tokens to analyze.",
+        "detail": "youtube.youtube_chat",
+        "documentation": {}
+    },
+    {
+        "label": "get_response_from_query",
+        "kind": 2,
+        "importPath": "youtube.youtube_chat",
+        "description": "youtube.youtube_chat",
+        "peekOfCode": "def get_response_from_query(db, query, k=4):\n    \"\"\"\n    gpt-3.5-turbo can handle up to 4097 tokens. Setting the chunksize to 1000 and k to 4 maximizes\n    the number of tokens to analyze.\n    \"\"\"\n    docs = db.similarity_search(query, k=k)\n    docs_page_content = \" \".join([d.page_content for d in docs])\n    chat = ChatOpenAI(model_name=\"gpt-3.5-turbo\", temperature=0.2)\n    # Template to use for the system message prompt\n    template = \"\"\"",
+        "detail": "youtube.youtube_chat",
+        "documentation": {}
+    },
+    {
+        "label": "video_url",
+        "kind": 5,
+        "importPath": "youtube.youtube_chat",
+        "description": "youtube.youtube_chat",
+        "peekOfCode": "video_url = \"https://www.youtube.com/watch?v=NYSWn1ipbgg\"\nembeddings:OpenAIEmbeddings = OpenAIEmbeddings()\ndb = create_db_from_youtube_video_url(video_url, embeddings)\nquery = \"What is the video about?\"\nresponse, docs = get_response_from_query(db, query)\nprint(textwrap.fill(response, width=50))",
+        "detail": "youtube.youtube_chat",
+        "documentation": {}
+    },
+    {
+        "label": "embeddings:OpenAIEmbeddings",
+        "kind": 5,
+        "importPath": "youtube.youtube_chat",
+        "description": "youtube.youtube_chat",
+        "peekOfCode": "embeddings:OpenAIEmbeddings = OpenAIEmbeddings()\ndb = create_db_from_youtube_video_url(video_url, embeddings)\nquery = \"What is the video about?\"\nresponse, docs = get_response_from_query(db, query)\nprint(textwrap.fill(response, width=50))",
+        "detail": "youtube.youtube_chat",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "kind": 5,
+        "importPath": "youtube.youtube_chat",
+        "description": "youtube.youtube_chat",
+        "peekOfCode": "db = create_db_from_youtube_video_url(video_url, embeddings)\nquery = \"What is the video about?\"\nresponse, docs = get_response_from_query(db, query)\nprint(textwrap.fill(response, width=50))",
+        "detail": "youtube.youtube_chat",
+        "documentation": {}
+    },
+    {
+        "label": "query",
+        "kind": 5,
+        "importPath": "youtube.youtube_chat",
+        "description": "youtube.youtube_chat",
+        "peekOfCode": "query = \"What is the video about?\"\nresponse, docs = get_response_from_query(db, query)\nprint(textwrap.fill(response, width=50))",
+        "detail": "youtube.youtube_chat",
+        "documentation": {}
+    },
+    {
+        "label": "create_db_from_youtube_video_url",
+        "kind": 2,
+        "importPath": "youtube.youtube_llm",
+        "description": "youtube.youtube_llm",
+        "peekOfCode": "def create_db_from_youtube_video_url(video_url: str) -> FAISS:\n    loader = YoutubeLoader.from_youtube_url(video_url)\n    transcript = loader.load()\n    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)\n    docs = text_splitter.split_documents(transcript)\n    db = FAISS.from_documents(docs, embeddings)\n    return db\ndef get_response_from_query(db, query, k=4):\n    \"\"\"\n    text-davinci-003 can handle up to 4097 tokens. Setting the chunksize to 1000 and k to 4 maximizes",
+        "detail": "youtube.youtube_llm",
+        "documentation": {}
+    },
+    {
+        "label": "get_response_from_query",
+        "kind": 2,
+        "importPath": "youtube.youtube_llm",
+        "description": "youtube.youtube_llm",
+        "peekOfCode": "def get_response_from_query(db, query, k=4):\n    \"\"\"\n    text-davinci-003 can handle up to 4097 tokens. Setting the chunksize to 1000 and k to 4 maximizes\n    the number of tokens to analyze.\n    \"\"\"\n    docs = db.similarity_search(query, k=k)\n    docs_page_content = \" \".join([d.page_content for d in docs])\n    llm = OpenAI(model_name=\"text-davinci-003\")\n    prompt = PromptTemplate(\n        input_variables=[\"question\", \"docs\"],",
+        "detail": "youtube.youtube_llm",
+        "documentation": {}
+    },
+    {
+        "label": "embeddings",
+        "kind": 5,
+        "importPath": "youtube.youtube_llm",
+        "description": "youtube.youtube_llm",
+        "peekOfCode": "embeddings = OpenAIEmbeddings()\ndef create_db_from_youtube_video_url(video_url: str) -> FAISS:\n    loader = YoutubeLoader.from_youtube_url(video_url)\n    transcript = loader.load()\n    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)\n    docs = text_splitter.split_documents(transcript)\n    db = FAISS.from_documents(docs, embeddings)\n    return db\ndef get_response_from_query(db, query, k=4):\n    \"\"\"",
+        "detail": "youtube.youtube_llm",
+        "documentation": {}
+    },
+    {
+        "label": "video_url",
+        "kind": 5,
+        "importPath": "youtube.youtube_llm",
+        "description": "youtube.youtube_llm",
+        "peekOfCode": "video_url = \"https://www.youtube.com/watch?v=L_Guz73e6fw\"\ndb = create_db_from_youtube_video_url(video_url)\nquery = \"What are they saying about Microsoft?\"\nresponse, docs = get_response_from_query(db, query)\nprint(textwrap.fill(response, width=85))",
+        "detail": "youtube.youtube_llm",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "kind": 5,
+        "importPath": "youtube.youtube_llm",
+        "description": "youtube.youtube_llm",
+        "peekOfCode": "db = create_db_from_youtube_video_url(video_url)\nquery = \"What are they saying about Microsoft?\"\nresponse, docs = get_response_from_query(db, query)\nprint(textwrap.fill(response, width=85))",
+        "detail": "youtube.youtube_llm",
+        "documentation": {}
+    },
+    {
+        "label": "query",
+        "kind": 5,
+        "importPath": "youtube.youtube_llm",
+        "description": "youtube.youtube_llm",
+        "peekOfCode": "query = \"What are they saying about Microsoft?\"\nresponse, docs = get_response_from_query(db, query)\nprint(textwrap.fill(response, width=85))",
+        "detail": "youtube.youtube_llm",
+        "documentation": {}
+    },
+    {
+        "label": "require_slack_verification",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def require_slack_verification(f):\n    @wraps(f)\n    def decorated_function(*args, **kwargs):\n        if not verify_slack_request():\n            abort(403)\n        return f(*args, **kwargs)\n    return decorated_function\ndef verify_slack_request():\n    # Get the request headers\n    timestamp = request.headers.get(\"X-Slack-Request-Timestamp\", \"\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "verify_slack_request",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def verify_slack_request():\n    # Get the request headers\n    timestamp = request.headers.get(\"X-Slack-Request-Timestamp\", \"\")\n    signature = request.headers.get(\"X-Slack-Signature\", \"\")\n    # Check if the timestamp is within five minutes of the current time\n    current_timestamp = int(time.time())\n    if abs(current_timestamp - int(timestamp)) > 60 * 5:\n        return False\n    # Verify the request signature\n    return signature_verifier.is_valid(",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "get_bot_user_id",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def get_bot_user_id():\n    \"\"\"\n    Get the bot user ID using the Slack API.\n    Returns:\n        str: The bot user ID.\n    \"\"\"\n    try:\n        # Initialize the Slack client with your bot token\n        slack_client = WebClient(token=os.environ[\"SLACK_BOT_TOKEN\"])\n        response = slack_client.auth_test()",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "my_function",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def my_function(text):\n    \"\"\"\n    Custom function to process the text and return a response.\n    In this example, the function converts the input text to uppercase.\n    Args:\n        text (str): The input text to process.\n    Returns:\n        str: The processed text.\n    \"\"\"\n    response = text.upper()",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "handle_mentions",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def handle_mentions(body, say):\n    \"\"\"\n    Event listener for mentions in Slack.\n    When the bot is mentioned, this function processes the text and sends a response.\n    Args:\n        body (dict): The event data received from Slack.\n        say (callable): A function for sending a response to the channel.\n    \"\"\"\n    text = body[\"event\"][\"text\"]\n    mention = f\"<@{SLACK_BOT_USER_ID}>\"",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "slack_events",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def slack_events():\n    \"\"\"\n    Route for handling Slack events.\n    This function passes the incoming HTTP request to the SlackRequestHandler for processing.\n    Returns:\n        Response: The result of handling the request.\n    \"\"\"\n    return handler.handle(request)\n# Run the Flask app\nif __name__ == \"__main__\":",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "SLACK_BOT_TOKEN",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "SLACK_BOT_TOKEN = os.environ[\"SLACK_BOT_TOKEN\"]\nSLACK_SIGNING_SECRET = os.environ[\"SLACK_SIGNING_SECRET\"]\nSLACK_BOT_USER_ID = os.environ[\"SLACK_BOT_USER_ID\"]\n# Initialize the Slack app\napp = App(token=SLACK_BOT_TOKEN)\n# Initialize the Flask app\n# Flask is a web application framework written in Python\nflask_app = Flask(__name__)\nhandler = SlackRequestHandler(app)\nsignature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "SLACK_SIGNING_SECRET",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "SLACK_SIGNING_SECRET = os.environ[\"SLACK_SIGNING_SECRET\"]\nSLACK_BOT_USER_ID = os.environ[\"SLACK_BOT_USER_ID\"]\n# Initialize the Slack app\napp = App(token=SLACK_BOT_TOKEN)\n# Initialize the Flask app\n# Flask is a web application framework written in Python\nflask_app = Flask(__name__)\nhandler = SlackRequestHandler(app)\nsignature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)\ndef require_slack_verification(f):",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "SLACK_BOT_USER_ID",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "SLACK_BOT_USER_ID = os.environ[\"SLACK_BOT_USER_ID\"]\n# Initialize the Slack app\napp = App(token=SLACK_BOT_TOKEN)\n# Initialize the Flask app\n# Flask is a web application framework written in Python\nflask_app = Flask(__name__)\nhandler = SlackRequestHandler(app)\nsignature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)\ndef require_slack_verification(f):\n    @wraps(f)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app = App(token=SLACK_BOT_TOKEN)\n# Initialize the Flask app\n# Flask is a web application framework written in Python\nflask_app = Flask(__name__)\nhandler = SlackRequestHandler(app)\nsignature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)\ndef require_slack_verification(f):\n    @wraps(f)\n    def decorated_function(*args, **kwargs):\n        if not verify_slack_request():",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "flask_app",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "flask_app = Flask(__name__)\nhandler = SlackRequestHandler(app)\nsignature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)\ndef require_slack_verification(f):\n    @wraps(f)\n    def decorated_function(*args, **kwargs):\n        if not verify_slack_request():\n            abort(403)\n        return f(*args, **kwargs)\n    return decorated_function",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "handler",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "handler = SlackRequestHandler(app)\nsignature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)\ndef require_slack_verification(f):\n    @wraps(f)\n    def decorated_function(*args, **kwargs):\n        if not verify_slack_request():\n            abort(403)\n        return f(*args, **kwargs)\n    return decorated_function\ndef verify_slack_request():",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "signature_verifier",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "signature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)\ndef require_slack_verification(f):\n    @wraps(f)\n    def decorated_function(*args, **kwargs):\n        if not verify_slack_request():\n            abort(403)\n        return f(*args, **kwargs)\n    return decorated_function\ndef verify_slack_request():\n    # Get the request headers",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "draft_email",
+        "kind": 2,
+        "importPath": "functions",
+        "description": "functions",
+        "peekOfCode": "def draft_email(user_input, name=\"Dave\"):\n    chat = ChatOpenAI(model_name=\"gpt-3.5-turbo\", temperature=1)\n    template = \"\"\"\n    You are a helpful assistant that drafts an email reply based on an a new email.\n    Your goal is to help the user quickly create a perfect email reply.\n    Keep your reply short and to the point and mimic the style of the email so you reply in a similar manner to match the tone.\n    Start your reply by saying: \"Hi {name}, here's a draft for your reply:\". And then proceed with the reply on a new line.\n    Make sure to sign of with {signature}.\n    \"\"\"\n    signature = f\"Kind regards, \\n\\{name}\"",
+        "detail": "functions",
+        "documentation": {}
+    },
+    {
+        "label": "more_clever",
+        "kind": 2,
+        "importPath": "functions",
+        "description": "functions",
+        "peekOfCode": "def more_clever(user_input):\n    gmail_toolkit = GmailToolkit()\n    llm = OpenAI(temperature=0)\n    agent = initialize_agent(llm=llm, tools=gmail_toolkit, agent=AgentType.STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION)\n    response = agent.run(user_input)\n    return response\n# The AgentType enum defines the different types of agents that can be created. The following are the descriptions of each type of agent:\n# ZERO_SHOT_REACT_DESCRIPTION - This type of agent can generate text in response to a prompt, even if it has never seen the prompt before.\n# REACT_DOCSTORE - This type of agent can generate text in response to a prompt, and it can also access and use information from a document store.\n# SELF_ASK_WITH_SEARCH - This type of agent can generate text in response to a prompt, and it can also ask itself questions and search for information to answer those questions.",
+        "detail": "functions",
+        "documentation": {}
+    }
+]
