@@ -101,15 +101,15 @@ def handle_mentions(body, say):
     mention = f"<@{SLACK_BOT_USER_ID}>"
     text = text.replace(mention, "").strip()
 
-    say("Sure, I'll get right on that!")
+    say("Sure, I'll get right on th#at!")
     #response = my_function(text)
     response = draft_email(text)
     #response = more_clever(text)
     say(response)
 
 
+#@require_slack_verification
 @flask_app.route("/slack/events", methods=["POST"])
-@require_slack_verification
 def slack_events():
     """
     Route for handling Slack events.
