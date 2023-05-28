@@ -164,3 +164,6 @@ This document is provided to you by Datalumina. We help data analysts, engineers
 ## Tutorials
 For video tutorials on how to use the LangChain library and run experiments, visit the YouTube channel: [youtube.com/@daveebbelaar](youtube.com/@daveebbelaar)
 
+# resources
+
+https://www.youtube.com/watch?v=imDfPmMKEjM&t=31s

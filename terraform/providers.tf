@@ -6,7 +6,7 @@ terraform {
     required_version = ">=1.4.6"
 
     backend "azurerm" {
-    resource_group_name  = azurerm_resource_group.LangChain-Experiments.name
+    resource_group_name  = "LangChain-Experiments"
     storage_account_name = "StorageAccountName"
     container_name       = "ContainerName"
     key                  = "terraform.tfstate"
