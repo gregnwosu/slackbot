@@ -1,21 +1,24 @@
-from langchain import OpenAI
-from langchain.chat_models import ChatOpenAI
-from langchain.chains import LLMChain
-from langchain.agents.agent_toolkits import GmailToolkit
-from langchain.agents.agent import AgentType
-from langchain.agents import initialize_agent
 from dotenv import find_dotenv, load_dotenv
+from langchain import OpenAI
+from langchain.agents import initialize_agent
+from langchain.chains import LLMChain
+
+from langchain.prompts import ChatPromptTemplate, SystemMessagePromptTemplate, HumanMessagePromptTemplate
+from langchain.agents.agent_toolkits import GmailToolkit
 from langchain.prompts.chat import (
     ChatPromptTemplate,
     SystemMessagePromptTemplate,
     HumanMessagePromptTemplate,
 )
+
 #https://www.youtube.com/watch?v=_pZebYlgGcY
+
+
 load_dotenv(find_dotenv())
 
 
 def draft_email(user_input, name="Dave"):
-    chat = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=1)
+    chat = OpenAI(model_name="gpt-3.5-turbo", temperature=1)
 
     template = """
     
