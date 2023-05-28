@@ -12,6 +12,7 @@ from functools import wraps
 import time
 import sys
 from functions import draft_email,more_clever
+import datetime as dt
 
 # Load environment variables from .env file
 load_dotenv(find_dotenv())
@@ -33,32 +34,31 @@ handler = SlackRequestHandler(app)
 
 signature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)
 
-def require_slack_verification(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if not verify_slack_request():
-            abort(403)
-        return f(*args, **kwargs)
+# def require_slack_verification(f):
+#     @wraps(f)
+#     def decorated_function(*args, **kwargs):
+#         if not verify_slack_request():
+#             abort(403)
+#         return f(*args, **kwargs)
+#     return decorated_function
 
-    return decorated_function
 
+# def verify_slack_request():
+#     # Get the request headers
+#     timestamp = request.headers.get("X-Slack-Request-Timestamp", "")
+#     signature = request.headers.get("X-Slack-Signature", "")
 
-def verify_slack_request():
-    # Get the request headers
-    timestamp = request.headers.get("X-Slack-Request-Timestamp", "")
-    signature = request.headers.get("X-Slack-Signature", "")
+#     # Check if the timestamp is within five minutes of the current time
+#     current_timestamp = int(time.time())
+#     if abs(current_timestamp - int(timestamp)) > 60 * 5:
+#         return False
 
-    # Check if the timestamp is within five minutes of the current time
-    current_timestamp = int(time.time())
-    if abs(current_timestamp - int(timestamp)) > 60 * 5:
-        return False
-
-    # Verify the request signature
-    return signature_verifier.is_valid(
-        body=request.get_data().decode("utf-8"),
-        timestamp=timestamp,
-        signature=signature,
-    )
+#     # Verify the request signature
+#     return signature_verifier.is_valid(
+#         body=request.get_data().decode("utf-8"),
+#         timestamp=timestamp,
+#         signature=signature,
+#     )
 
 def get_bot_user_id():
     """
