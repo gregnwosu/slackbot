@@ -5,12 +5,12 @@
 terraform {
     required_version = ">=1.4.6"
 
-    backend "azurerm" {
-    resource_group_name  = "LangChain-Experiments"
-    storage_account_name = "StorageAccountName"
-    container_name       = "ContainerName"
-    key                  = "terraform.tfstate"
-  }
+  #   backend "azurerm" {
+  #   resource_group_name  = "LangChain-Experiments"
+  #   storage_account_name = "StorageAccountName"
+  #   container_name       = "ContainerName"
+  #   key                  = "terraform.tfstate"
+  # }
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
