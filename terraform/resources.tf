@@ -29,7 +29,7 @@ resource "azurerm_linux_web_app" "slackbotwebapp" {
       always_on = false
       app_command_line = "startup.txt"
       application_stack{
-            python_version = "3.11"
+            python_version = "3.8"
       } 
     }
 
