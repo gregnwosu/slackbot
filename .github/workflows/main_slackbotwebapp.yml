@@ -77,13 +77,13 @@ jobs:
       - name: Terraform Plan
         run: terraform plan
         working-directory: terraform
-        env:
-          TF_VAR_SLACK_BOT_TOKEN: ${{secrets.TF_VAR_SLACK_BOT_TOKEN}}
-          TF_VAR_SLACK_SIGNING_SECRET: ${{secrets.TF_VAR_SLACK_SIGNING_SECRET}}
-          TF_VAR_SLACK_BOT_USER_ID: ${{secrets.TF_VAR_SLACK_BOT_USER_ID}}
-          TF_VAR_SERPAPI_API_KEY: ${{secrets.TF_VAR_SERPAPI_API_KEY}}
-          TF_VAR_OPENAI_API_KEY: ${{secrets.TF_VAR_OPENAI_API_KEY}}
-          TF_VAR_AZURE_SUBSCRIPTION_ID: ${{secrets.TF_VAR_AZURE_SUBSCRIPTION_ID}}
+        # env:
+        #   TF_VAR_SLACK_BOT_TOKEN: ${{secrets.TF_VAR_SLACK_BOT_TOKEN}}
+        #   TF_VAR_SLACK_SIGNING_SECRET: ${{secrets.TF_VAR_SLACK_SIGNING_SECRET}}
+        #   TF_VAR_SLACK_BOT_USER_ID: ${{secrets.TF_VAR_SLACK_BOT_USER_ID}}
+        #   TF_VAR_SERPAPI_API_KEY: ${{secrets.TF_VAR_SERPAPI_API_KEY}}
+        #   TF_VAR_OPENAI_API_KEY: ${{secrets.TF_VAR_OPENAI_API_KEY}}
+        #   TF_VAR_AZURE_SUBSCRIPTION_ID: ${{secrets.TF_VAR_AZURE_SUBSCRIPTION_ID}}
   
       - name: Terraform Apply
         run: terraform apply -auto-approve
