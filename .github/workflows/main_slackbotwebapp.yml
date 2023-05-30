@@ -80,9 +80,11 @@ jobs:
     
   
       - name: Terraform Plan
-        run: terraform plan
+        if: github.event_name == 'pull_request'
+        run: terraform plan -no-color 
         working-directory: terraform
         env:
+          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
@@ -93,8 +95,39 @@ jobs:
           TF_VAR_SERPAPI_API_KEY: ${{secrets.TF_VAR_SERPAPI_API_KEY}}
           TF_VAR_OPENAI_API_KEY: ${{secrets.TF_VAR_OPENAI_API_KEY}}
           TF_VAR_AZURE_SUBSCRIPTION_ID: ${{secrets.TF_VAR_AZURE_SUBSCRIPTION_ID}}
+
+       # Add a comment to pull requests with plan results
+      - name: add-plan-comment
+        id: comment
+        uses: actions/github-script@v3
+        if: github.event_name == 'pull_request'
+        env:
+          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+            #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+            #### Terraform Validation 🤖${{ steps.validate.outputs.stdout }}
+            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+        
+            <details><summary>Show Plan</summary>
+            
+            \`\`\`${process.env.PLAN}\`\`\`
+            
+            </details>
+            
+            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
+              
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
   
       - name: Terraform Apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve
         working-directory: terraform
         env:
@@ -110,6 +143,7 @@ jobs:
           TF_VAR_AZURE_SUBSCRIPTION_ID: ${{secrets.TF_VAR_AZURE_SUBSCRIPTION_ID}}
 
       - name: 'Deploy to Azure Web App'
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
         with:
