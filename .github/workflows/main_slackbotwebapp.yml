@@ -39,7 +39,7 @@ jobs:
       - name: Build Coverage File
         run: |
           source venv/bin/activate
-          pip install pytest pytest-cov pytest-flask
+          pip install pytest pytest-cov
           python -m pytest --cache-clear --doctest-modules --junitxml=junit/test-results.xml --cov=slackbot --cov-report=xml --cov-report=html tests/ > pytest-coverage.txt
 
       - name: Comment coverage
@@ -113,7 +113,7 @@ jobs:
           TF_VAR_ZAPIER_API_KEY: ${{secrets.ZAPIER_API_KEY}}
           TF_VAR_ELEVENLABS_API_KEY: ${{secrets.ELEVENLABS_API_KEY}}
 
-       # Add a comment to pull requests with plan results
+      # Add a comment to pull requests with plan results
       - name: add-plan-comment
         id: comment
         uses: actions/github-script@v3
