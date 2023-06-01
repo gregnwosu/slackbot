@@ -32,8 +32,15 @@ jobs:
       
       - name: Install dependencies
         run: pip install -r requirements.txt
+
+    
         
-      # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
+      - name: Pytests
+        run: |
+          source venv/bin/activate
+          pip install pytest pytest-cov pytest-flask
+          python -m pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+
       
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v2
@@ -62,12 +69,7 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Pytests
-        run: |
-          source venv/bin/activate
-          pip install pytest pytest-cov pytest-flask
-          python -m pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
-
+      
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
