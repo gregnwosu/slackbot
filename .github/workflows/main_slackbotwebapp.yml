@@ -31,10 +31,33 @@ jobs:
           source venv/bin/activate
       
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
         
-      # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
-      
+      - name: Build Coverage File
+        run: |
+          python -m pytest tests --cache-clear --doctest-modules --junitxml=junit/test-results.xml --cov=slackbot --cov-report=xml --cov-report=html 
+        env:
+          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          SLACK_BOT_TOKEN: ${{secrets.TF_VAR_SLACK_BOT_TOKEN}}
+          SLACK_SIGNING_SECRET: ${{secrets.TF_VAR_SLACK_SIGNING_SECRET}}
+          SLACK_BOT_USER_ID: ${{secrets.TF_VAR_SLACK_BOT_USER_ID}}
+          SERPAPI_API_KEY: ${{secrets.TF_VAR_SERPAPI_API_KEY}}
+          OPENAI_API_KEY: ${{secrets.TF_VAR_OPENAI_API_KEY}}
+          AZURE_SUBSCRIPTION_ID: ${{secrets.TF_VAR_AZURE_SUBSCRIPTION_ID}}
+          HUGGING_FACE_API_KEY: ${{secrets.HUGGING_FACE_API_KEY}}
+          ZAPIER_API_KEY: ${{secrets.ZAPIER_API_KEY}}
+          ELEVENLABS_API_KEY: ${{secrets.ELEVENLABS_API_KEY}}
+
+      # - name: Comment coverage
+      #   uses: coroo/pytest-coverage-commentator@v1.0.2
+
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v2
         with:
@@ -62,6 +85,7 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
@@ -102,7 +126,7 @@ jobs:
           TF_VAR_ZAPIER_API_KEY: ${{secrets.ZAPIER_API_KEY}}
           TF_VAR_ELEVENLABS_API_KEY: ${{secrets.ELEVENLABS_API_KEY}}
 
-       # Add a comment to pull requests with plan results
+      # Add a comment to pull requests with plan results
       - name: add-plan-comment
         id: comment
         uses: actions/github-script@v3
