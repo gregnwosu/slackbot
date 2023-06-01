@@ -13,6 +13,6 @@ soundfile
 keyboard
 elevenlabs
 # tests
-#pytest
-#pytest-cov
-#pytest-flask 
+pytest
+pytest-cov
+pytest-flask 

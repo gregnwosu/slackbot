@@ -38,9 +38,7 @@ jobs:
         
       - name: Build Coverage File
         run: |
-          source venv/bin/activate
-          pip install pytest pytest-cov
-          pytest tests --cache-clear --doctest-modules --junitxml=junit/test-results.xml --cov=slackbot --cov-report=xml --cov-report=html 
+          python -m pytest tests --cache-clear --doctest-modules --junitxml=junit/test-results.xml --cov=slackbot --cov-report=xml --cov-report=html 
 
       # - name: Comment coverage
       #   uses: coroo/pytest-coverage-commentator@v1.0.2
