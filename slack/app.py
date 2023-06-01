@@ -111,6 +111,7 @@ def handle_mentions(body, say):
     logging.info("Received text: " + text.replace("\n", " "))
 
     say("Sure, I'll get right on that!")
+    say(f" {body['event']=}")
     # response = my_function(text)
     response = draft_email(text)
     logging.info("Generated response: " + response.replace("\n", " "))
@@ -130,7 +131,7 @@ def slack_events():
     """
 
     return handler.handle(request)
-
+#https://api.slack.com/types/file#authentication
 
 # Run the Flask app
 if __name__ == "__main__":
