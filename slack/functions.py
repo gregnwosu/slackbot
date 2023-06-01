@@ -23,7 +23,7 @@ from langchain.prompts.chat import (
 import os 
 import elevenlabs
 
-from cachetools import TTLCache
+from cachetools import TTLCache, cached
 
 
 #TODO make this into a tool.
@@ -67,7 +67,7 @@ elevenlabs.set_api_key(os.environ["ELEVENLABS_API_KEY"])
 
 
 
-@TTLCache(maxsize=100, ttl=300)
+@cached(cache=TTLCache(maxsize=100, ttl=300))
 def openai_llm():
     return OpenAI(temperatture=0, openai_api_key=os.environ["OPENAI_API_KEY"])
 
@@ -89,7 +89,7 @@ def transcribe_audio(recording, fs):
         os.remove(temp_audio.name)
     return transcript["text"].strip()
 
-@TTLCache(maxsize=100, ttl=300)
+@cached(cache=TTLCache(maxsize=100, ttl=300))
 def agi() -> AgentExecutor:
     open_ai_llm = openai_llm()
     memory = ConversationBufferMemory(memory_key="slackbot-chat-history")
