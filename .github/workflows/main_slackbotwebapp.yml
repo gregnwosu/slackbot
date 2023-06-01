@@ -62,6 +62,11 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      - name: Pytests
+        run: |
+          pip install pytest pytest-cov pytest-flask
+          pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
