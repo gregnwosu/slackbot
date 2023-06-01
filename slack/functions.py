@@ -10,7 +10,7 @@ from langchain.memory import ConversationBufferMemory
 from langchain.utilities.zapier import ZapierNLAWrapper
 import numpy as np
 import openai
-import sounddevice as sd
+#import sounddevice as sd
 import soundfile as sf
 import tempfile
 from langchain.tools import BaseTool
@@ -71,13 +71,13 @@ elevenlabs.set_api_key(os.environ["ELEVENLABS_API_KEY"])
 def openai_llm():
     return OpenAI(temperatture=0, openai_api_key=os.environ["OPENAI_API_KEY"])
 
-
-def record_audio(duration, fs, channels):
-    print("Recording...")
-    recording = sd.rec(int(duration * fs), samplerate=fs, channels=channels)
-    sd.wait()
-    print("Finished recording.")
-    return recording
+# no need to record audio, just send the audio file to openai
+# def record_audio(duration, fs, channels):
+#     print("Recording...")
+#     recording = sd.rec(int(duration * fs), samplerate=fs, channels=channels)
+#     sd.wait()
+#     print("Finished recording.")
+#     return recording
 
 
 def transcribe_audio(recording, fs):
