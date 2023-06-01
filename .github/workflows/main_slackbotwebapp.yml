@@ -64,8 +64,9 @@ jobs:
 
       - name: Pytests
         run: |
+          source venv/bin/activate
           pip install pytest pytest-cov pytest-flask
-          pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+          python -m pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
 
 
       - name: Setup Terraform
