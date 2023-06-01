@@ -6,7 +6,7 @@ from slack_bolt.adapter.flask import SlackRequestHandler
 from slack_bolt import App
 from dotenv import find_dotenv, load_dotenv
 from flask import Flask, request, abort
-from functions import draft_email
+from functions import draft_email, transcribe
 import logging
 from functools import wraps
 import time
@@ -108,6 +108,27 @@ def handle_file_share(body, say):
     #logging.info("Received file: " + file_id)
     say("Hi I've just finished listening to your audio file.")
     say(f" {body['event']=}")
+
+
+
+
+@app.event("transcript_processed")
+def handle_file_share(body, say):
+    """
+    Event listener for file shares in Slack.
+    When a file is shared in Slack, this function processes the text and sends a response.
+
+    Args:
+        body (dict): The event data received from Slack.
+        say (callable): A function for sending a response to the channel.
+    """
+    file_id = body["event"]
+    #logging.info("Received file: " + file_id)
+
+    say(f"Hi I've just finished listening to your audio file.")
+    say(f" {body['event']=}")
+   
+    
 
 
 @app.event("file_shared")
