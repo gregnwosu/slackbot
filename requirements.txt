@@ -8,3 +8,8 @@ google-api-python-client
 google-auth-oauthlib
 google-auth-httplib2
 beautifulsoup4
+# needed for voice
+sounddevice
+soundfile
+keyboard
+elevenlabs

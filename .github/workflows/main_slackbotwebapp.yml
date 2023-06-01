@@ -141,6 +141,9 @@ jobs:
           TF_VAR_SERPAPI_API_KEY: ${{secrets.TF_VAR_SERPAPI_API_KEY}}
           TF_VAR_OPENAI_API_KEY: ${{secrets.TF_VAR_OPENAI_API_KEY}}
           TF_VAR_AZURE_SUBSCRIPTION_ID: ${{secrets.TF_VAR_AZURE_SUBSCRIPTION_ID}}
+          TF_VAR_HUGGING_FACE_API_KEY: ${{secrets.HUGGING_FACE_API_KEY}}
+          TF_VAR_ZAPIER_API_KEY: ${{secrets.ZAPIER_API_KEY}}
+          TF_VAR_ELEVENLABS_API_KEY: ${{secrets.ELEVENLABS_API_KEY}}
 
       - name: 'Deploy to Azure Web App'
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
