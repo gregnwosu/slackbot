@@ -15,4 +15,7 @@ variable "resource_group_name_prefix" {
  variable "SLACK_BOT_USER_ID" { }
  variable "SERPAPI_API_KEY" { }
  variable "OPENAI_API_KEY" { }
+ variable "HUGGING_FACE_API_KEY" { }
+ variable "ZAPIER_API_KEY" { }
+ variable "ELEVENLABS_API_KEY" { }
 
