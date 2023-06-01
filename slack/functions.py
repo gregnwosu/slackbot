@@ -81,8 +81,11 @@ def openai_llm():
 
 
 def transcribe_audio(recording, fs):
+    duration = 5  # duration of each recording in seconds
+    sample_rate = 44100  # sample rate
+    channels = 1
     with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as temp_audio:
-        sf.write(temp_audio.name, recording, fs)
+        sf.write(file=temp_audio.name, data=recording, sample_rate=sample_rate)
         temp_audio.close()
         with open(temp_audio.name, "rb") as audio_file:
             transcript = openai.Audio.transcribe("whisper-1", audio_file)
