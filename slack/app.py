@@ -6,7 +6,7 @@ from slack_bolt.adapter.flask import SlackRequestHandler
 from slack_bolt import App
 from dotenv import find_dotenv, load_dotenv
 from flask import Flask, request, abort
-from functions import draft_email, transcribe
+from functions import draft_email
 import logging
 from functools import wraps
 import time
@@ -90,8 +90,7 @@ def my_function(text):
     Returns:
         str: The processed text.
     """
-    response = text.upper()
-    return response
+    return text.upper()
 
 
 
@@ -107,11 +106,8 @@ def handle_file_share(body, say):
     """
     file_id = body["event"]
     #logging.info("Received file: " + file_id)
-
-    say(f"Hi I've just finished listening to your audio file.")
+    say("Hi I've just finished listening to your audio file.")
     say(f" {body['event']=}")
-   
-    
 
 
 @app.event("file_shared")
