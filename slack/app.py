@@ -94,6 +94,7 @@ def my_function(text):
     return response
 
 
+
 @app.event("transcript_processed")
 def handle_file_share(body, say):
     """
@@ -112,6 +113,18 @@ def handle_file_share(body, say):
    
     
 
+
+@app.event("file_shared")
+def handle_file_shared(body, say):
+    """ downloads the file transcribes it and sends it back to the user"""
+    say("File Shared:, I'll get right on that!")
+    say(f" {body['event']=}")
+    # response = my_function(text)
+    response = draft_email(text)
+    logging.info("Generated response: " + response.replace("\n", " "))
+    say(response)
+
+    
 @app.event("app_mention")
 def handle_mentions(body, say):
     """
