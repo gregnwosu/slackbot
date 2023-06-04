@@ -36,6 +36,7 @@ signature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)
 
 # Initialize the Flask app
 flask_app = Flask(__name__)
+flask_app.logger.setLevel(logging.INFO)
 handler = SlackRequestHandler(app)
 
 
