@@ -23,7 +23,6 @@ from  slackbot.parsing.slackapi import AppMentionData, BlockData, BlockElement, 
    
 ])
 def test_(event_in, expected):
-    
     actual = AppMentionData(**event_in)
     assert actual == expected, repr(actual)
     
