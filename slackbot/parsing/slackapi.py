@@ -62,3 +62,5 @@ class AppMentionData(pydantic.BaseModel):
     @classmethod
     def convert_to_event_type(cls, value):
         return EventType(value)
+    
+
