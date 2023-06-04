@@ -100,13 +100,15 @@ def my_function(text):
 @app.event("file_created")
 def handle_file_created(body, say):
     """ downloads the file transcribes it and sends it back to the user"""
-    say(f"File Created:, I'll get right on that! {body['event']=}")
+    say(f"File Created:, I'll get right on that! {body=}")
+
 
 
 @app.event("file_shared")
 def handle_file_shared(body, say):
     """ downloads the file transcribes it and sends it back to the user"""
-    say(f"File Shared:, I'll get right on that! {body['event']=}")
+    say(f"File Shared:, I'll get right on that! {body=}")
+
     
 
 @app.event("file_change")
@@ -119,7 +121,8 @@ def handle_file_changed(body, say):
         body (dict): The event data received from Slack.
         say (callable): A function for sending a response to the channel.
     """
-    say(f"File Changed:, I'll get right on that! {body['event']=}")
+    say(f"File Changed:, I'll get right on that! {body=}")
+
     
 
 
@@ -141,7 +144,7 @@ def handle_mentions(body, say):
     logging.info("Received text: " + text.replace("\n", " "))
 
     say("Sure, I'll get right on that!")
-    say(f" {body['event']=}")
+    say(f" {body=}")
     # response = my_function(text)
     response = draft_email(text)
     logging.info("Generated response: " + response.replace("\n", " "))
