@@ -121,7 +121,7 @@ def handle_file_changes(body, say):
         body (dict): The event data received from Slack.
         say (callable): A function for sending a response to the channel.
     """
-    logger.info(body)
+    say("File Changed:, I'll get right on that!")
     file = body["event"]["file"]
     if 'transcription' in file and file['transcription']['status'] == 'completed':
         # Transcription is completed
