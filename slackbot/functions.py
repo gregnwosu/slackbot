@@ -64,9 +64,6 @@ def draft_email(user_input, name="Dave") -> str:
 elevenlabs.set_api_key(os.environ["ELEVENLABS_API_KEY"])
 
 
-
-
-
 @cached(cache=TTLCache(maxsize=100, ttl=300))
 def openai_llm():
     return OpenAI(temperatture=0, openai_api_key=os.environ["OPENAI_API_KEY"])
