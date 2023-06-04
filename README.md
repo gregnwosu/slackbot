@@ -97,6 +97,21 @@ Remember that if you installed ngrok via Homebrew, you can run `ngrok http 5000`
 - Click on "Event Subscriptions" in the left sidebar menu.
 - Enable events and enter your ngrok URL followed by `/slack/events` (e.g., [https://yoursubdomain.ngrok.io/slack/events](https://yoursubdomain.ngrok.io/slack/events)).
 - Scroll down to "Subscribe to bot events" and click "Add Bot User Event". Add the `app_mention` event and save your changes.
+also add
+
+Event Name	Description	Required Scope
+app_mention
+Subscribe to only the message events that mention your app or bot
+
+app_mentions:read
+
+file_change
+file_created
+files:read
+file_shared
+files:read
+
+
 
 >**Note**
 > Please note that every time you restart ngrok in the terminal, you have to update the URL in Slack — this is just for testing.
