@@ -6,7 +6,6 @@ from typing import List, Optional
 
 #AppMentionData
 
-
 class EventType(Enum):
     APP_MENTION = "app_mention"
 

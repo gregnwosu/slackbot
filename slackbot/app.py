@@ -97,22 +97,20 @@ def my_function(text):
     return text.upper()
 
 
+@app.event("file_created")
+def handle_file_created(body, say):
+    """ downloads the file transcribes it and sends it back to the user"""
+    say(f"File Created:, I'll get right on that! {body['event']=}")
+
 
 @app.event("file_shared")
 def handle_file_shared(body, say):
     """ downloads the file transcribes it and sends it back to the user"""
-    logger.info(body)
+    say(f"File Shared:, I'll get right on that! {body['event']=}")
     
-    say("File Shared:, I'll get right on that!")
-    say(body)
-    say(f" {body['event']=}")
-    # response = my_function(text)
-    response = draft_email(text)
-    logger.info("Generated response: " + response.replace("\n", " "))
-    say(response)
 
 @app.event("file_change")
-def handle_file_changes(body, say):
+def handle_file_changed(body, say):
     """
     Event listener for file changes in Slack.
     When a file is updated, this function checks if the transcription status has changed.
@@ -121,15 +119,8 @@ def handle_file_changes(body, say):
         body (dict): The event data received from Slack.
         say (callable): A function for sending a response to the channel.
     """
-    say("File Changed:, I'll get right on that!")
-    file = body["event"]["file"]
-    if 'transcription' in file and file['transcription']['status'] == 'completed':
-        # Transcription is completed
-        transcription = file['transcription']['text']
-        response = draft_email(transcription)
-        say(f"Transcription completed: {transcription}")
-    say(body)
-
+    say(f"File Changed:, I'll get right on that! {body['event']=}")
+    
 
 
     
