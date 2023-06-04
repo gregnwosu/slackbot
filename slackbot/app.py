@@ -102,7 +102,9 @@ def my_function(text):
 def handle_file_shared(body, say):
     """ downloads the file transcribes it and sends it back to the user"""
     logger.info(body)
+    
     say("File Shared:, I'll get right on that!")
+    say(body)
     say(f" {body['event']=}")
     # response = my_function(text)
     response = draft_email(text)
@@ -126,6 +128,7 @@ def handle_file_changes(body, say):
         transcription = file['transcription']['text']
         response = draft_email(transcription)
         say(f"Transcription completed: {transcription}")
+    say(body)
 
 
 
@@ -141,7 +144,7 @@ def handle_mentions(body, say):
         say (callable): A function for sending a response to the channel.
     """
     text = body["event"]["text"]
-
+    logging.info(body)
     mention = f"<@{SLACK_BOT_USER_ID}>"
     text = text.replace(mention, "").strip()
     logging.info("Received text: " + text.replace("\n", " "))
@@ -152,6 +155,7 @@ def handle_mentions(body, say):
     response = draft_email(text)
     logging.info("Generated response: " + response.replace("\n", " "))
     say(response)
+    say(body)
 
 
 # Demo
