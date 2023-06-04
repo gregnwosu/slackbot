@@ -34,15 +34,16 @@ resource "azurerm_linux_web_app" "slackbotwebapp" {
     application_stack {
       python_version = "3.8"
     }
-    logs {
-      application_logs {
-        filesystem {
-          level             = "Information"
-          retention_in_days = 7
-        }
+  }
+  logs {
+    application_logs {
+      filesystem {
+        level             = "Information"
+        retention_in_days = 7
       }
     }
   }
+
 
 }
 
