@@ -1,5 +1,10 @@
 {
     "conventionalCommits.scopes": [
         "python 3.8.16"
-    ]
+    ],
+    "python.testing.pytestArgs": [
+        "tests"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
 }
