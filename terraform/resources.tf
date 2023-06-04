@@ -38,8 +38,8 @@ resource "azurerm_linux_web_app" "slackbotwebapp" {
   logs {
     application_logs {
       filesystem {
-        level             = "Information"
-        retention_in_days = 7
+        file_system_level             = "Information"
+        retention_in_days = 3
       }
     }
   }
