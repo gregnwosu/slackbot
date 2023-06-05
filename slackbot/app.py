@@ -82,7 +82,7 @@ def get_bot_user_id():
     try:
         # Initialize the Slack client with your bot token
         global slack_client
-        slack_client: WebClient = WebClient(token=os.environ["SLACK_BOT_TOKEN"])
+        slack_client = WebClient(token=os.environ["SLACK_BOT_TOKEN"])
         response = slack_client.auth_test()
         return response["user_id"]
     except SlackApiError as e:
