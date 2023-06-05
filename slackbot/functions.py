@@ -56,13 +56,9 @@ def draft_email(user_input, name="Dave") -> str:
 
     chain = LLMChain(llm=chat, prompt=chat_prompt)
     return chain.run(user_input=user_input, signature=signature, name=name)
-    
-
-   
 
 
 elevenlabs.set_api_key(os.environ["ELEVENLABS_API_KEY"])
-
 
 @cached(cache=TTLCache(maxsize=100, ttl=300))
 def openai_llm():

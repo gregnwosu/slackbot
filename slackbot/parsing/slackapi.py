@@ -1,11 +1,13 @@
 
+from dataclasses import dataclass
 import pydantic
 from enum import Enum 
 import datetime as dt
 from typing import List, Optional, Dict
 from urllib.parse import urlparse
-from urllib.parse import ParseResult   
-
+from urllib.parse import ParseResult    
+from logging import Logger
+logger = Logger(__name__)
 from slack_sdk import WebClient
 
 #AppMentionData
@@ -151,8 +153,12 @@ class Locale(Enum):
 class Preview(pydantic.BaseModel):
     content: str
     has_more: bool
+
+class TranscriptionStatus(str, Enum):
+    COMPLETE = "complete"
+    processing = "processing"
 class Transcription(pydantic.BaseModel):
-    status: str
+    status: TranscriptionStatus
     locale: Locale
     preview: Preview
 
@@ -170,6 +176,14 @@ class FileShare(pydantic.BaseModel):
 
 class FileShares(pydantic.BaseModel):
     public: Dict[str, List[FileShare]]
+
+
+
+
+
+
+   
+
 
 class FileInfo(pydantic.BaseModel):
     id: str
@@ -212,7 +226,4 @@ class FileInfo(pydantic.BaseModel):
     file_access: FileAccess 
     comments_count: int
 
-    # @pydantic.validator('url_private', 'url_private_download', 'vtt', 'aac', 'permalink', 'permalink_public')
-    # @classmethod
-    # def convert_to_parsed_url(cls, value):
-    #     return urlparse(value)
+    
