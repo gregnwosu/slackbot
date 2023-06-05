@@ -12,6 +12,8 @@ from functools import wraps
 import time
 import sys
 
+from slackbot.parsing.slackapi import FileInfo, FileSharedEvent
+
 # Configure the logging level and format
 logging.basicConfig(
     level=logging.INFO,
@@ -24,6 +26,8 @@ logger = logging.getLogger(__name__)
 
 # Load environment variables from .env file
 load_dotenv(find_dotenv())
+
+slack_client: WebClient = WebClient(token=os.environ["SLACK_BOT_TOKEN"])
 
 # Set Slack API credentials
 SLACK_BOT_TOKEN = os.environ["SLACK_BOT_TOKEN"]
@@ -67,6 +71,7 @@ def verify_slack_request():
         signature=signature,
     )
 
+        
 
 def get_bot_user_id():
     """
@@ -76,7 +81,6 @@ def get_bot_user_id():
     """
     try:
         # Initialize the Slack client with your bot token
-        slack_client = WebClient(token=os.environ["SLACK_BOT_TOKEN"])
         response = slack_client.auth_test()
         return response["user_id"]
     except SlackApiError as e:
@@ -108,6 +112,9 @@ def handle_file_created(body, say):
 def handle_file_shared(body, say):
     """ downloads the file transcribes it and sends it back to the user"""
     say(f"File Shared:, I'll get right on that! {body=}")
+    file_shared = FileSharedEvent(body["event"])
+    file_info:FileInfo = file_shared.get_file_info(slack_client)
+    say(f"File Transcription status is : {file_info.transcription=}")
 
     
 
