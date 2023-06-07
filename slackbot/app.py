@@ -108,19 +108,22 @@ slack_client: WebClient
 @app.event("file_created")
 def handle_file_created(body, say):
     """ downloads the file transcribes it and sends it back to the user"""
-    say(f"File Created:, I'll get right on that! {body=}")
+    print(f"File Created:, I'll get right on that! {body=}")
+    logger.warn(f"File Created:, I'll get right on that! {body=}")
 
 
 
 @app.event("file_shared")
 def handle_file_shared(body, say):
     """ downloads the file transcribes it and sends it back to the user"""
-    say(f"File Shared:, I'll get right on that! {body=}")
-    file_shared = FileSharedEvent(body["event"])
+    print(f"File Shared:, I'll get right on that! {body=}")
+    logger.warning(f"File Shared:, I'll get right on that! {body=}")
+    #file_shared = FileSharedEvent(body["event"])
     global slack_client
-    
+    channel_id = file_shared.channel_id
     file_info:FileInfo = file_shared.get_file_info(slack_client)
-    say(f"File Transcription status is : {file_info.transcription=}")
+    print(f"File Transcription status is : {file_info.transcription=}")
+    logger.warn(f"File Transcription status is : {file_info.transcription=}")
 
     
 
@@ -134,7 +137,9 @@ def handle_file_changed(body, say):
         body (dict): The event data received from Slack.
         say (callable): A function for sending a response to the channel.
     """
-    say(f"File Changed:, I'll get right on that! {body=}")
+    # failes because of no channel id
+    print(f"File Changed:, I'll get right on that! {body=}")
+    logger.warn(f"File Changed:, I'll get right on that! {body=}")
 
     
 
@@ -184,3 +189,7 @@ def slack_events():
 if __name__ == "__main__":
     logging.info("Flask app started")
     flask_app.run(host="0.0.0.0", port=8000)
+
+
+
+{'token': 'waNounRnAWVeA53FlYyaPaP8', 'team_id': 'T058PNE2HKP', 'api_app_id': 'A058SM2MXS6', 'event': {'type': 'app_mention', 'text': '<@U058V6AG10C>', 'files': [{'id': 'F05B218U5FZ', 'created': 1686168176, 'timestamp': 1686168176, 'name': 'audio_message.webm', 'title': 'audio_message.webm', 'mimetype': 'audio/webm', 'filetype': 'webm', 'pretty_type': 'WebM', 'user': 'U058V5QTW12', 'user_team': 'T058PNE2HKP', 'editable': False, 'size': 51648, 'mode': 'hosted', 'is_external': False, 'external_type': '', 'is_public': True, 'public_url_shared': False, 'display_as_bot': False, 'username': '', 'subtype': 'slack_audio', 'transcription': {'status': 'processing'}, 'url_private': 'https://files.slack.com/files-tmb/T058PNE2HKP-F05B218U5FZ-4be882953e/audio_message_audio.mp4', 'url_private_download': 'https://files.slack.com/files-tmb/T058PNE2HKP-F05B218U5FZ-4be882953e/download/audio_message_audio.mp4', 'duration_ms': 3177, 'aac': 'https://files.slack.com/files-tmb/T058PNE2HKP-F05B218U5FZ-4be882953e/audio_message_audio.mp4', 'audio_wave_samples': [32, 18, 6, 4, 5, 8, 9, 6, 3, 2, 6, 46, 61, 73, 82, 82, 86, 88, 90, 91, 88, 90, 90, 86, 86, 85, 85, 80, 87, 96, 82, 84, 93, 91, 96, 92, 93, 76, 80, 76, 90, 78, 93, 91, 100, 88, 100, 94, 95, 85, 93, 88, 96, 99, 99, 98, 90, 88, 100, 91, 82, 71, 79, 90, 95, 88, 76, 87, 99, 99, 89, 97, 93, 98, 76, 73, 75, 87, 65, 43, 83, 98, 87, 66, 66, 72, 62, 53, 56, 43, 27, 28, 22, 22, 26, 27, 19, 15, 21, 32], 'media_display_type': 'audio', 'permalink': 'https://ai-experimentshq.slack.com/files/U058V5QTW12/F05B218U5FZ/audio_message.webm', 'permalink_public': 'https://slack-files.com/T058PNE2HKP-F05B218U5FZ-7bd65ed9f0', 'is_starred': False, 'has_rich_preview': False, 'file_access': 'visible'}], 'upload': False, 'user': 'U058V5QTW12', 'display_as_bot': False, 'ts': '1686168182.722449', 'blocks': [{'type': 'rich_text', 'block_id': 'ESK+', 'elements': [{'type': 'rich_text_section', 'elements': [{'type': 'user', 'user_id': 'U058V6AG10C'}]}]}], 'client_msg_id': 'b15dd83d-b33b-4f18-a25e-3b0650a92d9f', 'channel': 'C0595A85N4R', 'event_ts': '1686168182.722449'}, 'type': 'event_callback', 'event_id': 'Ev05C68EUN1E', 'event_time': 1686168182, 'authorizations': [{'enterprise_id': None, 'team_id': 'T058PNE2HKP', 'user_id': 'U058V6AG10C', 'is_bot': True, 'is_enterprise_install': False}], 'is_ext_shared_channel': False, 'event_context': '4-eyJldCI6ImFwcF9tZW50aW9uIiwidGlkIjoiVDA1OFBORTJIS1AiLCJhaWQiOiJBMDU4U00yTVhTNiIsImNpZCI6IkMwNTk1QTg1TjRSIn0'}
