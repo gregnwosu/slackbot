@@ -12,7 +12,7 @@ from functools import lru_cache, wraps
 import time
 import sys
 
-from slackbot.parsing.slackapi import FileInfo, FileSharedEvent
+from slackbot.parsing.slackapi import FileInfo, FileEvent
 
 # Configure the logging level and format
 logging.basicConfig(
@@ -134,7 +134,7 @@ def handle_file_created(body, say):
 #     #logger.warn(f"File Transcription status is : {file_info.transcription=}")
 
     
-
+from slackbot.parsing.slackapi import FileEvent, FileInfo
 @app.event("file_change")
 def handle_file_changed(body, say):
     """
@@ -147,13 +147,15 @@ def handle_file_changed(body, say):
     # failes because of no channel id
     print(f"File Changed:, I'll get right on that! {body=}")
     logger.warn(f"File Changed:, I'll get right on that! {body=}")
-    file_id = body["event"]['file_id']
+    file_event: FileEvent = FileEvent(**body["event"])
+
+    file_info: FileInfo = file_event.file_info(cached_slack_client())
+    logger.warn(f"File Changed: Calling with {file_info=}")
+    logger.warn(f"File Changed: File Info {file_info}")
+    say(f"File Changed: {file_info.transcription=}", channel=file_info.channel_id)
+
+   
     
-    slack_client = cached_slack_client()
-    
-    logger.warn(f"File Shared: Calling with {file_id=}")
-    file_info = slack_client.files_info(file=file_id)
-    logger.warn(f"File Shared: File Info {file_info}")
 
     
 
