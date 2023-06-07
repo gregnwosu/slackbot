@@ -147,6 +147,13 @@ def handle_file_changed(body, say):
     # failes because of no channel id
     print(f"File Changed:, I'll get right on that! {body=}")
     logger.warn(f"File Changed:, I'll get right on that! {body=}")
+    file_id = body["event"]['file_id']
+    
+    slack_client = cached_slack_client()
+    
+    logger.warn(f"File Shared: Calling with {file_id=}")
+    file_info = slack_client.files_info(file=file_id)
+    logger.warn(f"File Shared: File Info {file_info}")
 
     
 
