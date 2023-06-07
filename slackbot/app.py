@@ -8,7 +8,7 @@ from dotenv import find_dotenv, load_dotenv
 from flask import Flask, request, abort
 from functions import draft_email
 import logging
-from functools import wraps
+from functools import lru_cache, wraps
 import time
 import sys
 
@@ -71,7 +71,11 @@ def verify_slack_request():
         signature=signature,
     )
 
-        
+@lru_cache(maxsize=1)
+def cached_slack_client():
+     slack_client = WebClient(token=os.environ["SLACK_BOT_TOKEN"])
+     slack_client.auth_test()
+     return slack_client
 
 def get_bot_user_id():
     """
@@ -81,8 +85,7 @@ def get_bot_user_id():
     """
     try:
         # Initialize the Slack client with your bot token
-        global slack_client
-        slack_client = WebClient(token=os.environ["SLACK_BOT_TOKEN"])
+        slack_client = cached_slack_client()
         response = slack_client.auth_test()
         return response["user_id"]
     except SlackApiError as e:
@@ -102,7 +105,7 @@ def my_function(text):
     """
     return text.upper()
 
-slack_client: WebClient 
+
 
 
 @app.event("file_created")
@@ -119,8 +122,8 @@ def handle_file_shared(body, say):
     print(f"File Shared:, I'll get right on that! {body=}")
     logger.warning(f"File Shared:, I'll get right on that! {body=}")
     #file_shared = FileSharedEvent(body["event"])
-    global slack_client
     channel_id = body["event"]['channel_id']
+    slack_client = cached_slack_client()
     file_info = slack_client.files_info(file=body["event"]['file_id'])
     logger.warn(f"File Shared: {file_info}")
     say(channel=channel_id, text=f"File Shared: {file_info}")
