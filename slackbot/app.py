@@ -120,8 +120,10 @@ def handle_file_shared(body, say):
     logger.warning(f"File Shared:, I'll get right on that! {body=}")
     #file_shared = FileSharedEvent(body["event"])
     global slack_client
-    #channel_id = file_shared.channel_id
-    #file_info:FileInfo = file_shared.get_file_info(slack_client)
+    channel_id = body["event"]['channel_id']
+    file_info = slack_client.files_info(file=body["event"]['file_id'])
+    logger.warn(f"File Shared: {file_info}")
+    say(channel=channel_id, text=f"File Shared: {file_info}")
     #print(f"File Transcription status is : {file_info.transcription=}")
     #logger.warn(f"File Transcription status is : {file_info.transcription=}")
 
