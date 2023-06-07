@@ -116,19 +116,22 @@ def handle_file_created(body, say):
 
 
 
-@app.event("file_shared")
-def handle_file_shared(body, say):
-    """ downloads the file transcribes it and sends it back to the user"""
-    print(f"File Shared:, I'll get right on that! {body=}")
-    logger.warning(f"File Shared:, I'll get right on that! {body=}")
-    #file_shared = FileSharedEvent(body["event"])
-    channel_id = body["event"]['channel_id']
-    slack_client = cached_slack_client()
-    file_info = slack_client.files_info(file=body["event"]['file_id'])
-    logger.warn(f"File Shared: {file_info}")
-    say(channel=channel_id, text=f"File Shared: {file_info}")
-    #print(f"File Transcription status is : {file_info.transcription=}")
-    #logger.warn(f"File Transcription status is : {file_info.transcription=}")
+# @app.event("file_shared")
+# def handle_file_shared(body, say):
+#     """ downloads the file transcribes it and sends it back to the user"""
+#     print(f"File Shared:, I'll get right on that! {body=}")
+#     logger.warning(f"File Shared:, I'll get right on that! {body=}")
+    
+#     file_id = body["event"]['file_id']
+#     channel_id = body["event"]['channel_id']
+#     slack_client = cached_slack_client()
+#     logger.warn(f"File Shared: Calling with {channel_id=}")
+#     logger.warn(f"File Shared: Calling with {file_id=}")
+#     file_info = slack_client.files_info(file=file_id)
+#     logger.warn(f"File Shared: File Info {file_info}")
+#     #say(channel=channel_id, text=f"File Shared: {file_info}")
+#     #print(f"File Transcription status is : {file_info.transcription=}")
+#     #logger.warn(f"File Transcription status is : {file_info.transcription=}")
 
     
 
@@ -137,7 +140,6 @@ def handle_file_changed(body, say):
     """
     Event listener for file changes in Slack.
     When a file is updated, this function checks if the transcription status has changed.
-
     Args:
         body (dict): The event data received from Slack.
         say (callable): A function for sending a response to the channel.
@@ -148,8 +150,6 @@ def handle_file_changed(body, say):
 
     
 
-
-    
 @app.event("app_mention")
 def handle_mentions(body, say):
     """
