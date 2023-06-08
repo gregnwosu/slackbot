@@ -80,7 +80,7 @@ class FileEvent(pydantic.BaseModel):
     file_id: str
     user_id: str
     file: FileDetails
-    channel_id: str
+    #channel_id: str
     event_ts: dt.datetime
     
     @pydantic.validator('type')
