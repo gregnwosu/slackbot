@@ -152,7 +152,7 @@ def handle_file_changed(body, say):
     file_info: FileInfo = file_event.file_info(cached_slack_client())
     logger.warn(f"File Changed: Calling with {file_info=}")
     logger.warn(f"File Changed: File Info {file_info}")
-    say(f"File Changed: {file_info.transcription=}", channel=file_info.channel_id)
+    say(f"File Changed: {file_info.transcription=}", channel=file_info.channels[0])
 
    
     
