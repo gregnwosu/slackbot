@@ -15,6 +15,7 @@ from slack_sdk import WebClient
 class EventType(Enum):
     APP_MENTION = "app_mention"
     FILE_SHARED = "file_shared"
+    FILE_CHANGE = "file_change"
 
 class BlockType(Enum):
     RICH_TEXT = "rich_text"
