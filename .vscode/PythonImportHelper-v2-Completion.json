@@ -1,17 +1,10 @@
 [
     {
-        "label": "find_dotenv",
+        "label": "dotenv",
+        "kind": 6,
+        "isExtraImport": true,
         "importPath": "dotenv",
         "description": "dotenv",
-        "isExtraImport": true,
-        "detail": "dotenv",
-        "documentation": {}
-    },
-    {
-        "label": "load_dotenv",
-        "importPath": "dotenv",
-        "description": "dotenv",
-        "isExtraImport": true,
         "detail": "dotenv",
         "documentation": {}
     },
@@ -80,35 +73,11 @@
         "documentation": {}
     },
     {
-        "label": "find_dotenv",
-        "importPath": "dotenv",
-        "description": "dotenv",
+        "label": "OpenAI",
+        "importPath": "langchain.llms",
+        "description": "langchain.llms",
         "isExtraImport": true,
-        "detail": "dotenv",
-        "documentation": {}
-    },
-    {
-        "label": "load_dotenv",
-        "importPath": "dotenv",
-        "description": "dotenv",
-        "isExtraImport": true,
-        "detail": "dotenv",
-        "documentation": {}
-    },
-    {
-        "label": "find_dotenv",
-        "importPath": "dotenv",
-        "description": "dotenv",
-        "isExtraImport": true,
-        "detail": "dotenv",
-        "documentation": {}
-    },
-    {
-        "label": "load_dotenv",
-        "importPath": "dotenv",
-        "description": "dotenv",
-        "isExtraImport": true,
-        "detail": "dotenv",
+        "detail": "langchain.llms",
         "documentation": {}
     },
     {
@@ -144,27 +113,27 @@
         "documentation": {}
     },
     {
+        "label": "HuggingFaceHub",
+        "importPath": "langchain",
+        "description": "langchain",
+        "isExtraImport": true,
+        "detail": "langchain",
+        "documentation": {}
+    },
+    {
+        "label": "LLChain",
+        "importPath": "langchain",
+        "description": "langchain",
+        "isExtraImport": true,
+        "detail": "langchain",
+        "documentation": {}
+    },
+    {
         "label": "PromptTemplate",
         "importPath": "langchain",
         "description": "langchain",
         "isExtraImport": true,
         "detail": "langchain",
-        "documentation": {}
-    },
-    {
-        "label": "OpenAI",
-        "importPath": "langchain",
-        "description": "langchain",
-        "isExtraImport": true,
-        "detail": "langchain",
-        "documentation": {}
-    },
-    {
-        "label": "LLMChain",
-        "importPath": "langchain.chains",
-        "description": "langchain.chains",
-        "isExtraImport": true,
-        "detail": "langchain.chains",
         "documentation": {}
     },
     {
@@ -232,11 +201,358 @@
         "documentation": {}
     },
     {
+        "label": "load_tools",
+        "importPath": "langchain.agents",
+        "description": "langchain.agents",
+        "isExtraImport": true,
+        "detail": "langchain.agents",
+        "documentation": {}
+    },
+    {
         "label": "get_all_tool_names",
         "importPath": "langchain.agents.load_tools",
         "description": "langchain.agents.load_tools",
         "isExtraImport": true,
         "detail": "langchain.agents.load_tools",
+        "documentation": {}
+    },
+    {
+        "label": "dataclass",
+        "importPath": "dataclasses",
+        "description": "dataclasses",
+        "isExtraImport": true,
+        "detail": "dataclasses",
+        "documentation": {}
+    },
+    {
+        "label": "pydantic",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Enum",
+        "importPath": "enum",
+        "description": "enum",
+        "isExtraImport": true,
+        "detail": "enum",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "datetime",
+        "description": "datetime",
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Coroutine",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "urlparse",
+        "importPath": "urllib.parse",
+        "description": "urllib.parse",
+        "isExtraImport": true,
+        "detail": "urllib.parse",
+        "documentation": {}
+    },
+    {
+        "label": "ParseResult",
+        "importPath": "urllib.parse",
+        "description": "urllib.parse",
+        "isExtraImport": true,
+        "detail": "urllib.parse",
+        "documentation": {}
+    },
+    {
+        "label": "logging",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "logging",
+        "description": "logging",
+        "detail": "logging",
+        "documentation": {}
+    },
+    {
+        "label": "Logger",
+        "importPath": "logging",
+        "description": "logging",
+        "isExtraImport": true,
+        "detail": "logging",
+        "documentation": {}
+    },
+    {
+        "label": "WebClient",
+        "importPath": "slack_sdk",
+        "description": "slack_sdk",
+        "isExtraImport": true,
+        "detail": "slack_sdk",
+        "documentation": {}
+    },
+    {
+        "label": "WebClient",
+        "importPath": "slack_sdk",
+        "description": "slack_sdk",
+        "isExtraImport": true,
+        "detail": "slack_sdk",
+        "documentation": {}
+    },
+    {
+        "label": "WebClient",
+        "importPath": "slack_sdk",
+        "description": "slack_sdk",
+        "isExtraImport": true,
+        "detail": "slack_sdk",
+        "documentation": {}
+    },
+    {
+        "label": "FileEvent",
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "isExtraImport": true,
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "FileInfo",
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "isExtraImport": true,
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "FileInfo",
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "isExtraImport": true,
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "FileEvent",
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "isExtraImport": true,
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "AppMentionEvent",
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "isExtraImport": true,
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "BlockData",
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "isExtraImport": true,
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "BlockElement",
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "isExtraImport": true,
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "BlockElementData",
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "isExtraImport": true,
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "BlockElementDataType",
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "isExtraImport": true,
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "BlockElementType",
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "isExtraImport": true,
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "BlockType",
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "isExtraImport": true,
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "EventType",
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "isExtraImport": true,
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "FileAccess",
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "isExtraImport": true,
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "FileInfo",
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "isExtraImport": true,
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "FileMode",
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "isExtraImport": true,
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "FileShare",
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "isExtraImport": true,
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "FileEvent",
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "isExtraImport": true,
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "FileDetails",
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "isExtraImport": true,
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "FileShares",
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "isExtraImport": true,
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "FileSubType",
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "isExtraImport": true,
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "FileType",
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "isExtraImport": true,
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "Locale",
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "isExtraImport": true,
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "MimeType",
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "isExtraImport": true,
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "Preview",
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "isExtraImport": true,
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "Transcription",
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "isExtraImport": true,
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "TranscriptionStatus",
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "isExtraImport": true,
+        "detail": "slackbot.parsing.slackapi",
         "documentation": {}
     },
     {
@@ -249,30 +565,6 @@
         "documentation": {}
     },
     {
-        "label": "WebClient",
-        "importPath": "slack_sdk",
-        "description": "slack_sdk",
-        "isExtraImport": true,
-        "detail": "slack_sdk",
-        "documentation": {}
-    },
-    {
-        "label": "WebClient",
-        "importPath": "slack_sdk",
-        "description": "slack_sdk",
-        "isExtraImport": true,
-        "detail": "slack_sdk",
-        "documentation": {}
-    },
-    {
-        "label": "SlackApiError",
-        "importPath": "slack_sdk.errors",
-        "description": "slack_sdk.errors",
-        "isExtraImport": true,
-        "detail": "slack_sdk.errors",
-        "documentation": {}
-    },
-    {
         "label": "SlackApiError",
         "importPath": "slack_sdk.errors",
         "description": "slack_sdk.errors",
@@ -289,35 +581,11 @@
         "documentation": {}
     },
     {
-        "label": "SignatureVerifier",
-        "importPath": "slack_sdk.signature",
-        "description": "slack_sdk.signature",
-        "isExtraImport": true,
-        "detail": "slack_sdk.signature",
-        "documentation": {}
-    },
-    {
         "label": "SlackRequestHandler",
         "importPath": "slack_bolt.adapter.flask",
         "description": "slack_bolt.adapter.flask",
         "isExtraImport": true,
         "detail": "slack_bolt.adapter.flask",
-        "documentation": {}
-    },
-    {
-        "label": "SlackRequestHandler",
-        "importPath": "slack_bolt.adapter.flask",
-        "description": "slack_bolt.adapter.flask",
-        "isExtraImport": true,
-        "detail": "slack_bolt.adapter.flask",
-        "documentation": {}
-    },
-    {
-        "label": "App",
-        "importPath": "slack_bolt",
-        "description": "slack_bolt",
-        "isExtraImport": true,
-        "detail": "slack_bolt",
         "documentation": {}
     },
     {
@@ -353,22 +621,6 @@
         "documentation": {}
     },
     {
-        "label": "Flask",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
-        "label": "request",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
         "label": "draft_email",
         "importPath": "functions",
         "description": "functions",
@@ -377,32 +629,7 @@
         "documentation": {}
     },
     {
-        "label": "draft_email",
-        "importPath": "functions",
-        "description": "functions",
-        "isExtraImport": true,
-        "detail": "functions",
-        "documentation": {}
-    },
-    {
-        "label": "more_clever",
-        "importPath": "functions",
-        "description": "functions",
-        "isExtraImport": true,
-        "detail": "functions",
-        "documentation": {}
-    },
-    {
-        "label": "logging",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "logging",
-        "description": "logging",
-        "detail": "logging",
-        "documentation": {}
-    },
-    {
-        "label": "wraps",
+        "label": "lru_cache",
         "importPath": "functools",
         "description": "functools",
         "isExtraImport": true,
@@ -452,11 +679,95 @@
         "documentation": {}
     },
     {
-        "label": "ChatOpenAI",
-        "importPath": "langchain.chat_models",
-        "description": "langchain.chat_models",
+        "label": "AgentExecutor",
+        "importPath": "langchain.agents.agent",
+        "description": "langchain.agents.agent",
         "isExtraImport": true,
-        "detail": "langchain.chat_models",
+        "detail": "langchain.agents.agent",
+        "documentation": {}
+    },
+    {
+        "label": "ZapierToolkit",
+        "importPath": "langchain.agents.agent_toolkits",
+        "description": "langchain.agents.agent_toolkits",
+        "isExtraImport": true,
+        "detail": "langchain.agents.agent_toolkits",
+        "documentation": {}
+    },
+    {
+        "label": "AgentType",
+        "importPath": "langchain.agents.agent_types",
+        "description": "langchain.agents.agent_types",
+        "isExtraImport": true,
+        "detail": "langchain.agents.agent_types",
+        "documentation": {}
+    },
+    {
+        "label": "ConversationBufferMemory",
+        "importPath": "langchain.memory",
+        "description": "langchain.memory",
+        "isExtraImport": true,
+        "detail": "langchain.memory",
+        "documentation": {}
+    },
+    {
+        "label": "ZapierNLAWrapper",
+        "importPath": "langchain.utilities.zapier",
+        "description": "langchain.utilities.zapier",
+        "isExtraImport": true,
+        "detail": "langchain.utilities.zapier",
+        "documentation": {}
+    },
+    {
+        "label": "ZapierNLAWrapper",
+        "importPath": "langchain.utilities.zapier",
+        "description": "langchain.utilities.zapier",
+        "isExtraImport": true,
+        "detail": "langchain.utilities.zapier",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "openai",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "openai",
+        "description": "openai",
+        "detail": "openai",
+        "documentation": {}
+    },
+    {
+        "label": "soundfile",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "soundfile",
+        "description": "soundfile",
+        "detail": "soundfile",
+        "documentation": {}
+    },
+    {
+        "label": "tempfile",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "tempfile",
+        "description": "tempfile",
+        "detail": "tempfile",
+        "documentation": {}
+    },
+    {
+        "label": "BaseTool",
+        "importPath": "langchain.tools",
+        "description": "langchain.tools",
+        "isExtraImport": true,
+        "detail": "langchain.tools",
         "documentation": {}
     },
     {
@@ -508,27 +819,45 @@
         "documentation": {}
     },
     {
-        "label": "ChatPromptTemplate",
-        "importPath": "langchain.prompts.chat",
-        "description": "langchain.prompts.chat",
+        "label": "elevenlabs",
+        "kind": 6,
         "isExtraImport": true,
-        "detail": "langchain.prompts.chat",
+        "importPath": "elevenlabs",
+        "description": "elevenlabs",
+        "detail": "elevenlabs",
         "documentation": {}
     },
     {
-        "label": "SystemMessagePromptTemplate",
-        "importPath": "langchain.prompts.chat",
-        "description": "langchain.prompts.chat",
+        "label": "TTLCache",
+        "importPath": "cachetools",
+        "description": "cachetools",
         "isExtraImport": true,
-        "detail": "langchain.prompts.chat",
+        "detail": "cachetools",
         "documentation": {}
     },
     {
-        "label": "HumanMessagePromptTemplate",
-        "importPath": "langchain.prompts.chat",
-        "description": "langchain.prompts.chat",
+        "label": "cached",
+        "importPath": "cachetools",
+        "description": "cachetools",
         "isExtraImport": true,
-        "detail": "langchain.prompts.chat",
+        "detail": "cachetools",
+        "documentation": {}
+    },
+    {
+        "label": "pytest",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pytest",
+        "description": "pytest",
+        "detail": "pytest",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "importPath": "slackbot",
+        "description": "slackbot",
+        "isExtraImport": true,
+        "detail": "slackbot",
         "documentation": {}
     },
     {
@@ -602,22 +931,6 @@
         "importPath": "textwrap",
         "description": "textwrap",
         "detail": "textwrap",
-        "documentation": {}
-    },
-    {
-        "label": "GmailToolkit",
-        "importPath": "langchain.agents.agent_toolkits",
-        "description": "langchain.agents.agent_toolkits",
-        "isExtraImport": true,
-        "detail": "langchain.agents.agent_toolkits",
-        "documentation": {}
-    },
-    {
-        "label": "AgentType",
-        "importPath": "langchain.agents.agent",
-        "description": "langchain.agents.agent",
-        "isExtraImport": true,
-        "detail": "langchain.agents.agent",
         "documentation": {}
     },
     {
@@ -747,129 +1060,489 @@
         "documentation": {}
     },
     {
+        "label": "EventType",
+        "kind": 6,
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "peekOfCode": "class EventType(Enum):\n    APP_MENTION = \"app_mention\"\n    FILE_SHARED = \"file_shared\"\n    FILE_CHANGE = \"file_change\"\nclass BlockType(Enum):\n    RICH_TEXT = \"rich_text\"\nclass BlockElementType(Enum):\n    RICH_TEXT_SECTION = \"rich_text_section\"\nclass BlockElementDataType(Enum):\n    USER = \"user\"",
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "BlockType",
+        "kind": 6,
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "peekOfCode": "class BlockType(Enum):\n    RICH_TEXT = \"rich_text\"\nclass BlockElementType(Enum):\n    RICH_TEXT_SECTION = \"rich_text_section\"\nclass BlockElementDataType(Enum):\n    USER = \"user\"\n    TEXT = \"text\"\nclass BlockElementData(pydantic.BaseModel):\n    type: BlockElementDataType\n    user_id: Optional[str] = None",
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "BlockElementType",
+        "kind": 6,
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "peekOfCode": "class BlockElementType(Enum):\n    RICH_TEXT_SECTION = \"rich_text_section\"\nclass BlockElementDataType(Enum):\n    USER = \"user\"\n    TEXT = \"text\"\nclass BlockElementData(pydantic.BaseModel):\n    type: BlockElementDataType\n    user_id: Optional[str] = None\n    text: Optional[str] = None\n    @pydantic.validator('type')",
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "BlockElementDataType",
+        "kind": 6,
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "peekOfCode": "class BlockElementDataType(Enum):\n    USER = \"user\"\n    TEXT = \"text\"\nclass BlockElementData(pydantic.BaseModel):\n    type: BlockElementDataType\n    user_id: Optional[str] = None\n    text: Optional[str] = None\n    @pydantic.validator('type')\n    def convert_to_blockelementdata_type(cls, value):\n        return BlockElementDataType(value)",
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "BlockElementData",
+        "kind": 6,
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "peekOfCode": "class BlockElementData(pydantic.BaseModel):\n    type: BlockElementDataType\n    user_id: Optional[str] = None\n    text: Optional[str] = None\n    @pydantic.validator('type')\n    def convert_to_blockelementdata_type(cls, value):\n        return BlockElementDataType(value)\nclass BlockElement(pydantic.BaseModel):\n    type: BlockElementType\n    elements: List[BlockElementData]",
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "BlockElement",
+        "kind": 6,
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "peekOfCode": "class BlockElement(pydantic.BaseModel):\n    type: BlockElementType\n    elements: List[BlockElementData]\n    @pydantic.validator('type')\n    def convert_to_blockelement_type(cls, value):\n        return BlockElementType(value)\nclass BlockData(pydantic.BaseModel):\n    type : BlockType\n    block_id: str\n    elements : List[BlockElement]",
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "BlockData",
+        "kind": 6,
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "peekOfCode": "class BlockData(pydantic.BaseModel):\n    type : BlockType\n    block_id: str\n    elements : List[BlockElement]\n    @pydantic.validator('type')\n    @classmethod\n    def convert_to_block_type(cls, value):\n        return BlockType(value)\nclass AppMentionEvent(pydantic.BaseModel):\n    client_msg_id: str",
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "AppMentionEvent",
+        "kind": 6,
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "peekOfCode": "class AppMentionEvent(pydantic.BaseModel):\n    client_msg_id: str\n    type: EventType\n    text:  str \n    user: str\n    ts:  dt.datetime\n    blocks: List[BlockData]\n    team: str \n    channel: str\n    event_ts: dt.datetime",
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "FileDetails",
+        "kind": 6,
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "peekOfCode": "class FileDetails(pydantic.BaseModel):\n    id: str\nclass FileEvent(pydantic.BaseModel):\n    type: EventType\n    file_id: str\n    user_id: str\n    file: FileDetails\n    #channel_id: str\n    event_ts: dt.datetime\n    @pydantic.validator('type')",
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "FileEvent",
+        "kind": 6,
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "peekOfCode": "class FileEvent(pydantic.BaseModel):\n    type: EventType\n    file_id: str\n    user_id: str\n    file: FileDetails\n    #channel_id: str\n    event_ts: dt.datetime\n    @pydantic.validator('type')\n    @classmethod\n    def convert_to_event_type(cls, value):",
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "MimeType",
+        "kind": 6,
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "peekOfCode": "class MimeType(str, Enum):\n    AUDIO_WEBM = \"audio/webm\"\n    AUDIO = \"audio\"\nclass FileType(str, Enum):\n    WEBM = \"webm\"\nclass FileMode(str, Enum):\n    HOSTED = \"hosted\"\nclass FileSubType(str, Enum):\n    SLACK_AUDIO = \"slack_audio\"\nclass Locale(Enum):",
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "FileType",
+        "kind": 6,
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "peekOfCode": "class FileType(str, Enum):\n    WEBM = \"webm\"\nclass FileMode(str, Enum):\n    HOSTED = \"hosted\"\nclass FileSubType(str, Enum):\n    SLACK_AUDIO = \"slack_audio\"\nclass Locale(Enum):\n    EN_US = 'en-US'\n    FR_FR = 'fr-FR'\n    DE_DE = 'de-DE'",
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "FileMode",
+        "kind": 6,
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "peekOfCode": "class FileMode(str, Enum):\n    HOSTED = \"hosted\"\nclass FileSubType(str, Enum):\n    SLACK_AUDIO = \"slack_audio\"\nclass Locale(Enum):\n    EN_US = 'en-US'\n    FR_FR = 'fr-FR'\n    DE_DE = 'de-DE'\n    ES_ES = 'es-ES'\n    EN_GB = 'en-GB'",
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "FileSubType",
+        "kind": 6,
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "peekOfCode": "class FileSubType(str, Enum):\n    SLACK_AUDIO = \"slack_audio\"\nclass Locale(Enum):\n    EN_US = 'en-US'\n    FR_FR = 'fr-FR'\n    DE_DE = 'de-DE'\n    ES_ES = 'es-ES'\n    EN_GB = 'en-GB'\nclass Preview(pydantic.BaseModel):\n    content: str",
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "Locale",
+        "kind": 6,
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "peekOfCode": "class Locale(Enum):\n    EN_US = 'en-US'\n    FR_FR = 'fr-FR'\n    DE_DE = 'de-DE'\n    ES_ES = 'es-ES'\n    EN_GB = 'en-GB'\nclass Preview(pydantic.BaseModel):\n    content: str\n    has_more: bool\nclass TranscriptionStatus(str, Enum):",
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "Preview",
+        "kind": 6,
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "peekOfCode": "class Preview(pydantic.BaseModel):\n    content: str\n    has_more: bool\nclass TranscriptionStatus(str, Enum):\n    COMPLETE = \"complete\"\n    processing = \"processing\"\nclass Transcription(pydantic.BaseModel):\n    status: TranscriptionStatus\n    locale: Locale\n    preview: Preview",
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "TranscriptionStatus",
+        "kind": 6,
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "peekOfCode": "class TranscriptionStatus(str, Enum):\n    COMPLETE = \"complete\"\n    processing = \"processing\"\nclass Transcription(pydantic.BaseModel):\n    status: TranscriptionStatus\n    locale: Locale\n    preview: Preview\nclass FileAccess(str, Enum):\n    VISIBLE = \"visible\"\nclass FileShare(pydantic.BaseModel):",
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "Transcription",
+        "kind": 6,
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "peekOfCode": "class Transcription(pydantic.BaseModel):\n    status: TranscriptionStatus\n    locale: Locale\n    preview: Preview\nclass FileAccess(str, Enum):\n    VISIBLE = \"visible\"\nclass FileShare(pydantic.BaseModel):\n    reply_users: List[str]\n    reply_users_count: int\n    reply_count: int",
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "FileAccess",
+        "kind": 6,
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "peekOfCode": "class FileAccess(str, Enum):\n    VISIBLE = \"visible\"\nclass FileShare(pydantic.BaseModel):\n    reply_users: List[str]\n    reply_users_count: int\n    reply_count: int\n    ts: dt.datetime\n    channel_name: str\n    team_id: str\n    share_user_id: str",
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "FileShare",
+        "kind": 6,
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "peekOfCode": "class FileShare(pydantic.BaseModel):\n    reply_users: List[str]\n    reply_users_count: int\n    reply_count: int\n    ts: dt.datetime\n    channel_name: str\n    team_id: str\n    share_user_id: str\nclass FileShares(pydantic.BaseModel):\n    public: Dict[str, List[FileShare]]",
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "FileShares",
+        "kind": 6,
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "peekOfCode": "class FileShares(pydantic.BaseModel):\n    public: Dict[str, List[FileShare]]\nclass FileInfo(pydantic.BaseModel):\n    id: str\n    created: int\n    timestamp: dt.datetime\n    name: str\n    title: str\n    mimetype: MimeType \n    filetype: FileType",
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "FileInfo",
+        "kind": 6,
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "peekOfCode": "class FileInfo(pydantic.BaseModel):\n    id: str\n    created: int\n    timestamp: dt.datetime\n    name: str\n    title: str\n    mimetype: MimeType \n    filetype: FileType\n    pretty_type: str\n    user: str",
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "slackbot.parsing.slackapi",
+        "description": "slackbot.parsing.slackapi",
+        "peekOfCode": "logger = Logger(__name__)\nfrom slack_sdk import WebClient\n#AppMentionData\nclass EventType(Enum):\n    APP_MENTION = \"app_mention\"\n    FILE_SHARED = \"file_shared\"\n    FILE_CHANGE = \"file_change\"\nclass BlockType(Enum):\n    RICH_TEXT = \"rich_text\"\nclass BlockElementType(Enum):",
+        "detail": "slackbot.parsing.slackapi",
+        "documentation": {}
+    },
+    {
+        "label": "hub_llm",
+        "kind": 5,
+        "importPath": "slackbot.tools.huggingface.googlet5",
+        "description": "slackbot.tools.huggingface.googlet5",
+        "peekOfCode": "hub_llm = HuggingFaceHub(model_name=\"gorilla-llm/gorilla-7b-hf-delta-v0\")\nhub_chain = LLChain(llm=hub_llm)",
+        "detail": "slackbot.tools.huggingface.googlet5",
+        "documentation": {}
+    },
+    {
+        "label": "hub_chain",
+        "kind": 5,
+        "importPath": "slackbot.tools.huggingface.googlet5",
+        "description": "slackbot.tools.huggingface.googlet5",
+        "peekOfCode": "hub_chain = LLChain(llm=hub_llm)",
+        "detail": "slackbot.tools.huggingface.googlet5",
+        "documentation": {}
+    },
+    {
         "label": "require_slack_verification",
         "kind": 2,
-        "importPath": "slack.app",
-        "description": "slack.app",
+        "importPath": "slackbot.app",
+        "description": "slackbot.app",
         "peekOfCode": "def require_slack_verification(f):\n    @wraps(f)\n    def decorated_function(*args, **kwargs):\n        if not verify_slack_request():\n            abort(403)\n        return f(*args, **kwargs)\n    return decorated_function\ndef verify_slack_request():\n    # Get the request headers\n    timestamp = request.headers.get(\"X-Slack-Request-Timestamp\", \"\")",
-        "detail": "slack.app",
+        "detail": "slackbot.app",
         "documentation": {}
     },
     {
         "label": "verify_slack_request",
         "kind": 2,
-        "importPath": "slack.app",
-        "description": "slack.app",
-        "peekOfCode": "def verify_slack_request():\n    # Get the request headers\n    timestamp = request.headers.get(\"X-Slack-Request-Timestamp\", \"\")\n    signature = request.headers.get(\"X-Slack-Signature\", \"\")\n    # Check if the timestamp is within five minutes of the current time\n    current_timestamp = int(time.time())\n    if abs(current_timestamp - int(timestamp)) > 60 * 5:\n        return False\n    # Verify the request signature\n    return signature_verifier.is_valid(",
-        "detail": "slack.app",
+        "importPath": "slackbot.app",
+        "description": "slackbot.app",
+        "peekOfCode": "def verify_slack_request():\n    # Get the request headers\n    timestamp = request.headers.get(\"X-Slack-Request-Timestamp\", \"\")\n    signature = request.headers.get(\"X-Slack-Signature\", \"\")\n    # Check if the timestamp is within five minutes of the current time\n    current_timestamp = int(time.time())\n    if abs(current_timestamp - int(timestamp)) > 60 * 5:\n        return False\n    # Verify the request signature\n@lru_cache(maxsize=1)",
+        "detail": "slackbot.app",
+        "documentation": {}
+    },
+    {
+        "label": "cached_slack_client",
+        "kind": 2,
+        "importPath": "slackbot.app",
+        "description": "slackbot.app",
+        "peekOfCode": "def cached_slack_client():\n     slack_client = WebClient(token=os.environ[\"SLACK_BOT_TOKEN\"])\n     slack_client.auth_test()\n     return slack_client\ndef get_bot_user_id():\n    \"\"\"\n    Get the bot user ID using the Slack API.\n    Returns:\n        str: The bot user ID.\n    \"\"\"",
+        "detail": "slackbot.app",
         "documentation": {}
     },
     {
         "label": "get_bot_user_id",
         "kind": 2,
-        "importPath": "slack.app",
-        "description": "slack.app",
-        "peekOfCode": "def get_bot_user_id():\n    \"\"\"\n    Get the bot user ID using the Slack API.\n    Returns:\n        str: The bot user ID.\n    \"\"\"\n    try:\n        # Initialize the Slack client with your bot token\n        slack_client = WebClient(token=os.environ[\"SLACK_BOT_TOKEN\"])\n        response = slack_client.auth_test()",
-        "detail": "slack.app",
+        "importPath": "slackbot.app",
+        "description": "slackbot.app",
+        "peekOfCode": "def get_bot_user_id():\n    \"\"\"\n    Get the bot user ID using the Slack API.\n    Returns:\n        str: The bot user ID.\n    \"\"\"\n    try:\n        # Initialize the Slack client with your bot token\n        slack_client = cached_slack_client()\n        response = slack_client.auth_test()",
+        "detail": "slackbot.app",
         "documentation": {}
     },
     {
         "label": "my_function",
         "kind": 2,
-        "importPath": "slack.app",
-        "description": "slack.app",
-        "peekOfCode": "def my_function(text):\n    \"\"\"\n    Custom function to process the text and return a response.\n    In this example, the function converts the input text to uppercase.\n    Args:\n        text (str): The input text to process.\n    Returns:\n        str: The processed text.\n    \"\"\"\n    response = text.upper()",
-        "detail": "slack.app",
+        "importPath": "slackbot.app",
+        "description": "slackbot.app",
+        "peekOfCode": "def my_function(text):\n    \"\"\"\n    Custom function to process the text and return a response.\n    In this example, the function converts the input text to uppercase.\n    Args:\n        text (str): The input text to process.\n    Returns:\n        str: The processed text.\n    \"\"\"\n    return text.upper()",
+        "detail": "slackbot.app",
+        "documentation": {}
+    },
+    {
+        "label": "handle_file_created",
+        "kind": 2,
+        "importPath": "slackbot.app",
+        "description": "slackbot.app",
+        "peekOfCode": "def handle_file_created(body, say):\n    \"\"\" downloads the file transcribes it and sends it back to the user\"\"\"\n    print(f\"File Created:, I'll get right on that! {body=}\")\n    logger.warn(f\"File Created:, I'll get right on that! {body=}\")\n@app.event(\"file_shared\")\ndef handle_file_shared(body, say):\n    pass\n#     \"\"\" downloads the file transcribes it and sends it back to the user\"\"\"\n#     print(f\"File Shared:, I'll get right on that! {body=}\")\n#     logger.warning(f\"File Shared:, I'll get right on that! {body=}\")",
+        "detail": "slackbot.app",
+        "documentation": {}
+    },
+    {
+        "label": "handle_file_shared",
+        "kind": 2,
+        "importPath": "slackbot.app",
+        "description": "slackbot.app",
+        "peekOfCode": "def handle_file_shared(body, say):\n    pass\n#     \"\"\" downloads the file transcribes it and sends it back to the user\"\"\"\n#     print(f\"File Shared:, I'll get right on that! {body=}\")\n#     logger.warning(f\"File Shared:, I'll get right on that! {body=}\")\n#     file_id = body[\"event\"]['file_id']\n#     channel_id = body[\"event\"]['channel_id']\n#     slack_client = cached_slack_client()\n#     logger.warn(f\"File Shared: Calling with {channel_id=}\")\n#     logger.warn(f\"File Shared: Calling with {file_id=}\")",
+        "detail": "slackbot.app",
+        "documentation": {}
+    },
+    {
+        "label": "handle_file_changed",
+        "kind": 2,
+        "importPath": "slackbot.app",
+        "description": "slackbot.app",
+        "peekOfCode": "def handle_file_changed(body, say):\n    \"\"\"\n    Event listener for file changes in Slack.\n    When a file is updated, this function checks if the transcription status has changed.\n    Args:\n        body (dict): The event data received from Slack.\n        say (callable): A function for sending a response to the channel.\n    \"\"\"\n    # failes because of no channel id\n    print(f\"File Changed:, I'll get right on that! {body=}\")",
+        "detail": "slackbot.app",
         "documentation": {}
     },
     {
         "label": "handle_mentions",
         "kind": 2,
-        "importPath": "slack.app",
-        "description": "slack.app",
-        "peekOfCode": "def handle_mentions(body, say):\n    \"\"\"\n    Event listener for mentions in Slack.\n    When the bot is mentioned, this function processes the text and sends a response.\n    Args:\n        body (dict): The event data received from Slack.\n        say (callable): A function for sending a response to the channel.\n    \"\"\"\n    text = body[\"event\"][\"text\"]\n    mention = f\"<@{SLACK_BOT_USER_ID}>\"",
-        "detail": "slack.app",
+        "importPath": "slackbot.app",
+        "description": "slackbot.app",
+        "peekOfCode": "def handle_mentions(body, say):\n    \"\"\"\n    Event listener for mentions in Slack.\n    When the bot is mentioned, this function processes the text and sends a response.\n    Args:\n        body (dict): The event data received from Slack.\n        say (callable): A function for sending a response to the channel.\n    \"\"\"\n    text = body[\"event\"][\"text\"]\n    logging.info(body)",
+        "detail": "slackbot.app",
         "documentation": {}
     },
     {
         "label": "slack_events",
         "kind": 2,
-        "importPath": "slack.app",
-        "description": "slack.app",
-        "peekOfCode": "def slack_events():\n    \"\"\"\n    Route for handling Slack events.\n    This function passes the incoming HTTP request to the SlackRequestHandler for processing.\n    Returns:\n        Response: The result of handling the request.\n    \"\"\"\n    return handler.handle(request)\n# Run the Flask app\nif __name__ == \"__main__\":",
-        "detail": "slack.app",
+        "importPath": "slackbot.app",
+        "description": "slackbot.app",
+        "peekOfCode": "def slack_events():\n    \"\"\"\n    Route for handling Slack events.\n    This function passes the incoming HTTP request to the SlackRequestHandler for processing.\n    Returns:\n        Response: The result of handling the request.\n    \"\"\"\n    return handler.handle(request)\n#https://api.slack.com/types/file#authentication\n# Run the Flask app",
+        "detail": "slackbot.app",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "slackbot.app",
+        "description": "slackbot.app",
+        "peekOfCode": "logger = logging.getLogger(__name__)\n# Load environment variables from .env file\nload_dotenv(find_dotenv())\n# Set Slack API credentials\nSLACK_BOT_TOKEN = os.environ[\"SLACK_BOT_TOKEN\"]\nSLACK_SIGNING_SECRET = os.environ[\"SLACK_SIGNING_SECRET\"]\nSLACK_BOT_USER_ID = os.environ[\"SLACK_BOT_USER_ID\"]\n# Initialize the Slack app\napp = App(token=SLACK_BOT_TOKEN)\nsignature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)",
+        "detail": "slackbot.app",
         "documentation": {}
     },
     {
         "label": "SLACK_BOT_TOKEN",
         "kind": 5,
-        "importPath": "slack.app",
-        "description": "slack.app",
-        "peekOfCode": "SLACK_BOT_TOKEN = os.environ[\"SLACK_BOT_TOKEN\"]\nSLACK_SIGNING_SECRET = os.environ[\"SLACK_SIGNING_SECRET\"]\nSLACK_BOT_USER_ID = os.environ[\"SLACK_BOT_USER_ID\"]\n# Initialize the Slack app\napp = App(token=SLACK_BOT_TOKEN)\nsignature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)\n# Initialize the Flask app\nflask_app = Flask(__name__)\nhandler = SlackRequestHandler(app)\ndef require_slack_verification(f):",
-        "detail": "slack.app",
+        "importPath": "slackbot.app",
+        "description": "slackbot.app",
+        "peekOfCode": "SLACK_BOT_TOKEN = os.environ[\"SLACK_BOT_TOKEN\"]\nSLACK_SIGNING_SECRET = os.environ[\"SLACK_SIGNING_SECRET\"]\nSLACK_BOT_USER_ID = os.environ[\"SLACK_BOT_USER_ID\"]\n# Initialize the Slack app\napp = App(token=SLACK_BOT_TOKEN)\nsignature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)\n# Initialize the Flask app\nflask_app = Flask(__name__)\nflask_app.logger.setLevel(logging.INFO)\nhandler = SlackRequestHandler(app)",
+        "detail": "slackbot.app",
         "documentation": {}
     },
     {
         "label": "SLACK_SIGNING_SECRET",
         "kind": 5,
-        "importPath": "slack.app",
-        "description": "slack.app",
-        "peekOfCode": "SLACK_SIGNING_SECRET = os.environ[\"SLACK_SIGNING_SECRET\"]\nSLACK_BOT_USER_ID = os.environ[\"SLACK_BOT_USER_ID\"]\n# Initialize the Slack app\napp = App(token=SLACK_BOT_TOKEN)\nsignature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)\n# Initialize the Flask app\nflask_app = Flask(__name__)\nhandler = SlackRequestHandler(app)\ndef require_slack_verification(f):\n    @wraps(f)",
-        "detail": "slack.app",
+        "importPath": "slackbot.app",
+        "description": "slackbot.app",
+        "peekOfCode": "SLACK_SIGNING_SECRET = os.environ[\"SLACK_SIGNING_SECRET\"]\nSLACK_BOT_USER_ID = os.environ[\"SLACK_BOT_USER_ID\"]\n# Initialize the Slack app\napp = App(token=SLACK_BOT_TOKEN)\nsignature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)\n# Initialize the Flask app\nflask_app = Flask(__name__)\nflask_app.logger.setLevel(logging.INFO)\nhandler = SlackRequestHandler(app)\ndef require_slack_verification(f):",
+        "detail": "slackbot.app",
         "documentation": {}
     },
     {
         "label": "SLACK_BOT_USER_ID",
         "kind": 5,
-        "importPath": "slack.app",
-        "description": "slack.app",
-        "peekOfCode": "SLACK_BOT_USER_ID = os.environ[\"SLACK_BOT_USER_ID\"]\n# Initialize the Slack app\napp = App(token=SLACK_BOT_TOKEN)\nsignature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)\n# Initialize the Flask app\nflask_app = Flask(__name__)\nhandler = SlackRequestHandler(app)\ndef require_slack_verification(f):\n    @wraps(f)\n    def decorated_function(*args, **kwargs):",
-        "detail": "slack.app",
+        "importPath": "slackbot.app",
+        "description": "slackbot.app",
+        "peekOfCode": "SLACK_BOT_USER_ID = os.environ[\"SLACK_BOT_USER_ID\"]\n# Initialize the Slack app\napp = App(token=SLACK_BOT_TOKEN)\nsignature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)\n# Initialize the Flask app\nflask_app = Flask(__name__)\nflask_app.logger.setLevel(logging.INFO)\nhandler = SlackRequestHandler(app)\ndef require_slack_verification(f):\n    @wraps(f)",
+        "detail": "slackbot.app",
         "documentation": {}
     },
     {
         "label": "app",
         "kind": 5,
-        "importPath": "slack.app",
-        "description": "slack.app",
-        "peekOfCode": "app = App(token=SLACK_BOT_TOKEN)\nsignature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)\n# Initialize the Flask app\nflask_app = Flask(__name__)\nhandler = SlackRequestHandler(app)\ndef require_slack_verification(f):\n    @wraps(f)\n    def decorated_function(*args, **kwargs):\n        if not verify_slack_request():\n            abort(403)",
-        "detail": "slack.app",
+        "importPath": "slackbot.app",
+        "description": "slackbot.app",
+        "peekOfCode": "app = App(token=SLACK_BOT_TOKEN)\nsignature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)\n# Initialize the Flask app\nflask_app = Flask(__name__)\nflask_app.logger.setLevel(logging.INFO)\nhandler = SlackRequestHandler(app)\ndef require_slack_verification(f):\n    @wraps(f)\n    def decorated_function(*args, **kwargs):\n        if not verify_slack_request():",
+        "detail": "slackbot.app",
         "documentation": {}
     },
     {
         "label": "signature_verifier",
         "kind": 5,
-        "importPath": "slack.app",
-        "description": "slack.app",
-        "peekOfCode": "signature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)\n# Initialize the Flask app\nflask_app = Flask(__name__)\nhandler = SlackRequestHandler(app)\ndef require_slack_verification(f):\n    @wraps(f)\n    def decorated_function(*args, **kwargs):\n        if not verify_slack_request():\n            abort(403)\n        return f(*args, **kwargs)",
-        "detail": "slack.app",
+        "importPath": "slackbot.app",
+        "description": "slackbot.app",
+        "peekOfCode": "signature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)\n# Initialize the Flask app\nflask_app = Flask(__name__)\nflask_app.logger.setLevel(logging.INFO)\nhandler = SlackRequestHandler(app)\ndef require_slack_verification(f):\n    @wraps(f)\n    def decorated_function(*args, **kwargs):\n        if not verify_slack_request():\n            abort(403)",
+        "detail": "slackbot.app",
         "documentation": {}
     },
     {
         "label": "flask_app",
         "kind": 5,
-        "importPath": "slack.app",
-        "description": "slack.app",
-        "peekOfCode": "flask_app = Flask(__name__)\nhandler = SlackRequestHandler(app)\ndef require_slack_verification(f):\n    @wraps(f)\n    def decorated_function(*args, **kwargs):\n        if not verify_slack_request():\n            abort(403)\n        return f(*args, **kwargs)\n    return decorated_function\ndef verify_slack_request():",
-        "detail": "slack.app",
+        "importPath": "slackbot.app",
+        "description": "slackbot.app",
+        "peekOfCode": "flask_app = Flask(__name__)\nflask_app.logger.setLevel(logging.INFO)\nhandler = SlackRequestHandler(app)\ndef require_slack_verification(f):\n    @wraps(f)\n    def decorated_function(*args, **kwargs):\n        if not verify_slack_request():\n            abort(403)\n        return f(*args, **kwargs)\n    return decorated_function",
+        "detail": "slackbot.app",
         "documentation": {}
     },
     {
         "label": "handler",
         "kind": 5,
-        "importPath": "slack.app",
-        "description": "slack.app",
+        "importPath": "slackbot.app",
+        "description": "slackbot.app",
         "peekOfCode": "handler = SlackRequestHandler(app)\ndef require_slack_verification(f):\n    @wraps(f)\n    def decorated_function(*args, **kwargs):\n        if not verify_slack_request():\n            abort(403)\n        return f(*args, **kwargs)\n    return decorated_function\ndef verify_slack_request():\n    # Get the request headers",
-        "detail": "slack.app",
+        "detail": "slackbot.app",
+        "documentation": {}
+    },
+    {
+        "label": "EmailTool",
+        "kind": 6,
+        "importPath": "slackbot.functions",
+        "description": "slackbot.functions",
+        "peekOfCode": "class EmailTool(BaseTool):\n    name = \"send email via gmail\"\n    description = \"send email via gmail\"\n    def _run(self, text:str) -> str:\n        \"\"\"Use the tool\"\"\"\n        return draft_email(text)\n    async def _arun(self, *args: Any, **kwargs: Any) -> Coroutine[Any, Any, Any]:\n        raise NotImplementedError()\n        #return await super()._arun(*args, **kwargs)\n    # while True:",
+        "detail": "slackbot.functions",
         "documentation": {}
     },
     {
         "label": "draft_email",
         "kind": 2,
-        "importPath": "slack.functions",
-        "description": "slack.functions",
-        "peekOfCode": "def draft_email(user_input, name=\"Dave\"):\n    chat = ChatOpenAI(model_name=\"gpt-3.5-turbo\", temperature=1)\n    template = \"\"\"\n    You are a helpful assistant that drafts an email reply based on an a new email.\n    Your goal is to help the user quickly create a perfect email reply.\n    Keep your reply short and to the point and mimic the style of the email so you reply in a similar manner to match the tone.\n    Start your reply by saying: \"Hi {name}, here's a draft for your reply:\". And then proceed with the reply on a new line.\n    Make sure to sign of with {signature}.\n    \"\"\"\n    signature = f\"Kind regards, \\n\\{name}\"",
-        "detail": "slack.functions",
+        "importPath": "slackbot.functions",
+        "description": "slackbot.functions",
+        "peekOfCode": "def draft_email(user_input, name=\"Dave\") -> str:\n    chat = ChatOpenAI(model_name=\"gpt-3.5-turbo\", temperature=1)\n    template = \"\"\"\n    You are a helpful assistant that drafts an email reply based on an a new email.\n    Your goal is to help the user quickly create a perfect email reply.\n    Keep your reply short and to the point and mimic the style of the email so you reply in a similar manner to match the tone.\n    Start your reply by saying: \"Hi {name}, here's a draft for your reply:\". And then proceed with the reply on a new line.\n    Make sure to sign of with {signature}.\n    \"\"\"\n    signature = f\"Kind regards, \\n\\{name}\"",
+        "detail": "slackbot.functions",
+        "documentation": {}
+    },
+    {
+        "label": "openai_llm",
+        "kind": 2,
+        "importPath": "slackbot.functions",
+        "description": "slackbot.functions",
+        "peekOfCode": "def openai_llm():\n    return OpenAI(temperatture=0, openai_api_key=os.environ[\"OPENAI_API_KEY\"])\n# no need to record audio, just send the audio file to openai\n# def record_audio(duration, fs, channels):\n#     print(\"Recording...\")\n#     recording = sd.rec(int(duration * fs), samplerate=fs, channels=channels)\n#     sd.wait()\n#     print(\"Finished recording.\")\n#     return recording\ndef transcribe_audio(recording, fs):",
+        "detail": "slackbot.functions",
+        "documentation": {}
+    },
+    {
+        "label": "transcribe_audio",
+        "kind": 2,
+        "importPath": "slackbot.functions",
+        "description": "slackbot.functions",
+        "peekOfCode": "def transcribe_audio(recording, fs):\n    duration = 5  # duration of each recording in seconds\n    sample_rate = 44100  # sample rate\n    channels = 1\n    with tempfile.NamedTemporaryFile(suffix=\".wav\", delete=False) as temp_audio:\n        sf.write(file=temp_audio.name, data=recording, sample_rate=sample_rate)\n        temp_audio.close()\n        with open(temp_audio.name, \"rb\") as audio_file:\n            transcript = openai.Audio.transcribe(\"whisper-1\", audio_file)\n        os.remove(temp_audio.name)",
+        "detail": "slackbot.functions",
+        "documentation": {}
+    },
+    {
+        "label": "agi",
+        "kind": 2,
+        "importPath": "slackbot.functions",
+        "description": "slackbot.functions",
+        "peekOfCode": "def agi() -> AgentExecutor:\n    open_ai_llm = openai_llm()\n    memory = ConversationBufferMemory(memory_key=\"slackbot-chat-history\")\n    zapier = ZapierNLAWrapper(zapier_nla_api_key=os.environ[\"ZAPIER_API_KEY\"], zapier_nla_oauth_access_token=None)\n    zapier_toolkit = ZapierToolkit.from_zapier_nla_wrapper(zapier)\n    tools = zapier_toolkit.get_tools() + load_tools([\"human\"])\n    return initialize_agent(tools, open_ai_llm, memory=memory, agent=AgentType.CONVERSATIONAL_REACT_DESCRIPTION, verbose=True)\ndef play_generated_audio(text, voice=\"Bella\", model=\"eleven_monolingual_v1\"):\n    audio = elevenlabs.generate(text=text, voice=voice, model=model)\n    elevenlabs.play(audio)",
+        "detail": "slackbot.functions",
+        "documentation": {}
+    },
+    {
+        "label": "play_generated_audio",
+        "kind": 2,
+        "importPath": "slackbot.functions",
+        "description": "slackbot.functions",
+        "peekOfCode": "def play_generated_audio(text, voice=\"Bella\", model=\"eleven_monolingual_v1\"):\n    audio = elevenlabs.generate(text=text, voice=voice, model=model)\n    elevenlabs.play(audio)\nclass EmailTool(BaseTool):\n    name = \"send email via gmail\"\n    description = \"send email via gmail\"\n    def _run(self, text:str) -> str:\n        \"\"\"Use the tool\"\"\"\n        return draft_email(text)\n    async def _arun(self, *args: Any, **kwargs: Any) -> Coroutine[Any, Any, Any]:",
+        "detail": "slackbot.functions",
+        "documentation": {}
+    },
+    {
+        "label": "web_client",
+        "kind": 2,
+        "importPath": "tests.slackbot.parsing.test_parsing",
+        "description": "tests.slackbot.parsing.test_parsing",
+        "peekOfCode": "def web_client():\n    dotenv.load_dotenv(dotenv.find_dotenv())\n    slack_client = WebClient(token=os.environ[\"SLACK_BOT_TOKEN\"])\n    return slack_client\n@pytest.mark.parametrize(\"event_in, expected\", [\n    ({'client_msg_id': '07fc5446-f407-4a08-a215-f75be8cfa0f9', 'type': 'app_mention', 'text': 'hey',\n  'user': 'U058V5QTW12', 'ts': '1685890319.156619', \n  'blocks': [\n      {'type': 'rich_text', 'block_id': 'qui', \n       'elements': [",
+        "detail": "tests.slackbot.parsing.test_parsing",
+        "documentation": {}
+    },
+    {
+        "label": "test_app_mention_event",
+        "kind": 2,
+        "importPath": "tests.slackbot.parsing.test_parsing",
+        "description": "tests.slackbot.parsing.test_parsing",
+        "peekOfCode": "def test_app_mention_event(event_in, expected):\n    actual = AppMentionEvent(**event_in)\n    assert actual == expected, repr(actual)\n@pytest.mark.parametrize(\"event_in, expected, expected_file_info\",  [\n    ({'type': 'file_shared', 'file_id': 'F05BL5K8RLG', 'user_id': 'U058V5QTW12', \n      'file': {'id': 'F05BL5K8RLG'}, 'channel_id': 'C0595A85N4R', 'event_ts': '1685914835.005200'}, \n      FileEvent(type=EventType.FILE_SHARED, file_id='F05BL5K8RLG', user_id=\"U058V5QTW12\", file=FileDetails(id=\"F05BL5K8RLG\"), channel_id=\"C0595A85N4R\", event_ts=\"1685914835.005200\"),\n      FileInfo(id='F05BL5K8RLG', created=1685914831, timestamp=datetime.datetime(2023, 6, 4, 21, 40, 31, tzinfo=datetime.timezone.utc), name='audio_message.webm', title='audio_message.webm', mimetype=MimeType.AUDIO_WEBM, filetype=FileType.WEBM, pretty_type='WebM', user='U058V5QTW12', user_team='T058PNE2HKP', editable=False, size=137519, mode=FileMode.HOSTED, is_external=False, external_type='', is_public=True, public_url_shared=False, display_as_bot=False, username='', subtype=FileSubType.SLACK_AUDIO, transcription=Transcription(status=TranscriptionStatus.COMPLETE, locale=Locale.EN_US, preview=Preview(content='Back to just, you know, the work flow here really quick. This is a great starting point. And then after this way you can do, you can have another.', has_more=False)),\n                duration_ms=8458, \n                url_private='https://files.slack.com/files-tmb/T058PNE2HKP-F05BL5K8RLG-c298d7bc9c/audio_message_audio.mp4',",
+        "detail": "tests.slackbot.parsing.test_parsing",
+        "documentation": {}
+    },
+    {
+        "label": "test_file_shared_event",
+        "kind": 2,
+        "importPath": "tests.slackbot.parsing.test_parsing",
+        "description": "tests.slackbot.parsing.test_parsing",
+        "peekOfCode": "def test_file_shared_event(event_in: dict, expected: FileEvent, expected_file_info: FileInfo, web_client: WebClient):\n    actual: FileEvent = FileEvent(**event_in)\n    assert actual == expected, repr(actual)\n    # actual_file_info = actual.file_info(web_client)\n    # assert actual_file_info == expected_file_info",
+        "detail": "tests.slackbot.parsing.test_parsing",
+        "documentation": {}
+    },
+    {
+        "label": "client",
+        "kind": 2,
+        "importPath": "tests.slackbot.test_flaskapp",
+        "description": "tests.slackbot.test_flaskapp",
+        "peekOfCode": "def client():\n    app.flask_app.config['TESTING'] = True\n    with app.flask_app.test_client() as client:\n        yield client\ndef test_hello_world(client):\n    response = client.get('/hello')\n    # assert response.data == b'Hello, World!'",
+        "detail": "tests.slackbot.test_flaskapp",
+        "documentation": {}
+    },
+    {
+        "label": "test_hello_world",
+        "kind": 2,
+        "importPath": "tests.slackbot.test_flaskapp",
+        "description": "tests.slackbot.test_flaskapp",
+        "peekOfCode": "def test_hello_world(client):\n    response = client.get('/hello')\n    # assert response.data == b'Hello, World!'",
+        "detail": "tests.slackbot.test_flaskapp",
         "documentation": {}
     },
     {
@@ -978,141 +1651,6 @@
         "description": "youtube.youtube_llm",
         "peekOfCode": "query = \"What are they saying about Microsoft?\"\nresponse, docs = get_response_from_query(db, query)\nprint(textwrap.fill(response, width=85))",
         "detail": "youtube.youtube_llm",
-        "documentation": {}
-    },
-    {
-        "label": "require_slack_verification",
-        "kind": 2,
-        "importPath": "app",
-        "description": "app",
-        "peekOfCode": "def require_slack_verification(f):\n    @wraps(f)\n    def decorated_function(*args, **kwargs):\n        if not verify_slack_request():\n            abort(403)\n        return f(*args, **kwargs)\n    return decorated_function\ndef verify_slack_request():\n    # Get the request headers\n    timestamp = request.headers.get(\"X-Slack-Request-Timestamp\", \"\")",
-        "detail": "app",
-        "documentation": {}
-    },
-    {
-        "label": "verify_slack_request",
-        "kind": 2,
-        "importPath": "app",
-        "description": "app",
-        "peekOfCode": "def verify_slack_request():\n    # Get the request headers\n    timestamp = request.headers.get(\"X-Slack-Request-Timestamp\", \"\")\n    signature = request.headers.get(\"X-Slack-Signature\", \"\")\n    # Check if the timestamp is within five minutes of the current time\n    current_timestamp = int(time.time())\n    if abs(current_timestamp - int(timestamp)) > 60 * 5:\n        return False\n    # Verify the request signature\n    return signature_verifier.is_valid(",
-        "detail": "app",
-        "documentation": {}
-    },
-    {
-        "label": "get_bot_user_id",
-        "kind": 2,
-        "importPath": "app",
-        "description": "app",
-        "peekOfCode": "def get_bot_user_id():\n    \"\"\"\n    Get the bot user ID using the Slack API.\n    Returns:\n        str: The bot user ID.\n    \"\"\"\n    try:\n        # Initialize the Slack client with your bot token\n        slack_client = WebClient(token=os.environ[\"SLACK_BOT_TOKEN\"])\n        response = slack_client.auth_test()",
-        "detail": "app",
-        "documentation": {}
-    },
-    {
-        "label": "my_function",
-        "kind": 2,
-        "importPath": "app",
-        "description": "app",
-        "peekOfCode": "def my_function(text):\n    \"\"\"\n    Custom function to process the text and return a response.\n    In this example, the function converts the input text to uppercase.\n    Args:\n        text (str): The input text to process.\n    Returns:\n        str: The processed text.\n    \"\"\"\n    response = text.upper()",
-        "detail": "app",
-        "documentation": {}
-    },
-    {
-        "label": "handle_mentions",
-        "kind": 2,
-        "importPath": "app",
-        "description": "app",
-        "peekOfCode": "def handle_mentions(body, say):\n    \"\"\"\n    Event listener for mentions in Slack.\n    When the bot is mentioned, this function processes the text and sends a response.\n    Args:\n        body (dict): The event data received from Slack.\n        say (callable): A function for sending a response to the channel.\n    \"\"\"\n    text = body[\"event\"][\"text\"]\n    mention = f\"<@{SLACK_BOT_USER_ID}>\"",
-        "detail": "app",
-        "documentation": {}
-    },
-    {
-        "label": "slack_events",
-        "kind": 2,
-        "importPath": "app",
-        "description": "app",
-        "peekOfCode": "def slack_events():\n    \"\"\"\n    Route for handling Slack events.\n    This function passes the incoming HTTP request to the SlackRequestHandler for processing.\n    Returns:\n        Response: The result of handling the request.\n    \"\"\"\n    return handler.handle(request)\n# Run the Flask app\nif __name__ == \"__main__\":",
-        "detail": "app",
-        "documentation": {}
-    },
-    {
-        "label": "SLACK_BOT_TOKEN",
-        "kind": 5,
-        "importPath": "app",
-        "description": "app",
-        "peekOfCode": "SLACK_BOT_TOKEN = os.environ[\"SLACK_BOT_TOKEN\"]\nSLACK_SIGNING_SECRET = os.environ[\"SLACK_SIGNING_SECRET\"]\nSLACK_BOT_USER_ID = os.environ[\"SLACK_BOT_USER_ID\"]\n# Initialize the Slack app\napp = App(token=SLACK_BOT_TOKEN)\n# Initialize the Flask app\n# Flask is a web application framework written in Python\nflask_app = Flask(__name__)\nhandler = SlackRequestHandler(app)\nsignature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)",
-        "detail": "app",
-        "documentation": {}
-    },
-    {
-        "label": "SLACK_SIGNING_SECRET",
-        "kind": 5,
-        "importPath": "app",
-        "description": "app",
-        "peekOfCode": "SLACK_SIGNING_SECRET = os.environ[\"SLACK_SIGNING_SECRET\"]\nSLACK_BOT_USER_ID = os.environ[\"SLACK_BOT_USER_ID\"]\n# Initialize the Slack app\napp = App(token=SLACK_BOT_TOKEN)\n# Initialize the Flask app\n# Flask is a web application framework written in Python\nflask_app = Flask(__name__)\nhandler = SlackRequestHandler(app)\nsignature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)\ndef require_slack_verification(f):",
-        "detail": "app",
-        "documentation": {}
-    },
-    {
-        "label": "SLACK_BOT_USER_ID",
-        "kind": 5,
-        "importPath": "app",
-        "description": "app",
-        "peekOfCode": "SLACK_BOT_USER_ID = os.environ[\"SLACK_BOT_USER_ID\"]\n# Initialize the Slack app\napp = App(token=SLACK_BOT_TOKEN)\n# Initialize the Flask app\n# Flask is a web application framework written in Python\nflask_app = Flask(__name__)\nhandler = SlackRequestHandler(app)\nsignature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)\ndef require_slack_verification(f):\n    @wraps(f)",
-        "detail": "app",
-        "documentation": {}
-    },
-    {
-        "label": "app",
-        "kind": 5,
-        "importPath": "app",
-        "description": "app",
-        "peekOfCode": "app = App(token=SLACK_BOT_TOKEN)\n# Initialize the Flask app\n# Flask is a web application framework written in Python\nflask_app = Flask(__name__)\nhandler = SlackRequestHandler(app)\nsignature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)\ndef require_slack_verification(f):\n    @wraps(f)\n    def decorated_function(*args, **kwargs):\n        if not verify_slack_request():",
-        "detail": "app",
-        "documentation": {}
-    },
-    {
-        "label": "flask_app",
-        "kind": 5,
-        "importPath": "app",
-        "description": "app",
-        "peekOfCode": "flask_app = Flask(__name__)\nhandler = SlackRequestHandler(app)\nsignature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)\ndef require_slack_verification(f):\n    @wraps(f)\n    def decorated_function(*args, **kwargs):\n        if not verify_slack_request():\n            abort(403)\n        return f(*args, **kwargs)\n    return decorated_function",
-        "detail": "app",
-        "documentation": {}
-    },
-    {
-        "label": "handler",
-        "kind": 5,
-        "importPath": "app",
-        "description": "app",
-        "peekOfCode": "handler = SlackRequestHandler(app)\nsignature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)\ndef require_slack_verification(f):\n    @wraps(f)\n    def decorated_function(*args, **kwargs):\n        if not verify_slack_request():\n            abort(403)\n        return f(*args, **kwargs)\n    return decorated_function\ndef verify_slack_request():",
-        "detail": "app",
-        "documentation": {}
-    },
-    {
-        "label": "signature_verifier",
-        "kind": 5,
-        "importPath": "app",
-        "description": "app",
-        "peekOfCode": "signature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)\ndef require_slack_verification(f):\n    @wraps(f)\n    def decorated_function(*args, **kwargs):\n        if not verify_slack_request():\n            abort(403)\n        return f(*args, **kwargs)\n    return decorated_function\ndef verify_slack_request():\n    # Get the request headers",
-        "detail": "app",
-        "documentation": {}
-    },
-    {
-        "label": "draft_email",
-        "kind": 2,
-        "importPath": "functions",
-        "description": "functions",
-        "peekOfCode": "def draft_email(user_input, name=\"Dave\"):\n    chat = ChatOpenAI(model_name=\"gpt-3.5-turbo\", temperature=1)\n    template = \"\"\"\n    You are a helpful assistant that drafts an email reply based on an a new email.\n    Your goal is to help the user quickly create a perfect email reply.\n    Keep your reply short and to the point and mimic the style of the email so you reply in a similar manner to match the tone.\n    Start your reply by saying: \"Hi {name}, here's a draft for your reply:\". And then proceed with the reply on a new line.\n    Make sure to sign of with {signature}.\n    \"\"\"\n    signature = f\"Kind regards, \\n\\{name}\"",
-        "detail": "functions",
-        "documentation": {}
-    },
-    {
-        "label": "more_clever",
-        "kind": 2,
-        "importPath": "functions",
-        "description": "functions",
-        "peekOfCode": "def more_clever(user_input):\n    gmail_toolkit = GmailToolkit()\n    llm = OpenAI(temperature=0)\n    agent = initialize_agent(llm=llm, tools=gmail_toolkit, agent=AgentType.STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION)\n    response = agent.run(user_input)\n    return response\n# The AgentType enum defines the different types of agents that can be created. The following are the descriptions of each type of agent:\n# ZERO_SHOT_REACT_DESCRIPTION - This type of agent can generate text in response to a prompt, even if it has never seen the prompt before.\n# REACT_DOCSTORE - This type of agent can generate text in response to a prompt, and it can also access and use information from a document store.\n# SELF_ASK_WITH_SEARCH - This type of agent can generate text in response to a prompt, and it can also ask itself questions and search for information to answer those questions.",
-        "detail": "functions",
         "documentation": {}
     }
 ]

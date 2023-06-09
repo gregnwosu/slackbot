@@ -1,3 +1,5 @@
+
+from slackbot.parsing.slackapi import FileEvent, FileInfo
 import os
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
@@ -133,8 +135,7 @@ def handle_file_created(body, say):
 #     #print(f"File Transcription status is : {file_info.transcription=}")
 #     #logger.warn(f"File Transcription status is : {file_info.transcription=}")
 
-    
-from slackbot.parsing.slackapi import FileEvent, FileInfo
+
 @app.event("file_change")
 def handle_file_changed(body, say):
     """
@@ -152,7 +153,7 @@ def handle_file_changed(body, say):
     file_info: FileInfo = file_event.file_info(cached_slack_client())
     logger.warn(f"File Changed: Calling with {file_info=}")
     logger.warn(f"File Changed: File Info {file_info}")
-    say(f"File Changed: {file_info.transcription=}", channel=file_info.channels[0])
+    say(f"File Changed: {file_info=}", channel=file_info.channels[0])
 
    
     
