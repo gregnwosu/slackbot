@@ -9,7 +9,7 @@ from slack_bolt.adapter.flask import SlackRequestHandler
 from slack_bolt import App
 import slack_bolt
 from dotenv import find_dotenv, load_dotenv
-from quart import Quart, request, abort
+from flask import Flask, request, abort
 from functions import draft_email
 import logging
 from functools import lru_cache, wraps
@@ -49,8 +49,8 @@ slack_app = slack_bolt.App(token=SLACK_BOT_TOKEN)
 signature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)
 
 # Initialize the Flask app
-quart_app = Quart(__name__)
-quart_app.logger.setLevel(logging.INFO)
+flask_app = Flask(__name__)
+flask_app.logger.setLevel(logging.INFO)
 handler = SlackRequestHandler(slack_app)
 
 
@@ -180,7 +180,7 @@ async def handle_mentions(body, say):
 
 
 # Demo
-@quart_app.route("/slack/events", methods=["POST"])
+@flask_app.route("/slack/events", methods=["POST"])
 @require_slack_verification
 async def slack_events():
     """
@@ -197,6 +197,6 @@ async def slack_events():
 # Run the Flask app
 if __name__ == "__main__":
     logging.info("Flask app started")
-    quart_app.run(host="0.0.0.0", port=8000)
+    flask_app.run(host="0.0.0.0", port=8000)
 
 
