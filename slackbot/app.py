@@ -91,7 +91,7 @@ async def cached_slack_client() -> AsyncWebClient:
 
 @cached(
     ttl=200, cache=Cache.MEMORY,  serializer=PickleSerializer())
-def get_app_mention_for_file_info_id(file_info_id: str) -> str:
+async def get_app_mention_for_file_info_id(file_info_id: str) -> str:
      raise ValueError(f" text for {file_info_id} Not in cache")
 
 def get_bot_user_id():
