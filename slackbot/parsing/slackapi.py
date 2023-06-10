@@ -88,7 +88,7 @@ class FileEvent(pydantic.BaseModel):
     def convert_to_event_type(cls, value):
         return EventType(value)
     
-    def file_info(self, web_client: WebClient):
+    def file_info(self, web_client: WebClient) -> "FileInfo":
         response = web_client.files_info(file=self.file_id)
         assert response["ok"], f"Slack API call failed with error: {response['error']}"
         return FileInfo(**response["file"])
