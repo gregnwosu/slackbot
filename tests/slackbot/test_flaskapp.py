@@ -5,9 +5,9 @@ import pytest
 
 @pytest.fixture
 def client():
-    app.flask_app.config['TESTING'] = True
+    app.slack_app.config['TESTING'] = True
 
-    with app.flask_app.test_client() as client:
+    with app.slack_app.test_client() as client:
         yield client
 
 
