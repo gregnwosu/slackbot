@@ -185,6 +185,6 @@ async def slack_events(request: Request, ):
 if __name__ == "__main__":
     import uvicorn
     logging.info("Flask app started")
-    uvicorn.run("slackbot.app:fastapi_app", host="0.0.0.0", port=8000, reload=True, log_level="INFO")
+    uvicorn.run("slackbot.app:api", host="0.0.0.0", port=8000, reload=True, log_level="INFO")
 
 
