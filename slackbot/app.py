@@ -5,7 +5,7 @@ from slack_sdk import WebClient
 from slack_sdk.web.async_client import AsyncWebClient
 from slack_sdk.errors import SlackApiError
 from slack_sdk.signature import SignatureVerifier
-from slack_bolt.adapter.flask import SlackRequestHandler
+
 from slack_bolt import App
 from slack_bolt.async_app import AsyncApp
 from slack_bolt.adapter.fastapi.async_handler import AsyncSlackRequestHandler
@@ -53,7 +53,7 @@ signature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)
 
 # Initialize the Flask app
 fastapi_app: FastAPI= FastAPI()
-fastapi_app.logger.setLevel(logging.INFO)
+
 handler = AsyncSlackRequestHandler(slack_app)
 
 
@@ -108,7 +108,7 @@ async def get_bot_user_id():
     try:
         # Initialize the Slack client with your bot token
         slack_client = await cached_slack_client()
-        response = slack_client.auth_test()
+        response = await slack_client.auth_test()
         return response["user_id"]
     except SlackApiError as e:
         print(f"Error: {e}")
