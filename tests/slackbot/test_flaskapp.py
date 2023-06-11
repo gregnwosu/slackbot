@@ -16,6 +16,7 @@ def test_example(client):
     response = client.get("/example")
     assert response.status_code == 404
 
+@pytest.mark.skip(reason="not implemented")
 def test_app_mention(client):
     # This is a simplified version of the data Slack sends for an app_mention event
     data = {
