@@ -7,9 +7,12 @@ from slack_sdk.errors import SlackApiError
 from slack_sdk.signature import SignatureVerifier
 from slack_bolt.adapter.flask import SlackRequestHandler
 from slack_bolt import App
+from slack_bolt.async_app import AsyncApp
+from slack_bolt.adapter.fastapi.async_handler import AsyncSlackRequestHandler
+from fastapi import FastAPI, Request, HTTPException
 import slack_bolt
 from dotenv import find_dotenv, load_dotenv
-from flask import Flask, request, abort
+
 from functions import draft_email
 import logging
 from functools import lru_cache, wraps
@@ -45,13 +48,13 @@ SLACK_SIGNING_SECRET = os.environ["SLACK_SIGNING_SECRET"]
 SLACK_BOT_USER_ID = os.environ["SLACK_BOT_USER_ID"]
 
 # Initialize the Slack app
-slack_app = slack_bolt.App(token=SLACK_BOT_TOKEN)
+slack_app = AsyncApp(token=SLACK_BOT_TOKEN)
 signature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)
 
 # Initialize the Flask app
-flask_app = Flask(__name__)
-flask_app.logger.setLevel(logging.INFO)
-handler = SlackRequestHandler(slack_app)
+fastapi_app: FastAPI= FastAPI()
+fastapi_app.logger.setLevel(logging.INFO)
+handler = AsyncSlackRequestHandler(slack_app)
 
 
 def require_slack_verification(f):
@@ -64,7 +67,7 @@ def require_slack_verification(f):
     return decorated_function
 
 
-def verify_slack_request():
+async def verify_slack_request(request:Request):
     # Get the request headers
     timestamp = request.headers.get("X-Slack-Request-Timestamp", "")
     signature = request.headers.get("X-Slack-Signature", "")
@@ -72,14 +75,16 @@ def verify_slack_request():
     # Check if the timestamp is within five minutes of the current time
     current_timestamp = int(time.time())
     if abs(current_timestamp - int(timestamp)) > 60 * 5:
-        return False
+        raise HTTPException(status_code=403)
 
+    body=await request.body()
     # Verify the request signature
-    return signature_verifier.is_valid(
-        body=request.get_data().decode("utf-8"),
+    if not signature_verifier.is_valid(
+        body=body.decode("utf-8"),
         timestamp=timestamp,
         signature=signature,
-    )
+    ):
+        raise HTTPException(status_code=403)
 
 @cached(
     ttl=200, cache=Cache.MEMORY,  serializer=PickleSerializer())
@@ -94,7 +99,7 @@ async def cached_slack_client() -> AsyncWebClient:
 async def get_app_mention_for_file_info_id(file_info_id: str) -> str:
      raise ValueError(f" text for {file_info_id} Not in cache")
 
-def get_bot_user_id():
+async def get_bot_user_id():
     """
     Get the bot user ID using the Slack API.
     Returns:
@@ -102,7 +107,7 @@ def get_bot_user_id():
     """
     try:
         # Initialize the Slack client with your bot token
-        slack_client = cached_slack_client()
+        slack_client = await cached_slack_client()
         response = slack_client.auth_test()
         return response["user_id"]
     except SlackApiError as e:
@@ -148,7 +153,7 @@ async def handle_file_changed(body, say) -> None:
     file_info: FileInfo = file_event.file_info(cached_slack_client())
     logger.warn(f"File Changed: Calling with {file_info=}")
     logger.warn(f"File Changed: File Info {file_info}")
-    say(f"File Changed: {file_info=}", channel=file_info.channels[0])
+    await say(f"File Changed: {file_info=}", channel=file_info.channels[0])
 
    
     
@@ -171,16 +176,16 @@ async def handle_mentions(body, say):
     text = text.replace(mention, "").strip()
     logging.info("Received text: " + text.replace("\n", " "))
 
-    say("Sure, I'll get right on that!")
-    say(f"{body=}")
+    await say("Sure, I'll get right on that!")
+    await say(f"{body=}")
     response = draft_email(text)
     logging.info("Generated response: " + response.replace("\n", " "))
-    say(response)
-    say(body)
+    await say(response)
+    await say(body)
 
 
 # Demo
-@flask_app.route("/slack/events", methods=["POST"])
+@fastapi_app.route("/slack/events", methods=["POST"])
 @require_slack_verification
 def slack_events():
     """
@@ -196,7 +201,8 @@ def slack_events():
 
 # Run the Flask app
 if __name__ == "__main__":
+    import uvicorn
     logging.info("Flask app started")
-    flask_app.run(host="0.0.0.0", port=8000)
+    uvicorn.run("main:fastapi_app", host="0.0.0.0", port=8000)
 
 

@@ -10,7 +10,9 @@ beautifulsoup4
 aiocache
 requests
 types-requests
-flask[async]
+#flask[async]
+uvicorn
+fastapi
 # needed for voice
 soundfile
 keyboard
@@ -18,4 +20,4 @@ elevenlabs
 # tests
 pytest
 pytest-cov
-pytest-flask 
+#pytest-flask 
