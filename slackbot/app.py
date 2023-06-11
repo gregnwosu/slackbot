@@ -192,10 +192,10 @@ async def slack_events(request: Request, _:Any):
     return await handler.handle(request)
 #https://api.slack.com/types/file#authentication
 
-# Run the Flask app
+# Run the fastapi app
 if __name__ == "__main__":
     import uvicorn
     logging.info("Flask app started")
-    uvicorn.run("main:fastapi_app", host="0.0.0.0", port=8000)
+    uvicorn.run("slackbot.app:fastapi_app", host="0.0.0.0", port=8000)
 
 
