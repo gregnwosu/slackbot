@@ -76,7 +76,7 @@ def verify_slack_request():
 
     # Verify the request signature
     return signature_verifier.is_valid(
-        body=requests.get_data().decode("utf-8"),
+        body=request.get_data().decode("utf-8"),
         timestamp=timestamp,
         signature=signature,
     )
