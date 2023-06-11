@@ -182,7 +182,7 @@ async def handle_mentions(body, say):
 # Demo
 @flask_app.route("/slack/events", methods=["POST"])
 @require_slack_verification
-async def slack_events():
+def slack_events():
     """
     Route for handling Slack events.
     This function passes the incoming HTTP request to the SlackRequestHandler for processing.
