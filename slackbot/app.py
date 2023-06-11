@@ -58,14 +58,14 @@ fastapi_app: FastAPI= FastAPI()
 handler = AsyncSlackRequestHandler(slack_app)
 
 
-def require_slack_verification(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if not verify_slack_request():
-            abort(403)
-        return f(*args, **kwargs)
+# def require_slack_verification(f):
+#     @wraps(f)
+#     def decorated_function(*args, **kwargs):
+#         if not await verify_slack_request():
+#             abort(403)
+#         return f(*args, **kwargs)
 
-    return decorated_function
+#     return decorated_function
 
 
 async def verify_slack_request(request:Request):

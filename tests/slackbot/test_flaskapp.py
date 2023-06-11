@@ -36,6 +36,11 @@ def test_app_mention(client):
         "authed_users": ["U0MJRG1AL"]
     }
 
+
+    data = {'token': 'waNounRnAWVeA53FlYyaPaP8', 'team_id': 'T058PNE2HKP', 'context_team_id': 'T058PNE2HKP', 'context_enterprise_id': None, 'api_app_id': 'A058SM2MXS6', 
+ 'event': {'type': 'file_change', 'file_id': 'F05BEHD7BRT', 'user_id': 'U058V5QTW12', 'file': {'id': 'F05BEHD7BRT'}, 'event_ts': '1686181314.046100'}, 'type': 'event_callback', 'event_id': 'Ev05BHBXRXNF', 'event_time': 1686181314, 'authorizations': [{'enterprise_id': None, 'team_id': 'T058PNE2HKP', 'user_id': 'U058V6AG10C', 'is_bot': True, 'is_enterprise_install': False}], 'is_ext_shared_channel': False, 'event_context': '4-eyJldCI6ImZpbGVfY2hhbmdlIiwidGlkIjoiVDA1OFBORTJIS1AiLCJhaWQiOiJBMDU4U00yTVhTNiIsImZpZCI6IkYwNUJFSEQ3QlJUIn0'}
+
+
     response = client.post("/slack/events", data=json.dumps(data), headers={"Content-Type": "application/json"})
 
     assert response.status_code == 200
