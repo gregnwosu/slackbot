@@ -11,14 +11,16 @@ aiocache
 requests
 types-requests
 #flask[async]
-uvicorn
-fastapi
+
+slack_bolt
+aiohttp
 # needed for voice
 soundfile
 keyboard
 elevenlabs
+
+
 # tests
 pytest
 pytest-cov
-starlette
-httpx
+

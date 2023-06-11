@@ -8,7 +8,7 @@ from starlette.testclient import TestClient
 
 @pytest.fixture
 def client():
-    with TestClient(app.fastapi_app) as client:
+    with TestClient(lambda _: app.app) as client:
         yield client
 
 

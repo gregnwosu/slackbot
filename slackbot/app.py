@@ -49,13 +49,13 @@ SLACK_SIGNING_SECRET = os.environ["SLACK_SIGNING_SECRET"]
 SLACK_BOT_USER_ID = os.environ["SLACK_BOT_USER_ID"]
 
 # Initialize the Slack app
-slack_app = AsyncApp(token=SLACK_BOT_TOKEN)
+app = AsyncApp(token=SLACK_BOT_TOKEN)
 signature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)
 
 # Initialize the Flask app
-fastapi_app: FastAPI= FastAPI()
+api: FastAPI= FastAPI()
 
-handler = AsyncSlackRequestHandler(slack_app)
+handler = AsyncSlackRequestHandler(app)
 
 
 # def require_slack_verification(f):
@@ -90,9 +90,9 @@ async def verify_slack_request(request:Request):
 #@cached(
 #    ttl=200, cache=Cache.MEMORY,  serializer=PickleSerializer())
 @functools.lru_cache(maxsize=1)
-def cached_slack_client() -> AsyncWebClient:
+async def cached_slack_client() -> AsyncWebClient:
      slack_client: AsyncWebClient = AsyncWebClient(token=os.environ["SLACK_BOT_TOKEN"])
-     #await slack_client.auth_test()
+     await slack_client.auth_test()
      return slack_client
 
 
@@ -116,30 +116,19 @@ async def get_bot_user_id():
         print(f"Error: {e}")
 
 
-def my_function(text):
-    """
-    Custom function to process the text and return a response.
-    In this example, the function converts the input text to uppercase.
-
-    Args:
-        text (str): The input text to process.
-
-    Returns:
-        str: The processed text.
-    """
-    return text.upper()
 
 
 
 
-@slack_app.event("file_created")
+
+@app.event("file_created")
 async def handle_file_created(body, say):
     """ downloads the file transcribes it and sends it back to the user"""
     print(f"File Created:, I'll get right on that! {body=}")
     logger.warn(f"File Created:, I'll get right on that! {body=}")
 
 
-@slack_app.event("file_change")
+@app.event("file_change")
 async def handle_file_changed(body, say) -> None:
     """
     Event listener for file changes in Slack.
@@ -162,7 +151,7 @@ async def handle_file_changed(body, say) -> None:
 
     
 
-@slack_app.event("app_mention")
+@app.event("app_mention")
 async def handle_mentions(body, say):
     """
     Event listener for mentions in Slack.
@@ -187,8 +176,8 @@ async def handle_mentions(body, say):
 
 
 # Demo
-@fastapi_app.post("/slack/events")
-async def slack_events(request: Request, _:Any):
+@api.post("/slack/events")
+async def slack_events(request: Request, ):
     return await handler.handle(request)
 #https://api.slack.com/types/file#authentication
 
@@ -196,6 +185,6 @@ async def slack_events(request: Request, _:Any):
 if __name__ == "__main__":
     import uvicorn
     logging.info("Flask app started")
-    uvicorn.run("slackbot.app:fastapi_app", host="0.0.0.0", port=8000)
+    uvicorn.run("slackbot.app:fastapi_app", host="0.0.0.0", port=8000, reload=True, log_level="INFO")
 
 
