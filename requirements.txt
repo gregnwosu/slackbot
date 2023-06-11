@@ -3,11 +3,14 @@ langchain
 openai
 slack-sdk
 slack-bolt
-Flask
 google-api-python-client
 google-auth-oauthlib
 google-auth-httplib2
 beautifulsoup4
+aiocache
+requests
+types-requests
+flask[async]
 # needed for voice
 soundfile
 keyboard
