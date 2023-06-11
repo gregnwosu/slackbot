@@ -5,10 +5,9 @@ import json
 
 from starlette.testclient import TestClient
 
-
 @pytest.fixture
 def client():
-    with TestClient(lambda _: app.app) as client:
+    with TestClient( app.api) as client:
         yield client
 
 
