@@ -14,6 +14,7 @@ types-requests
 fastapi
 slack_bolt
 aiohttp
+httpx
 # needed for voice
 soundfile
 keyboard
