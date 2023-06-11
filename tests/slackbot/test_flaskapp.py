@@ -3,15 +3,16 @@ from slackbot import app
 import pytest
 
 
+from starlette.testclient import TestClient
+
+
 @pytest.fixture
 def client():
-    app.fastapi_app.config['TESTING'] = True
-
-    with app.fastapi_app.test_client() as client:
+    with TestClient(app.fastapi_app) as client:
         yield client
 
 
 
-def test_hello_world(client):
-    response = client.get('/hello')
-    # assert response.data == b'Hello, World!'
+def test_example(client):
+    response = client.get("/example")
+    assert response.status_code == 404

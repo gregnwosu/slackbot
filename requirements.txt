@@ -20,4 +20,5 @@ elevenlabs
 # tests
 pytest
 pytest-cov
-#pytest-flask 
+starlette
+httpx
