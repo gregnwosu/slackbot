@@ -23,6 +23,7 @@ from aiocache import cached, Cache
 from aiocache.serializers import PickleSerializer
 import sys
 import requests
+from typing import Any
 
 from slackbot.parsing.slackapi import FileInfo, FileEvent
 
@@ -185,18 +186,9 @@ async def handle_mentions(body, say):
 
 
 # Demo
-@fastapi_app.route("/slack/events", methods=["POST"])
-@require_slack_verification
-def slack_events():
-    """
-    Route for handling Slack events.
-    This function passes the incoming HTTP request to the SlackRequestHandler for processing.
-
-    Returns:
-        Response: The result of handling the request.
-    """
-
-    return handler.handle(request)
+@fastapi_app.post("/slack/events")
+async def slack_events(request: Request, _:Any):
+    return await handler.handle(request)
 #https://api.slack.com/types/file#authentication
 
 # Run the Flask app
