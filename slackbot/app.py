@@ -49,13 +49,13 @@ SLACK_SIGNING_SECRET = os.environ["SLACK_SIGNING_SECRET"]
 SLACK_BOT_USER_ID = os.environ["SLACK_BOT_USER_ID"]
 
 # Initialize the Slack app
-app = AsyncApp(token=SLACK_BOT_TOKEN,
-               signing_secret=SLACK_SIGNING_SECRET)
-
-
+app = AsyncApp(token=SLACK_BOT_TOKEN)
 signature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)
 
+# Initialize the Flask app
+api: FastAPI= FastAPI()
 
+handler = AsyncSlackRequestHandler(app)
 
 
 # def require_slack_verification(f):
@@ -90,9 +90,9 @@ async def verify_slack_request(request:Request):
 #@cached(
 #    ttl=200, cache=Cache.MEMORY,  serializer=PickleSerializer())
 @functools.lru_cache(maxsize=1)
-def cached_slack_client() -> AsyncWebClient:
+async def cached_slack_client() -> AsyncWebClient:
      slack_client: AsyncWebClient = AsyncWebClient(token=os.environ["SLACK_BOT_TOKEN"])
-    
+     await slack_client.auth_test()
      return slack_client
 
 
@@ -110,7 +110,6 @@ async def get_bot_user_id():
     try:
         # Initialize the Slack client with your bot token
         slack_client = await cached_slack_client()
-        await slack_client.auth_test()
         response = await slack_client.auth_test()
         return response["user_id"]
     except SlackApiError as e:
@@ -142,9 +141,7 @@ async def handle_file_changed(body, say) -> None:
     print(f"File Changed:, I'll get right on that! {body=}")
     logger.warn(f"File Changed:, I'll get right on that! {body=}")
     file_event: FileEvent = FileEvent(**body["event"])
-    slack_client =  cached_slack_client()
-    await slack_client.auth_test()
-    file_info: FileInfo = await file_event.file_info(slack_client)
+    file_info: FileInfo = file_event.file_info(cached_slack_client())
     logger.warn(f"File Changed: Calling with {file_info=}")
     logger.warn(f"File Changed: File Info {file_info}")
     await say(f"File Changed: {file_info=}", channel=file_info.channels[0])
@@ -164,7 +161,6 @@ async def handle_mentions(body, say):
         body (dict): The event data received from Slack.
         say (callable): A function for sending a response to the channel.
     """
-    print(f"App Mentioned:, I'll get right on that! {body['event']}")
     text = body["event"]["text"]
     logging.info(body)
     mention = f"<@{SLACK_BOT_USER_ID}>"
@@ -179,10 +175,16 @@ async def handle_mentions(body, say):
     await say(body)
 
 
-
+# Demo
+@api.post("/slack/events")
+async def slack_events(request: Request, ):
+    return await handler.handle(request)
+#https://api.slack.com/types/file#authentication
 
 # Run the fastapi app
 if __name__ == "__main__":
-    app.start(port=8000)
+    import uvicorn
+    logging.info("Flask app started")
+    uvicorn.run("slackbot.app:api", host="0.0.0.0", port=8000, reload=True, log_level="INFO")
 
 
