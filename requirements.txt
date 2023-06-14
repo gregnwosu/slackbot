@@ -24,4 +24,5 @@ elevenlabs
 # tests
 pytest
 pytest-cov
+pytest-asyncio
 starlette
