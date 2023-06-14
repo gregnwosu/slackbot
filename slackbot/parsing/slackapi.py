@@ -8,7 +8,8 @@ from urllib.parse import urlparse
 from urllib.parse import ParseResult    
 from logging import Logger
 logger = Logger(__name__)
-from slack_sdk.web.async_client import AsyncWebClient
+from slack_sdk import WebClient
+
 #AppMentionData
 
 class EventType(Enum):
@@ -87,8 +88,8 @@ class FileEvent(pydantic.BaseModel):
     def convert_to_event_type(cls, value):
         return EventType(value)
     
-    async def file_info(self, web_client: AsyncWebClient) -> "FileInfo":
-        response = await web_client.files_info(file=self.file_id)
+    def file_info(self, web_client: WebClient) -> "FileInfo":
+        response = web_client.files_info(file=self.file_id)
         assert response["ok"], f"Slack API call failed with error: {response['error']}"
         return FileInfo(**response["file"])
 
