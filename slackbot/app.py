@@ -70,24 +70,24 @@ api: FastAPI= FastAPI()
 #     return decorated_function
 
 
-async def verify_slack_request(request:Request):
-    # Get the request headers
-    timestamp = request.headers.get("X-Slack-Request-Timestamp", "")
-    signature = request.headers.get("X-Slack-Signature", "")
+# async def verify_slack_request(request:Request):
+#     # Get the request headers
+#     timestamp = request.headers.get("X-Slack-Request-Timestamp", "")
+#     signature = request.headers.get("X-Slack-Signature", "")
 
-    # Check if the timestamp is within five minutes of the current time
-    current_timestamp = int(time.time())
-    if abs(current_timestamp - int(timestamp)) > 60 * 5:
-        raise HTTPException(status_code=403)
+#     # Check if the timestamp is within five minutes of the current time
+#     current_timestamp = int(time.time())
+#     if abs(current_timestamp - int(timestamp)) > 60 * 5:
+#         raise HTTPException(status_code=403)
 
-    body=await request.body()
-    # Verify the request signature
-    if not signature_verifier.is_valid(
-        body=body.decode("utf-8"),
-        timestamp=timestamp,
-        signature=signature,
-    ):
-        raise HTTPException(status_code=403)
+#     body=await request.body()
+#     # Verify the request signature
+#     if not signature_verifier.is_valid(
+#         body=body.decode("utf-8"),
+#         timestamp=timestamp,
+#         signature=signature,
+#     ):
+#         raise HTTPException(status_code=403)
 
 #@cached(
 #    ttl=200, cache=Cache.MEMORY,  serializer=PickleSerializer())
