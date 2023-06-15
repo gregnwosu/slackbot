@@ -5,7 +5,7 @@ from slack_sdk import WebClient
 from slack_sdk.web.async_client import AsyncWebClient
 from slack_sdk.errors import SlackApiError
 from slack_sdk.signature import SignatureVerifier
-
+from fastapi import FastAPI, Request, Response
 from slack_bolt import App
 from slack_bolt.async_app import AsyncApp
 from slack_bolt.adapter.fastapi.async_handler import AsyncSlackRequestHandler
@@ -19,8 +19,8 @@ from functools import lru_cache, wraps
 import time
 import asyncio
 import functools
-from aiocache import cached, Cache
-from aiocache.serializers import PickleSerializer
+# from aiocache import cached, Cache
+# from aiocache.serializers import PickleSerializer
 import sys
 import requests
 from typing import Any
@@ -49,13 +49,15 @@ SLACK_SIGNING_SECRET = os.environ["SLACK_SIGNING_SECRET"]
 SLACK_BOT_USER_ID = os.environ["SLACK_BOT_USER_ID"]
 
 # Initialize the Slack app
-app = AsyncApp(token=SLACK_BOT_TOKEN)
-signature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)
+app = AsyncApp(token=SLACK_BOT_TOKEN,
+               signing_secret = SLACK_SIGNING_SECRET)
+
+
+
 
 # Initialize the Flask app
 api: FastAPI= FastAPI()
 
-handler = AsyncSlackRequestHandler(app)
 
 
 # def require_slack_verification(f):
@@ -161,8 +163,8 @@ async def handle_mentions(body, say):
         body (dict): The event data received from Slack.
         say (callable): A function for sending a response to the channel.
     """
-    text = body["event"]["text"]
     logging.info(body)
+    text = body["event"]["text"]
     mention = f"<@{SLACK_BOT_USER_ID}>"
     text = text.replace(mention, "").strip()
     logging.info("Received text: " + text.replace("\n", " "))
@@ -174,17 +176,32 @@ async def handle_mentions(body, say):
     await say(response)
     await say(body)
 
+@api.get("/")
+async def root(req: Request):
+    client = await cached_slack_client()
+    response = await client.chat_postMessage(
+        channel='#admin',
+        text="Hello world!")
+    return Response(status_code=200, content="OK")
 
 # Demo
-@api.post("/slack/events")
-async def slack_events(request: Request, ):
-    return await handler.handle(request)
-#https://api.slack.com/types/file#authentication
 
+@api.post("/slack/events")
+async def slack_events(request: Request):
+    logging.warn(f"Request {str(request)}")
+    client = await cached_slack_client()
+    handler = AsyncSlackRequestHandler(app)
+    response = await client.chat_postMessage(
+        channel='#admin',
+        text="Hello world!")
+    return await handler.handle(request)
+
+#https://api.slack.com/types/file#authentication
+#https://slackbotwebapp.azurewebsites.net/slack/events
 # Run the fastapi app
 if __name__ == "__main__":
     import uvicorn
-    logging.info("Flask app started")
-    uvicorn.run("slackbot.app:api", host="0.0.0.0", port=8000, reload=True, log_level="INFO")
+    logging.info("Fast API app started")
+    uvicorn.run("slackbot.app:api", host="0.0.0.0", port=8000, reload=True)
 
 

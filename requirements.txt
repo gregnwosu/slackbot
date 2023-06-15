@@ -19,6 +19,7 @@ httpx
 soundfile
 keyboard
 elevenlabs
+uvicorn[standard]
 
 
 # tests
