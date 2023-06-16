@@ -10,7 +10,7 @@ beautifulsoup4
 aiocache
 requests
 types-requests
-#flask[async]
+
 fastapi
 slack_bolt
 aiohttp

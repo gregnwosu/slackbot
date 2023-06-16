@@ -51,7 +51,7 @@ SLACK_BOT_USER_ID = os.environ["SLACK_BOT_USER_ID"]
 # Initialize the Slack app
 app = AsyncApp(token=SLACK_BOT_TOKEN,
                signing_secret = SLACK_SIGNING_SECRET)
-
+handler = AsyncSlackRequestHandler(app)
 
 
 
@@ -60,34 +60,36 @@ api: FastAPI= FastAPI()
 
 
 
-# def require_slack_verification(f):
-#     @wraps(f)
-#     def decorated_function(*args, **kwargs):
-#         if not await verify_slack_request():
-#             abort(403)
-#         return f(*args, **kwargs)
+def require_slack_verification(f):
+    @wraps(f)
+    async def decorated_function(*args, **kwargs):
+        if not await verify_slack_request():
+            abort(403)
+        return f(*args, **kwargs)
 
-#     return decorated_function
+    return decorated_function
+
+signature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)
 
 
-# async def verify_slack_request(request:Request):
-#     # Get the request headers
-#     timestamp = request.headers.get("X-Slack-Request-Timestamp", "")
-#     signature = request.headers.get("X-Slack-Signature", "")
+async def verify_slack_request(request:Request):
+    # Get the request headers
+    timestamp = request.headers.get("X-Slack-Request-Timestamp", "")
+    signature = request.headers.get("X-Slack-Signature", "")
 
-#     # Check if the timestamp is within five minutes of the current time
-#     current_timestamp = int(time.time())
-#     if abs(current_timestamp - int(timestamp)) > 60 * 5:
-#         raise HTTPException(status_code=403)
+    # Check if the timestamp is within five minutes of the current time
+    current_timestamp = int(time.time())
+    if abs(current_timestamp - int(timestamp)) > 60 * 5:
+        raise HTTPException(status_code=403)
 
-#     body=await request.body()
-#     # Verify the request signature
-#     if not signature_verifier.is_valid(
-#         body=body.decode("utf-8"),
-#         timestamp=timestamp,
-#         signature=signature,
-#     ):
-#         raise HTTPException(status_code=403)
+    body= await request.body()
+    # Verify the request signature
+    if not signature_verifier.is_valid(
+        body=body.decode("utf-8"),
+        timestamp=timestamp,
+        signature=signature,
+    ):
+        raise HTTPException(status_code=403)
 
 #@cached(
 #    ttl=200, cache=Cache.MEMORY,  serializer=PickleSerializer())
@@ -187,13 +189,10 @@ async def root(req: Request):
 # Demo
 
 @api.post("/slack/events")
+@require_slack_verification
 async def slack_events(request: Request):
     logging.warn(f"Request {str(request)}")
     client = await cached_slack_client()
-    handler = AsyncSlackRequestHandler(app)
-    response = await client.chat_postMessage(
-        channel='#admin',
-        text="Hello world!")
     return await handler.handle(request)
 
 #https://api.slack.com/types/file#authentication
