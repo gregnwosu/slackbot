@@ -63,7 +63,7 @@ api: FastAPI= FastAPI()
 def require_slack_verification(f):
     @wraps(f)
     async def decorated_function(*args, **kwargs):
-        if not await verify_slack_request():
+        if not await verify_slack_request(f):
             abort(403)
         return f(*args, **kwargs)
 
@@ -188,8 +188,8 @@ async def root(req: Request):
 
 # Demo
 
+#@require_slack_verification
 @api.post("/slack/events")
-@require_slack_verification
 async def slack_events(request: Request):
     logging.warn(f"Request {str(request)}")
     client = await cached_slack_client()
