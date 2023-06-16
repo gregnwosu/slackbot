@@ -19,8 +19,8 @@ from functools import lru_cache, wraps
 import time
 import asyncio
 import functools
-from aiocache import cached, Cache
-from aiocache.serializers import PickleSerializer
+# from aiocache import cached, Cache
+# from aiocache.serializers import PickleSerializer
 import sys
 import requests
 from typing import Any
@@ -91,12 +91,10 @@ async def verify_slack_request(request:Request):
     ):
         raise HTTPException(status_code=403)
 
-# @functools.lru_cache(maxsize=1)
-@cached(
-   ttl=200, cache=Cache.MEMORY,  serializer=PickleSerializer())
-async def cached_slack_client() -> AsyncWebClient:
+@functools.lru_cache(maxsize=1)
+def cached_slack_client() -> AsyncWebClient:
      slack_client: AsyncWebClient = AsyncWebClient(token=os.environ["SLACK_BOT_TOKEN"])
-     await slack_client.auth_test()
+     
      return slack_client
 
 
@@ -193,7 +191,8 @@ async def root(req: Request):
 @api.post("/slack/events")
 async def slack_events(request: Request):
     logging.warn(f"Request {str(request)}")
-    client = await cached_slack_client()
+    slack_client = cached_slack_client()
+    await slack_client.auth_test()
     return await handler.handle(request)
 
 #https://api.slack.com/types/file#authentication
