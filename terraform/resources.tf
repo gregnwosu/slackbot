@@ -30,7 +30,7 @@ resource "azurerm_linux_web_app" "slackbotwebapp" {
   }
   site_config {
     always_on        = false
-    app_command_line = "uvicorn slackbot.app:api --host 0.0.0.0 --port 8000 --reload"
+    app_command_line = "gunicorn -w 4 -b 0.0.0.0:8000 -k uvicorn.workers.UvicornWorker slackbot.app:api "
     application_stack {
       python_version = "3.8"
     }

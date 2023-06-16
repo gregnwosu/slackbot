@@ -23,6 +23,7 @@ uvicorn[standard]
 # ASGI for azure web  service
 uvloop
 httptools
+gunicorn
 
 # tests
 pytest
