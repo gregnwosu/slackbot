@@ -91,9 +91,9 @@ async def verify_slack_request(request:Request):
     ):
         raise HTTPException(status_code=403)
 
+# @functools.lru_cache(maxsize=1)
 @cached(
    ttl=200, cache=Cache.MEMORY,  serializer=PickleSerializer())
-@functools.lru_cache(maxsize=1)
 async def cached_slack_client() -> AsyncWebClient:
      slack_client: AsyncWebClient = AsyncWebClient(token=os.environ["SLACK_BOT_TOKEN"])
      await slack_client.auth_test()
