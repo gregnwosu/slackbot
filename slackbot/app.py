@@ -144,7 +144,7 @@ async def handle_file_changed(body, say) -> None:
     print(f"File Changed:, I'll get right on that! {body=}")
     logger.warn(f"File Changed:, I'll get right on that! {body=}")
     file_event: FileEvent = FileEvent(**body["event"])
-    file_info: FileInfo = file_event.file_info(cached_slack_client())
+    file_info: FileInfo = await file_event.file_info(cached_slack_client())
     logger.warn(f"File Changed: Calling with {file_info=}")
     logger.warn(f"File Changed: File Info {file_info}")
     await say(f"File Changed: {file_info=}", channel=file_info.channels[0])
