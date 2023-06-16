@@ -19,8 +19,8 @@ from functools import lru_cache, wraps
 import time
 import asyncio
 import functools
-# from aiocache import cached, Cache
-# from aiocache.serializers import PickleSerializer
+from aiocache import cached, Cache
+from aiocache.serializers import PickleSerializer
 import sys
 import requests
 from typing import Any
@@ -91,8 +91,8 @@ async def verify_slack_request(request:Request):
     ):
         raise HTTPException(status_code=403)
 
-#@cached(
-#    ttl=200, cache=Cache.MEMORY,  serializer=PickleSerializer())
+@cached(
+   ttl=200, cache=Cache.MEMORY,  serializer=PickleSerializer())
 @functools.lru_cache(maxsize=1)
 async def cached_slack_client() -> AsyncWebClient:
      slack_client: AsyncWebClient = AsyncWebClient(token=os.environ["SLACK_BOT_TOKEN"])
@@ -114,6 +114,7 @@ async def get_bot_user_id():
     try:
         # Initialize the Slack client with your bot token
         slack_client = await cached_slack_client()
+        
         response = await slack_client.auth_test()
         return response["user_id"]
     except SlackApiError as e:
