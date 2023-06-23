@@ -8,9 +8,10 @@ from unittest.mock import MagicMock, patch
 import datetime
 from httpx import AsyncClient
 from slack_sdk.web.async_client import AsyncWebClient
-
 from slack_bolt.async_app import AsyncApp
 from slack_bolt.adapter.fastapi.async_handler import AsyncSlackRequestHandler
+
+from slackbot.parsing.message.event import MessageSubType
 
 async def mock_say(utterance:str) -> None:
     return None
@@ -39,9 +40,6 @@ def async_slack_client():
     with AsyncWebClient( base_url="http://127.0.0.1:8000",token=app.SLACK_BOT_TOKEN) as client:
         yield client
 
-
-
-
 @pytest.mark.asyncio
 async def test_fastapi_routing():
     async with AsyncClient(app=app.api, base_url="http://127.0.0.1:8000") as ac:
@@ -49,12 +47,25 @@ async def test_fastapi_routing():
     
     assert response.status_code == status.HTTP_200_OK
 
-@pytest.mark.asyncio
-async def test_app_mention():
-    # This is a simplified version of the data Slack sends for an app_mention event
-    timenow = datetime.datetime.now().timestamp()
 
-    data2={'token': 'waNounRnAWVeA53FlYyaPaP8', 'team_id': 'T058PNE2HKP', 'api_app_id': 'A058SM2MXS6', 
+@pytest.mark.asyncio
+@pytest.mark.parametrize("data,model_class", [
+    ({'event':{
+	"type": "message",
+	"channel": "#admin",
+	"text": "hi can i join the channel?",
+	"ts": "1403051575.000407",
+	"user": "U123ABC456"
+}}, MessageSubType.message),
+
+])
+async def test_message(data, model_class):
+    # This is a simplified version of the data Slack sends for an app_mention event
+    model = await app.handle_message(data, say=mock_say) 
+    assert isinstance(model, model_class.value)
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("data", [({'token': 'waNounRnAWVeA53FlYyaPaP8', 'team_id': 'T058PNE2HKP', 'api_app_id': 'A058SM2MXS6', 
           'event': {'client_msg_id': '399b2e89-719b-4172-ab1b-43e5d3d9d308',
                      'type': 'app_mention', 'text': '@Aria hi', 'user': 'U058V5QTW12', 
                      'ts': '1686966902.198599', 'blocks': [{'type': 'rich_text', 'block_id': 'EpPfS', 
@@ -62,13 +73,13 @@ async def test_app_mention():
                                                                           'elements': [{'type': 'user', 'user_id': 'U058V6AG10C'}, 
                                                                                        {'type': 'text', 'text': ' hi'}]}]}], 'team': 'T058PNE2HKP', 'channel': 'C0595A85N4R', 'event_ts': '1686966902.198599'}, 'type': 'event_callback', 'event_id': 'Ev05D00M7VS7', 'event_time': 1686966902, 
                                                                                        'authorizations': [{'enterprise_id': None, 'team_id': 'T058PNE2HKP', 'user_id': 'U058V6AG10C', 'is_bot': True, 'is_enterprise_install': False}], 'is_ext_shared_channel': False, 
-                                                                             'event_context': '4-eyJldCI6ImFwcF9tZW50aW9uIiwidGlkIjoiVDA1OFBORTJIS1AiLCJhaWQiOiJBMDU4U00yTVhTNiIsImNpZCI6IkMwNTk1QTg1TjRSIn0'}
-    app.app.request_verification_enabled=False
-    
-    
-    result = await app.handle_mentions(data2, say=mock_say)
-        
+                                                                             'event_context': '4-eyJldCI6ImFwcF9tZW50aW9uIiwidGlkIjoiVDA1OFBORTJIS1AiLCJhaWQiOiJBMDU4U00yTVhTNiIsImNpZCI6IkMwNTk1QTg1TjRSIn0'})])
+async def test_app_mention(data):
+    # This is a simplified version of the data Slack sends for an app_mention event
+    result = await app.handle_mentions(data, say=mock_say)
     assert result.status_code == status.HTTP_200_OK 
     print(f"{dir(result)=}")
     assert result.body == b"OKieDokie"
+
+
     
