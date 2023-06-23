@@ -3,7 +3,10 @@ import datetime
 import os
 
 from slack_sdk import WebClient
-from  slackbot.parsing.slackapi import  AppMentionEvent, BlockData, BlockElement, BlockElementData, BlockElementDataType, BlockElementType, BlockType, EventType, FileAccess, FileInfo, FileMode, FileShare, FileEvent, FileDetails, FileShares, FileSubType, FileType, Locale, MimeType, Preview, Transcription, TranscriptionStatus
+from slackbot.parsing.appmention.event import AppMentionEvent
+from slackbot.parsing.base.model import BlockData, BlockElement, BlockElementData, BlockElementDataType, BlockElementType, BlockType, EventType
+from slackbot.parsing.file.model import FileAccess, FileMode, FileShare, FileShares, FileSubType, FileType, Locale, MimeType, Preview, Transcription, TranscriptionStatus
+from slackbot.parsing.file.event import FileInfo, FileEvent, FileDetails
 import dotenv
 from starlette.testclient import TestClient
 from slackbot import app 
@@ -12,8 +15,8 @@ from fastapi import status
 @pytest.fixture()
 def web_client():
     dotenv.load_dotenv(dotenv.find_dotenv())
-    slack_client = WebClient(token=os.environ["SLACK_BOT_TOKEN"])
-    return slack_client
+    return WebClient(token=os.environ["SLACK_BOT_TOKEN"])
+    
 
 
 @pytest.mark.parametrize("event_in, expected", [
@@ -58,5 +61,4 @@ def test_app_mention_event(event_in, expected):
 def test_file_shared_event(event_in: dict, expected: FileEvent, expected_file_info: FileInfo, web_client: WebClient):
     actual: FileEvent = FileEvent(**event_in)
     assert actual == expected, repr(actual)
-    # actual_file_info = actual.file_info(web_client)
-    # assert actual_file_info == expected_file_info
+    
