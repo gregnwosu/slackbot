@@ -56,19 +56,19 @@ class FileInfo(pydantic.BaseModel):
     transcription: Transcription
     url_private: str
     url_private_download: str
-    vtt: str
+    vtt: Optional[str]
     duration_ms: int
     aac: str
     audio_wave_samples: List[int]
     media_display_type: MimeType
     permalink: str
     permalink_public: str
-    is_starred: bool
-    shares: FileShares
-    channels: List[str]
-    groups: List[str]
-    ims: List[str]
-    has_more_shares: bool
+    is_starred: Optional[bool]
+    shares: Optional[FileShares]
+    channels: Optional[List[str]]
+    groups: Optional[List[str]]
+    ims: Optional[List[str]]
+    has_more_shares: Optional[bool]
     has_rich_preview: bool
     file_access: FileAccess 
-    comments_count: int 
+    comments_count: Optional[int] 

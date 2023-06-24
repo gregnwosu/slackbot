@@ -1,7 +1,9 @@
 from enum import Enum
 from typing import List, Optional, Dict
 import pydantic
-
+class ChannelType(Enum):
+    group = "group"
+    channel = "channel"
 class EventType(Enum):
     APP_MENTION = "app_mention"
     FILE_SHARED = "file_shared"

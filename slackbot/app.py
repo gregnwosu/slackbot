@@ -159,6 +159,9 @@ async def handle_message(body: dict, say):
     await say(f"{model=}")
     return model
 
+
+
+
 @app.event("app_mention")
 async def handle_mentions(body: dict, say):
     """

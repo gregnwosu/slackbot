@@ -32,8 +32,8 @@ class TranscriptionStatus(str, Enum):
     processing = "processing"
 class Transcription(pydantic.BaseModel):
     status: TranscriptionStatus
-    locale: Locale
-    preview: Preview
+    locale: Optional[Locale]
+    preview: Optional[Preview]
 
 class FileAccess(str, Enum):
     VISIBLE = "visible"
