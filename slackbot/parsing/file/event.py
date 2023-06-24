@@ -1,3 +1,4 @@
+import aiohttp
 from slack_sdk.web.async_client import AsyncWebClient
 from dataclasses import dataclass
 import pydantic
@@ -32,6 +33,11 @@ class FileEvent(pydantic.BaseModel):
         response = await web_client.files_info(file=self.file_id)
         assert response["ok"], f"Slack API call failed with error: {response['error']}"
         return FileInfo(**response["file"])
+
+
+    
+
+
 class FileInfo(pydantic.BaseModel):
     id: str
     created: int
@@ -72,3 +78,11 @@ class FileInfo(pydantic.BaseModel):
     has_rich_preview: bool
     file_access: FileAccess 
     comments_count: Optional[int] 
+
+    @property
+    async def vtt_txt(self) -> str:
+        if not self.vtt:
+            return ""
+        async with aiohttp.ClientSession() as session:
+            async with session.get(self.vtt) as response:
+                return response.text
