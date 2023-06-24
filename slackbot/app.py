@@ -143,7 +143,7 @@ async def handle_message(body: dict, say):
         body (dict): The event data received from Slack.
         say (callable): A function for sending a response to the channel.
     """
-    say(f"{body=}")
+    await say(f"{body=}")
     event = body["event"]
      
     if sub_type := event.get("subtype", None):
@@ -168,7 +168,7 @@ async def handle_mentions(body: dict, say):
         body (dict): The event data received from Slack.
         say (callable): A function for sending a response to the channel.
     """
-    say(f"{body=}")
+    await say(f"{body=}")
     model = AppMentionEvent(**body['event'])
     client = cached_slack_client()
     text = body["event"]["text"]
