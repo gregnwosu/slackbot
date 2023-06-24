@@ -13,7 +13,7 @@ from slack_bolt.adapter.fastapi.async_handler import AsyncSlackRequestHandler
 
 from slackbot.parsing.message.event import MessageSubType
 
-async def mock_say(utterance:str) -> None:
+async def mock_say(utterance:str, channel=None) -> None:
     return None
 
 @pytest.fixture

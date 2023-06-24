@@ -19,7 +19,8 @@ from aiocache import cached
 import sys
 from slackbot.parsing.file.event import FileInfo, FileEvent
 from slack_bolt.authorization import AuthorizeResult
-
+import cachetools
+from slackbot.parsing.file.model import MimeType
 from slackbot.parsing.message.event import MessageSubType
 
 # Configure the logging level and format
@@ -38,6 +39,8 @@ load_dotenv(find_dotenv())
 SLACK_BOT_TOKEN = os.environ["SLACK_BOT_TOKEN"]
 SLACK_SIGNING_SECRET = os.environ["SLACK_SIGNING_SECRET"]
 SLACK_BOT_USER_ID = os.environ["SLACK_BOT_USER_ID"]
+
+text_cache = cachetools.TTLCache(maxsize=100, ttl=300)
 
 
 async def authorize():
@@ -156,7 +159,13 @@ async def handle_message(body: dict, say):
     text = text.replace(mention, "").strip()
     
     await say("Message event, I'll get right on that!")
-    await say(f"{model=}")
+    if isinstance(model, MessageSubType.file_share.value)  :
+        text = model.text
+        for fileinfo in model.files:
+            if fileinfo.mimetype == MimeType.AUDIO.AUDIO_WEBM.value:
+                text_cache[fileinfo.id] = text
+                # cache the text for the file
+                await say(f"Need to wait for audio to be transcribed for  {fileinfo.id=}", channel=model.channel)
     return model
 
 
