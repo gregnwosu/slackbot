@@ -129,12 +129,12 @@ async def handle_file_changed(body, say) -> None:
         say (callable): A function for sending a response to the channel.
     """
     # failes because of no channel id
-    print(f"File Changed:, I'll get right on that! {body=}")
+    await say(f"File Changed:, I'll get right on that! {body=}")
     logger.warn(f"File Changed:, I'll get right on that! {body=}")
     file_event: FileEvent = FileEvent(**body["event"])
     file_info: FileInfo = await file_event.file_info(cached_slack_client())
-    logger.warn(f"File Changed: Calling with {file_info=}")
-    logger.warn(f"File Changed: File Info {file_info}")
+    await say(f"File Changed: Calling with {file_info=}")
+    logger.warn(f"File Changed: File Info {file_info=}")
      
     text =text_cache.get(file_info.id, "Not in cache")
     await say (f"looking up {file_info.id}, result {text} ")
