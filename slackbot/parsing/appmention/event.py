@@ -1,6 +1,6 @@
 import pydantic
 import datetime as dt
-from typing import List
+from typing import List, Optional, Dict
 from logging import Logger
 logger = Logger(__name__)
 
@@ -13,7 +13,7 @@ class AppMentionEvent(pydantic.BaseModel):
     user: str
     ts:  dt.datetime
     blocks: List[BlockData]
-    team: str 
+    team: Optional[str] 
     channel: str
     event_ts: dt.datetime
     
