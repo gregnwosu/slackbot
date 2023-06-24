@@ -1,3 +1,4 @@
+import re
 import aiohttp
 from slack_sdk.web.async_client import AsyncWebClient
 from dataclasses import dataclass
@@ -11,7 +12,7 @@ from logging import Logger
 from slack_sdk import WebClient
 from slackbot.parsing.base.model import EventType, BlockType, BlockElementType, BlockElementDataType, BlockElementData, BlockElement, BlockData
 from slackbot.parsing.file.model import MimeType, FileType, FileMode, FileSubType, Locale, Preview, TranscriptionStatus, Transcription, FileAccess, FileShare, FileShares
-
+from aiohttp import web
 logger = Logger(__name__)
 
 class FileDetails(pydantic.BaseModel):
@@ -79,10 +80,22 @@ class FileInfo(pydantic.BaseModel):
     file_access: FileAccess 
     comments_count: Optional[int] 
 
+    @staticmethod
+    def strip_vtt(text:str) -> str:
+        # Remove WEBVTT line
+        text = re.sub(r'^WEBVTT\s+', '', text, flags=re.MULTILINE)
+        # Remove timestamped lines
+        text = re.sub(r'\d{2}:\d{2}:\d{2}\.\d{3}\s+-->\s+\d{2}:\d{2}:\d{2}\.\d{3}\s+', '', text)
+        # Remove preceding dashes
+        text = re.sub(r'^-\s+', '', text, flags=re.MULTILINE)
+        return text
+
     @property
     async def vtt_txt(self) -> str:
         if not self.vtt:
             return ""
         async with aiohttp.ClientSession() as session:
             async with session.get(self.vtt) as response:
-                return response.text
+                 response.raise_for_status()
+                 return self.strip_vtt(await response.text())
+                 
