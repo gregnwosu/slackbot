@@ -90,7 +90,6 @@ class FileInfo(pydantic.BaseModel):
         text = re.sub(r'^-\s+', '', text, flags=re.MULTILINE)
         return text
 
-    @property
     async def vtt_txt(self) -> str:
         if not self.vtt:
             return ""

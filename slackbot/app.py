@@ -138,7 +138,8 @@ async def handle_file_changed(body, say) -> None:
     await say(f"File Changed: {file_info=}", channel=file_info.channels[0]) 
     text =text_cache.get(file_info.id, "Not in cache")
     await say (f"looking up {file_info.id}, result {text} ")
-    await say(f"Retrieving Transcription  {file_info.vtt_txt=}")
+    transcription = await file_info.vtt_txt()
+    await say(f"Retrieving Transcription  {transcription=}")
 
 @app.event("message")
 async def handle_message(body: dict, say):
