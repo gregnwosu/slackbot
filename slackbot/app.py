@@ -118,6 +118,9 @@ async def handle_file_created(body, say):
     print(f"File Created:, I'll get right on that! {body=}")
     logger.warn(f"File Created:, I'll get right on that! {body=}")
 
+@app.event("file_shared")
+async def handle_file_shared(body, say) -> None:
+    return None
 
 @app.event("file_change")
 async def handle_file_changed(body, say) -> None:
