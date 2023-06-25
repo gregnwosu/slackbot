@@ -129,20 +129,21 @@ async def handle_file_changed(body, say) -> None:
         say (callable): A function for sending a response to the channel.
     """
     # failes because of no channel id
-   
+    channel = "C0595A85N4R"
+    await say(f"File Changed:, I'll get right on that! {body=}", channel=channel)
     file_event: FileEvent = FileEvent(**body["event"])
     file_info: FileInfo = await file_event.file_info(cached_slack_client())
     logger.warn(f"File Changed: File Info {file_info=}")
     
+    await say(f"File Changed: Calling with {file_info=}", channel=channel)
     model: FileShareMessageEvent =text_cache.get(file_info.id, None)
     if not model:
+        await say(f"Cache miss {file_info=}", channel=channel)
         return None
-    channel = model.channel
-    await say(f"File Changed: Calling with {file_info=}", channel=channel)
-    await say(f"File Changed:, I'll get right on that! {body=}", channel=channel)
+    #channel = model.channel
     
     transcription = await file_info.vtt_txt()
-    await say(f"Retrieving Transcription  {transcription=}")
+    await say(f"Retrieving Transcription  {transcription=}", channel=channel)
 
 @app.event("message")
 async def handle_message(body: dict, say):
