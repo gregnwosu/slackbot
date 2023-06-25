@@ -21,7 +21,7 @@ from slackbot.parsing.file.event import FileInfo, FileEvent
 from slack_bolt.authorization import AuthorizeResult
 import cachetools
 from slackbot.parsing.file.model import MimeType
-from slackbot.parsing.message.event import MessageSubType
+from slackbot.parsing.message.event import FileShareMessageEvent, MessageSubType
 
 # Configure the logging level and format
 logging.basicConfig(
@@ -129,15 +129,18 @@ async def handle_file_changed(body, say) -> None:
         say (callable): A function for sending a response to the channel.
     """
     # failes because of no channel id
-    await say(f"File Changed:, I'll get right on that! {body=}")
-    logger.warn(f"File Changed:, I'll get right on that! {body=}")
+   
     file_event: FileEvent = FileEvent(**body["event"])
     file_info: FileInfo = await file_event.file_info(cached_slack_client())
-    await say(f"File Changed: Calling with {file_info=}")
     logger.warn(f"File Changed: File Info {file_info=}")
-     
-    text =text_cache.get(file_info.id, "Not in cache")
-    await say (f"looking up {file_info.id}, result {text} ")
+    
+    model: FileShareMessageEvent =text_cache.get(file_info.id, None)
+    if not model:
+        return None
+    channel = model.channel
+    await say(f"File Changed: Calling with {file_info=}", channel=channel)
+    await say(f"File Changed:, I'll get right on that! {body=}", channel=channel)
+    
     transcription = await file_info.vtt_txt()
     await say(f"Retrieving Transcription  {transcription=}")
 
@@ -164,10 +167,9 @@ async def handle_message(body: dict, say):
     
     await say("Message event, I'll get right on that!")
     if isinstance(model, MessageSubType.file_share.value)  :
-        text = model.text
         for fileinfo in model.files:
             if fileinfo.mimetype == MimeType.AUDIO.AUDIO_WEBM.value:
-                text_cache[fileinfo.id] = text
+                text_cache[fileinfo.id] = model
                 # cache the text for the file
                 await say(f"Need to wait for audio to be transcribed for  {fileinfo.id=}", channel=model.channel)
     return model
