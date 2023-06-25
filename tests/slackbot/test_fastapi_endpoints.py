@@ -91,4 +91,25 @@ async def test_app_mention(data):
     assert result.body == b"OKieDokie"
 
 
-    
+@pytest.mark.asyncio
+@pytest.mark.parametrize("data,model_class", [
+    ({'event':{
+	"type": "message",
+	"channel": "#admin",
+	"text": "hi can i join the channel?",
+	"ts": "1403051575.000407",
+	"user": "U123ABC456"
+}}, MessageSubType.message),({'token': 'waNounRnAWVeA53FlYyaPaP8', 'team_id': 'T058PNE2HKP', 'context_team_id': 'T058PNE2HKP', 'context_enterprise_id': None, 'api_app_id': 'A058SM2MXS6', 
+                            'event': {'type': 'message', 'text': '', 
+                                    
+                                        'files': [{'id': 'F05E1RVFAHG', 'created': 1687569259, 'timestamp': 1687569259, 'name': 'audio_message.webm', 'title': 'audio_message.webm', 'mimetype': 'audio/webm', 'filetype': 'webm', 'pretty_type': 'WebM', 'user': 'U058V5QTW12', 'user_team': 'T058PNE2HKP', 'editable': False, 'size': 112070, 'mode': 'hosted', 'is_external': False, 'external_type': '', 'is_public': True, 'public_url_shared': False, 'display_as_bot': False, 'username': '', 'subtype': 'slack_audio', 'transcription': {'status': 'processing'}, 'url_private': 'https://files.slack.com/files-tmb/T058PNE2HKP-F05E1RVFAHG-0f5c6bb30c/audio_message_audio.mp4', 'url_private_download': 'https://files.slack.com/files-tmb/T058PNE2HKP-F05E1RVFAHG-0f5c6bb30c/download/audio_message_audio.mp4', 'duration_ms': 6899, 'aac': 'https://files.slack.com/files-tmb/T058PNE2HKP-F05E1RVFAHG-0f5c6bb30c/audio_message_audio.mp4', 'audio_wave_samples': [1, 1, 59, 100, 76, 86, 83, 77, 47, 1, 25, 67, 70, 43, 65, 68, 49, 2, 1, 1, 1, 8, 30, 23, 29, 3, 1, 2, 2, 35, 54, 46, 30, 28, 43, 43, 37, 34, 35, 25, 1, 0, 0, 0, 0, 0, 1, 0, 0, 9, 59, 58, 52, 54, 49, 45, 36, 3, 4, 40, 35, 20, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 27, 25, 17, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 3, 0], 'media_display_type': 'audio', 'permalink': 'https://ai-experimentshq.slack.com/files/U058V5QTW12/F05E1RVFAHG/audio_message.webm', 'permalink_public': 'https://slack-files.com/T058PNE2HKP-F05E1RVFAHG-2dfcb62184', 'has_rich_preview': False, 'file_access': 'visible'}], 
+                                        'upload': False, 'user': 'U058V5QTW12', 'display_as_bot': False, 'ts': '1687569263.664299', 'client_msg_id': '65e324ef-ae08-4098-99af-68f54b01c0cd', 'channel': 'C0595A85N4R', 'subtype': 'file_share', 'event_ts': '1687569263.664299', 'channel_type': 'channel'}, 
+                                        
+                                        
+                                        'type': 'event_callback', 'event_id': 'Ev05DV6JSKEJ', 'event_time': 1687569263, 'authorizations': [{'enterprise_id': None, 'team_id': 'T058PNE2HKP', 'user_id': 'U058V6AG10C', 'is_bot': True, 'is_enterprise_install': False}], 'is_ext_shared_channel': False, 'event_context': '4-eyJldCI6Im1lc3NhZ2UiLCJ0aWQiOiJUMDU4UE5FMkhLUCIsImFpZCI6IkEwNThTTTJNWFM2IiwiY2lkIjoiQzA1OTVBODVONFIifQ'} , MessageSubType.file_share)
+
+])
+async def test_file_change(data, model_class):
+    # This is a simplified version of the data Slack sends for an app_mention event
+    model = await app.handle_file_changed(data, say=mock_say) 
+    assert isinstance(model, model_class.value)   
