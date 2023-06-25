@@ -139,14 +139,14 @@ async def handle_file_changed(body, say) -> None:
     logger.warn(f"File Changed: File Info {file_info=}")
     
     await say(f"File Changed: Calling with {file_info=}", channel=channel)
+    transcription = await file_info.vtt_txt()
+    await say(f"Retrieving Transcription  {transcription=}", channel=channel)
     model: FileShareMessageEvent =text_cache.get(file_info.id, None)
     if not model:
         await say(f"Cache miss {file_info=}", channel=channel)
         return None
     #channel = model.channel
     
-    transcription = await file_info.vtt_txt()
-    await say(f"Retrieving Transcription  {transcription=}", channel=channel)
 
 @app.event("message")
 async def handle_message(body: dict, say):
@@ -175,7 +175,7 @@ async def handle_message(body: dict, say):
             if fileinfo.mimetype == MimeType.AUDIO.AUDIO_WEBM.value:
                 text_cache[fileinfo.id] = model
                 # cache the text for the file
-                await say(f"Need to wait for audio to be transcribed for  {fileinfo.id=}", channel=model.channel)
+                await say(f"Need to wait for audio to be transcribed for  {fileinfo}", channel=model.channel)
     return model
 
 
