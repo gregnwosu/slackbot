@@ -10,6 +10,7 @@ class MimeType(str, Enum):
 
 class FileType(str, Enum):
     WEBM = "webm"
+    M4A ="m4a"
 
 class FileMode(str, Enum):
     HOSTED = "hosted"
