@@ -6,6 +6,7 @@ from typing import List, Optional, Dict
 class MimeType(str, Enum):
     AUDIO_WEBM = "audio/webm"
     AUDIO = "audio"
+    AUDIO_MP4 = "audio/mp4"
 
 class FileType(str, Enum):
     WEBM = "webm"
