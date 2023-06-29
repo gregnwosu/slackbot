@@ -1,3 +1,8 @@
+# ToDO
+
+forest of thoughts prompting
+https://www.youtube.com/watch?v=y6SVA3aAfco&t=322s
+
 # Slack AI Assistant with Python & LangChain
 
 Here's a step-by-step guide to creating a Slack bot, installing it in a workspace, setting up a Python code with Flask, and using ngrok.

@@ -48,7 +48,8 @@ SLACK_BOT_TOKEN = os.environ["SLACK_BOT_TOKEN"]
 SLACK_SIGNING_SECRET = os.environ["SLACK_SIGNING_SECRET"]
 SLACK_BOT_USER_ID = os.environ["SLACK_BOT_USER_ID"]
 
-text_cache = cachetools.TTLCache(maxsize=100, ttl=300)
+text_cache = dict()
+#cachetools.TTLCache(maxsize=100, ttl=300)
 
 
 async def authorize():
