@@ -12,7 +12,7 @@ from logging import Logger
 from slack_sdk import WebClient
 from slackbot.parsing.base.model import EventType, BlockType, BlockElementType, BlockElementDataType, BlockElementData, BlockElement, BlockData
 from slackbot.parsing.file.model import MimeType, FileType, FileMode, FileSubType, Locale, Preview, TranscriptionStatus, Transcription, FileAccess, FileShare, FileShares
-from aiohttp import web
+from aiohttp import BasicAuth, web
 logger = Logger(__name__)
 
 class FileDetails(pydantic.BaseModel):
@@ -90,11 +90,12 @@ class FileInfo(pydantic.BaseModel):
         text = re.sub(r'^-\s+', '', text, flags=re.MULTILINE)
         return text
 
-    async def vtt_txt(self) -> str:
+    async def vtt_txt(self, basic_auth: BasicAuth) -> str:
+        headers = {"Authorization": basic_auth.encode()}
         if not self.vtt:
             return ""
         async with aiohttp.ClientSession() as session:
-            async with session.get(self.vtt) as response:
+            async with session.get(self.vtt, headers=headers) as response:
                  response.raise_for_status()
                  return self.strip_vtt(await response.text())
                  

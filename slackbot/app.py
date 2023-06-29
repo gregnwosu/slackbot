@@ -1,4 +1,5 @@
 
+from aiohttp import BasicAuth
 from slackbot.parsing.appmention.event import  AppMentionEvent
 import os
 from slack_sdk.web.async_client import AsyncWebClient
@@ -58,6 +59,10 @@ api: FastAPI= FastAPI()
 async def slack_events(request: Request):
     return await handler.handle(request)
 
+def get_auth():
+    auth = BasicAuth(SLACK_BOT_USER_ID, SLACK_SIGNING_SECRET)
+                
+    return auth
 
 def require_slack_verification(f):
     @wraps(f)
@@ -139,7 +144,7 @@ async def handle_file_changed(body, say) -> None:
     logger.warn(f"File Changed: File Info {file_info=}")
     
     await say(f"File Changed: Calling with {file_info=}", channel=channel)
-    transcription = await file_info.vtt_txt()
+    transcription = await file_info.vtt_txt(get_auth())
     await say(f"Retrieving Transcription  {transcription=}", channel=channel)
     model: FileShareMessageEvent =text_cache.get(file_info.id, None)
     if not model:
@@ -177,9 +182,6 @@ async def handle_message(body: dict, say):
                 # cache the text for the file
                 await say(f"Need to wait for audio to be transcribed for  {fileinfo}", channel=model.channel)
     return model
-
-
-
 
 @app.event("app_mention")
 async def handle_mentions(body: dict, say):
