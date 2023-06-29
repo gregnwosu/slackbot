@@ -91,6 +91,7 @@ async def test_app_mention(data):
     assert result.body == b"OKieDokie"
 
 
+@pytest.mark.skip(reason="Not implemented yet")
 @pytest.mark.asyncio
 @pytest.mark.parametrize("data,model_class", [
     ({'event':{

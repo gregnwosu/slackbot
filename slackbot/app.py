@@ -66,9 +66,7 @@ api: FastAPI= FastAPI()
 async def slack_events(request: Request):
     return await handler.handle(request)
 
-def get_bearer_auth():
-      
-    return BearerAuth(SLACK_BOT_TOKEN)
+
 
 def require_slack_verification(f):
     @wraps(f)
@@ -148,9 +146,8 @@ async def handle_file_changed(body, say) -> None:
     file_event: FileEvent = FileEvent(**body["event"])
     file_info: FileInfo = await file_event.file_info(cached_slack_client())
     logger.warn(f"File Changed: File Info {file_info=}")
-    
     await say(f"File Changed: Calling with {file_info=}", channel=channel)
-    transcription = await file_info.vtt_txt(get_bearer_auth())
+    transcription = await file_info.vtt_txt(SLACK_BOT_TOKEN)
     await say(f"Retrieving Transcription  {transcription=}", channel=channel)
     model: FileShareMessageEvent =text_cache.get(file_info.id, None)
     if not model:

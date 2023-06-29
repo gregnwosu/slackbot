@@ -81,20 +81,24 @@ class FileInfo(pydantic.BaseModel):
     comments_count: Optional[int] 
 
     @staticmethod
-    def strip_vtt(text:str) -> str:
-        # Remove WEBVTT line
-        text = re.sub(r'^WEBVTT\s+', '', text, flags=re.MULTILINE)
-        # Remove timestamped lines
-        text = re.sub(r'\d{2}:\d{2}:\d{2}\.\d{3}\s+-->\s+\d{2}:\d{2}:\d{2}\.\d{3}\s+', '', text)
-        # Remove preceding dashes
-        text = re.sub(r'^-\s+', '', text, flags=re.MULTILINE)
-        return text
+    def strip_vtt(vtt_string):
+        # Split the string into lines
+        lines = vtt_string.split('\n')
+        pattern = r'^[a-zA-Z.!\-\(\)]'
+        # Remove timestamp lines
+        prose_lines = [line for line in lines if  re.match(pattern, line)]
+        
+        # Remove leading and trailing newlines
+        stripped_prose = ' '.join(prose_lines).strip().replace('-', '')
+        
+        return stripped_prose
 
-    async def vtt_txt(self, bearer_auth) -> str:
+    async def vtt_txt(self, token:str) -> str:
         if not self.vtt:
             return ""
+        headers = {'authorization': f'Bearer {token}'}
         async with aiohttp.ClientSession() as session:
-            async with session.get(self.vtt, auth=bearer_auth) as response:
+            async with session.get(self.vtt, headers=headers) as response:
                  response.raise_for_status()
                  return self.strip_vtt(await response.text())
                  

@@ -62,3 +62,9 @@ def test_file_shared_event(event_in: dict, expected: FileEvent, expected_file_in
     actual: FileEvent = FileEvent(**event_in)
     assert actual == expected, repr(actual)
     
+
+def test_strip_vtt():
+    vtt = """\xef\xbb\xbfWEBVTT \n\n00:00:03.160 --> 00:00:07.448\n- Yeah, I wouldn't, what wouldn't you mind? Even, sometimes I\n\n00:00:07.459 --> 00:00:11.148\n- struggle to eat it in. Is it? Yeah, when I\n\n00:00:11.159 --> 00:00:14.419\n- eating it, I feel bad. Really? For the chicken when\n\n00:00:14.429 --> 00:00:16.379\n- you never feel bad for the fish because it is\n\n00:00:16.388 --> 00:00:16.629\n- me.\n\n"""
+    actual = FileInfo.strip_vtt(vtt)
+    expected = """ Yeah, I wouldn't, what wouldn't you mind? Even, sometimes I  struggle to eat it in. Is it? Yeah, when I  eating it, I feel bad. Really? For the chicken when  you never feel bad for the fish because it is  me."""
+    assert actual == expected, repr(actual)
