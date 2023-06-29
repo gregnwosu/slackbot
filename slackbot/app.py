@@ -23,7 +23,7 @@ from slack_bolt.authorization import AuthorizeResult
 import cachetools
 from slackbot.parsing.file.model import MimeType
 from slackbot.parsing.message.event import FileShareMessageEvent, MessageSubType
-
+import requests
 # Configure the logging level and format
 logging.basicConfig(
     level=logging.INFO,
@@ -33,6 +33,13 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
+
+class BearerAuth(requests.auth.AuthBase):
+    def __init__(self, token):
+        self.token = token
+    def __call__(self, r):
+        r.headers["authorization"] = "Bearer " + self.token
+        return r
 # Load environment variables from .env file
 load_dotenv(find_dotenv())
 
@@ -59,10 +66,9 @@ api: FastAPI= FastAPI()
 async def slack_events(request: Request):
     return await handler.handle(request)
 
-def get_auth():
-    auth = BasicAuth(SLACK_BOT_USER_ID, SLACK_SIGNING_SECRET)
-                
-    return auth
+def get_bearer_auth():
+      
+    return BearerAuth(SLACK_BOT_TOKEN)
 
 def require_slack_verification(f):
     @wraps(f)
@@ -144,7 +150,7 @@ async def handle_file_changed(body, say) -> None:
     logger.warn(f"File Changed: File Info {file_info=}")
     
     await say(f"File Changed: Calling with {file_info=}", channel=channel)
-    transcription = await file_info.vtt_txt(get_auth())
+    transcription = await file_info.vtt_txt(get_bearer_auth())
     await say(f"Retrieving Transcription  {transcription=}", channel=channel)
     model: FileShareMessageEvent =text_cache.get(file_info.id, None)
     if not model:

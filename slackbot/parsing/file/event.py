@@ -90,12 +90,11 @@ class FileInfo(pydantic.BaseModel):
         text = re.sub(r'^-\s+', '', text, flags=re.MULTILINE)
         return text
 
-    async def vtt_txt(self, basic_auth: BasicAuth) -> str:
-        headers = {"Authorization": basic_auth.encode()}
+    async def vtt_txt(self, bearer_auth) -> str:
         if not self.vtt:
             return ""
         async with aiohttp.ClientSession() as session:
-            async with session.get(self.vtt, headers=headers) as response:
+            async with session.get(self.vtt, auth=bearer_auth) as response:
                  response.raise_for_status()
                  return self.strip_vtt(await response.text())
                  
