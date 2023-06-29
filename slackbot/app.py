@@ -149,9 +149,9 @@ async def handle_file_changed(body, say) -> None:
     await say(f"File Changed: Calling with {file_info=}", channel=channel)
     transcription = await file_info.vtt_txt(SLACK_BOT_TOKEN)
     await say(f"Retrieving Transcription  {transcription=}", channel=channel)
-    model: FileShareMessageEvent =text_cache.get(file_info.id, None)
+    model: FileShareMessageEvent =text_cache.get(file_info.id)
     if not model:
-        await say(f"Cache miss {file_info=}", channel=channel)
+        await say(f"Cache miss {list(text_cache.items())=}", channel=channel)
         return None
     #channel = model.channel
     
