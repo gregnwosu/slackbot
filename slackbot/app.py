@@ -183,6 +183,9 @@ async def handle_message(body: dict, say):
             if fileinfo.mimetype in [MimeType.AUDIO_WEBM.value, MimeType.AUDIO_MP4.value]:
                 text_cache[fileinfo.id] = model
                 # cache the text for the file
+                await say(f" cache items {list(text_cache.items())=}")
+                await say(f" cache keys {list(text_cache.keys())=}")
+                await say(f" caching key and  values {fileinfo.id=} {model=}")
                 await say(f"Need to wait for audio to be transcribed for  {fileinfo}", channel=model.channel)
     return model
 
