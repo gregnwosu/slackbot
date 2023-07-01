@@ -8,6 +8,7 @@ class EventType(Enum):
     APP_MENTION = "app_mention"
     FILE_SHARED = "file_shared"
     FILE_CHANGE = "file_change"
+    MESSAGE = "message"
 class BlockType(Enum):
     RICH_TEXT = "rich_text"
 class BlockElementType(Enum):
