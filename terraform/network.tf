@@ -20,6 +20,7 @@
 
 
 
+
 # resource "azurerm_virtual_network" "LangChain-Experiments" {
 #   name                = "example-network"
 #   location            = azurerm_resource_group.LangChain-Experiments.location
@@ -37,3 +38,4 @@
 #     environment = "chatbot_net"
 #   }
 # }
+
