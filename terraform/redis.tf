@@ -11,6 +11,6 @@ resource "azurerm_redis_cache" "bot-cache" {
 
   redis_configuration {
     aof_backup_enabled = true
-    aof_storage_connection_string_0 = "DefaultEndpointsProtocol=https;BlobEndpoint=${azurerm_storage_account.LangChain-Experiments.primary_blob_endpoint};AccountName=${azurerm_storage_account.LangChain-Experiments.name};AccountKey=${azurerm_storage_account.LangChain-Experiments.primary_access_key}"
+    aof_storage_connection_string_0 = "DefaultEndpointsProtocol=https;BlobEndpoint=${azurerm_storage_account.terraform_state.primary_blob_endpoint};AccountName=${azurerm_storage_account.terraform_state.name};AccountKey=${azurerm_storage_account.terraform_state.primary_access_key}"
   }
 }
