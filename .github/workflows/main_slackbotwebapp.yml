@@ -24,6 +24,7 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: '3.8'
+          cache: 'pip'
 
       - name: Create and start virtual environment
         run: |
@@ -97,11 +98,11 @@ jobs:
 
         working-directory: terraform
         env:
-          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-          RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
+          TF_VAR_ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          TF_VAR_ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+          TF_VAR_ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          TF_VAR_ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          TF_VAR_RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
           STORAGE_ACCOUNT: ${{ secrets.TF_STORAGE_ACCOUNT }}
           CONTAINER_NAME: ${{ secrets.TF_CONTAINER_NAME }}
     
