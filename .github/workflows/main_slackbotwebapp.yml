@@ -195,6 +195,18 @@ jobs:
           STORAGE_ACCOUNT: ${{ secrets.TF_STORAGE_ACCOUNT }}
           CONTAINER_NAME: ${{ secrets.TF_CONTAINER_NAME }}
     
+      - name: Terraform Import
+        run: terraform import azurerm_resource_group.LangChain-Experiments /subscriptions/$ARM_SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP
+        working-directory: terraform
+        env:
+            ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+            ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+            ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+            ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+            RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
+            STORAGE_ACCOUNT: ${{ secrets.TF_STORAGE_ACCOUNT }}
+            CONTAINER_NAME: ${{ secrets.TF_CONTAINER_NAME }}
+    
   
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
