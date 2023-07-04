@@ -3,7 +3,7 @@ resource "azurerm_service_plan" "serviceplan" {
   sku_name            = "F1"
   os_type             = "Linux"
   location            = var.resource_group_location
-  resource_group_name = azurerm_resource_group.LangChain-Experiments.name
+  resource_group_name = "LangChain-Experiments"
 
 
 }

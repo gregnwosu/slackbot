@@ -9,8 +9,8 @@ resource "azurerm_redis_cache" "bot-cache" {
   minimum_tls_version = "1.2"
   public_network_access_enabled = false
 
-  redis_configuration {
-    aof_backup_enabled = false
-    aof_storage_connection_string_0 = "DefaultEndpointsProtocol=https;BlobEndpoint=${azurerm_storage_account.gnwosutfstatestorageacc.primary_blob_endpoint};AccountName=${azurerm_storage_account.gnwosutfstatestorageacc.name};AccountKey=${azurerm_storage_account.gnwosutfstatestorageacc.primary_access_key}"
-  }
+  # redis_configuration {
+  #   aof_backup_enabled = false
+  #   aof_storage_connection_string_0 = "DefaultEndpointsProtocol=https;BlobEndpoint=${azurerm_storage_account.gnwosutfstatestorageacc.primary_blob_endpoint};AccountName=${azurerm_storage_account.gnwosutfstatestorageacc.name};AccountKey=${azurerm_storage_account.gnwosutfstatestorageacc.primary_access_key}"
+  # }
 }
