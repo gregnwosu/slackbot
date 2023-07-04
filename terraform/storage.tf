@@ -1,4 +1,4 @@
-resource "azurerm_storage_account" "LangChain-Experiments" {
+resource "azurerm_storage_account" "gnwosutfstatestorageacc" {
   name                     = "gnwosutfstatestorageacc"
   resource_group_name      = azurerm_resource_group.LangChain-Experiments.name
   location                 = azurerm_resource_group.LangChain-Experiments.location
@@ -6,9 +6,9 @@ resource "azurerm_storage_account" "LangChain-Experiments" {
   account_replication_type = "LRS"
 }
 
-resource "azurerm_storage_container" "terraform_state" {
+resource "azurerm_storage_container" "gnwosutfstatestoragecont" {
   name                  = "gnwosutfstatestoragecont"
-  storage_account_name  = azurerm_storage_account.LangChain-Experiments.name
+  storage_account_name  = azurerm_storage_account.gnwosutfstatestorageacc.name
   container_access_type = "private"
 }
 
