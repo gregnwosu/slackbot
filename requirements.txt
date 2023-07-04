@@ -8,6 +8,7 @@ google-auth-oauthlib
 google-auth-httplib2
 beautifulsoup4
 aiocache
+aioredis
 requests
 types-requests
 

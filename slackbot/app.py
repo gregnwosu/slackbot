@@ -2,6 +2,7 @@
 from aiohttp import BasicAuth
 from slackbot.parsing.appmention.event import  AppMentionEvent
 import os
+import datetime as dt
 from slack_sdk.web.async_client import AsyncWebClient
 from slack_sdk.errors import SlackApiError
 from slack_sdk.signature import SignatureVerifier
@@ -21,9 +22,12 @@ import sys
 from slackbot.parsing.file.event import FileInfo, FileEvent
 from slack_bolt.authorization import AuthorizeResult
 import cachetools
+import aioredis
+from aioredis import Redis 
 from slackbot.parsing.file.model import MimeType
 from slackbot.parsing.message.event import FileShareMessageEvent, MessageSubType
 import requests
+from typing import Callable
 # Configure the logging level and format
 logging.basicConfig(
     level=logging.INFO,
@@ -47,16 +51,21 @@ load_dotenv(find_dotenv())
 SLACK_BOT_TOKEN = os.environ["SLACK_BOT_TOKEN"]
 SLACK_SIGNING_SECRET = os.environ["SLACK_SIGNING_SECRET"]
 SLACK_BOT_USER_ID = os.environ["SLACK_BOT_USER_ID"]
+REDIS_URL = os.environ["REDIS_URL"]
+REDIS_KEY = os.environ["REDIS_KEY"]
 
-text_cache = dict()
+
+def get_cache()-> aioredis.Redis: 
+    return aioredis.Redis(host=REDIS_URL, password=REDIS_KEY, ssl=True, port=6380, db=0, decode_responses=True)
+    
+    
 #cachetools.TTLCache(maxsize=100, ttl=300)
 
 
 async def authorize():
     return AuthorizeResult()
 # Initialize the Slack app
-app = AsyncApp(token=SLACK_BOT_TOKEN,
-               signing_secret = SLACK_SIGNING_SECRET)
+app = AsyncApp(token=SLACK_BOT_TOKEN, signing_secret=SLACK_SIGNING_SECRET)
 handler: AsyncSlackRequestHandler = AsyncSlackRequestHandler(app)
 
 # Initialize the Flask app
@@ -150,15 +159,20 @@ async def handle_file_changed(body, say) -> None:
     await say(f"File Changed: Calling with {file_info=}", channel=channel)
     transcription = await file_info.vtt_txt(SLACK_BOT_TOKEN)
     await say(f"Retrieving Transcription  {transcription=}", channel=channel)
-    model: FileShareMessageEvent =text_cache.get(file_info.id)
-    if not model:
-        await say(f"Cache miss {list(text_cache.items())=}", channel=channel)
-        return None
-    #channel = model.channel
+    with get_cache() as _text_cache:
+        text_cache: aioredis.Redis = _text_cache
+        cached_text: str =text_cache.get(file_info.id)
+        if not cached_text:
+            await say(f"Cache miss {text_cache.keys()=}", channel=channel)
+            return None
+        else:
+            await say(f"Cache hit {cached_text=}", channel=channel)
+            return None
+        #channel = model.channel
     
 
 @app.event("message")
-async def handle_message(body: dict, say):
+async def handle_message(body: dict, say, get_text_cache: Callable[[], aioredis.Redis] = get_cache):
     """
     Event listener for mentions in Slack.
     When the bot is mentioned, this function processes the text and sends a response.
@@ -182,12 +196,13 @@ async def handle_message(body: dict, say):
     if isinstance(model, MessageSubType.file_share.value)  :
         for fileinfo in model.files:
             if fileinfo.mimetype in [MimeType.AUDIO_WEBM.value, MimeType.AUDIO_MP4.value]:
-                text_cache[fileinfo.id] = model
-                # cache the text for the file
-                await say(f" cache items {list(text_cache.items())=}")
-                await say(f" cache keys {list(text_cache.keys())=}")
-                await say(f" caching key and  values {fileinfo.id=} {model=}")
-                await say(f"Need to wait for audio to be transcribed for  {fileinfo}", channel=model.channel)
+                with get_text_cache() as _text_cache:
+                    text_cache: aioredis.Redis = _text_cache
+                    await text_cache.set(fileinfo.id,  text, expire=dt.timedelta(minutes=5))
+                    # cache the text for the file
+                    await say(f" caching key and  values {fileinfo.id=} {text=}")
+                    await say(f" cache keys {list(text_cache.keys())=}")
+                    await say(f"Need to wait for audio to be transcribed for  {fileinfo}", channel=model.channel)
     return model
 
 @app.event("app_mention")

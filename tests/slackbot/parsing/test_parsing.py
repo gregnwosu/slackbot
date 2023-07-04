@@ -68,10 +68,3 @@ def test_strip_vtt():
     actual = FileInfo.strip_vtt(vtt)
     expected = """ Yeah, I wouldn't, what wouldn't you mind? Even, sometimes I  struggle to eat it in. Is it? Yeah, when I  eating it, I feel bad. Really? For the chicken when  you never feel bad for the fish because it is  me."""
     assert actual == expected, repr(actual)
-
-def test_text_cache():
-    import time
-    app.text_cache['foo']= 'bar'
-    time.sleep(2)
-    
-    assert app.text_cache.get('foo') == 'bar', app.text_cache.entries()
