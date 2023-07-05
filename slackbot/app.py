@@ -193,6 +193,7 @@ async def handle_message(body: dict, say, get_text_cache: Callable[[], aioredis.
     text = text.replace(mention, "").strip()
     
     await say("Message event, I'll get right on that!")
+    
     if isinstance(model, MessageSubType.file_share.value)  :
         for fileinfo in model.files:
             if fileinfo.mimetype in [MimeType.AUDIO_WEBM.value, MimeType.AUDIO_MP4.value]:

@@ -56,8 +56,8 @@ jobs:
           HUGGING_FACE_API_KEY: ${{secrets.HUGGING_FACE_API_KEY}}
           ZAPIER_API_KEY: ${{secrets.ZAPIER_API_KEY}}
           ELEVENLABS_API_KEY: ${{secrets.ELEVENLABS_API_KEY}}
-          VAR_REDIS_URL: ${{secrets.REDIS_URL}}
-          VAR_REDIS_KEY: ${{secrets.REDIS_KEY}}
+          REDIS_URL: ${{secrets.REDIS_URL}}
+          REDIS_KEY: ${{secrets.REDIS_KEY}}
 
       # - name: Comment coverage
       #   uses: coroo/pytest-coverage-commentator@v1.0.2
