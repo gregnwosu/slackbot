@@ -31,7 +31,8 @@ class Preview(pydantic.BaseModel):
 
 class TranscriptionStatus(str, Enum):
     COMPLETE = "complete"
-    processing = "processing"
+    PROCESSING = "processing"
+    NONE = "none"
 class Transcription(pydantic.BaseModel):
     status: TranscriptionStatus
     locale: Optional[Locale]
