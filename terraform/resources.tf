@@ -24,6 +24,8 @@ resource "azurerm_linux_web_app" "slackbotwebapp" {
     "HUGGING_FACE_API_KEY"           = "${var.HUGGING_FACE_API_KEY}"
     "VAR_ZAPIER_API_KEY"             = "${var.ZAPIER_API_KEY}"
     "ELEVENLABS_API_KEY"             = "${var.ELEVENLABS_API_KEY}"
+    "REDIS_KEY"                      = "${var.REDIS_KEY}"
+    "REDIS_URL"                      = "${var.REDIS_URL}" 
 
     #get variable from the environment
 

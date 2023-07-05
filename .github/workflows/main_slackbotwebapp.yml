@@ -56,6 +56,8 @@ jobs:
           HUGGING_FACE_API_KEY: ${{secrets.HUGGING_FACE_API_KEY}}
           ZAPIER_API_KEY: ${{secrets.ZAPIER_API_KEY}}
           ELEVENLABS_API_KEY: ${{secrets.ELEVENLABS_API_KEY}}
+          VAR_REDIS_URL: ${{secrets.REDIS_URL}}
+          VAR_REDIS_KEY: ${{secrets.REDIS_KEY}}
 
       # - name: Comment coverage
       #   uses: coroo/pytest-coverage-commentator@v1.0.2
@@ -127,6 +129,8 @@ jobs:
           TF_VAR_HUGGING_FACE_API_KEY: ${{secrets.HUGGING_FACE_API_KEY}}
           TF_VAR_ZAPIER_API_KEY: ${{secrets.ZAPIER_API_KEY}}
           TF_VAR_ELEVENLABS_API_KEY: ${{secrets.ELEVENLABS_API_KEY}}
+          TF_VAR_REDIS_URL: ${{secrets.REDIS_URL}}
+          TF_VAR_REDIS_KEY: ${{secrets.REDIS_KEY}}
 
       # Add a comment to pull requests with plan results
       - name: add-plan-comment
@@ -228,6 +232,8 @@ jobs:
           TF_VAR_HUGGING_FACE_API_KEY: ${{secrets.HUGGING_FACE_API_KEY}}
           TF_VAR_ZAPIER_API_KEY: ${{secrets.ZAPIER_API_KEY}}
           TF_VAR_ELEVENLABS_API_KEY: ${{secrets.ELEVENLABS_API_KEY}}
+          TF_VAR_REDIS_URL: ${{secrets.REDIS_URL}}
+          TF_VAR_REDIS_KEY: ${{secrets.REDIS_KEY}}
 
       - name: 'Deploy to Azure Web App'
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
