@@ -172,7 +172,7 @@ async def handle_file_changed(body, say) -> None:
     
 
 @app.event("message")
-async def handle_message(body: dict, say, get_text_cache: Callable[[], aioredis.Redis] = get_cache):
+async def handle_message(body: dict, say):
     """
     Event listener for mentions in Slack.
     When the bot is mentioned, this function processes the text and sends a response.
@@ -193,11 +193,11 @@ async def handle_message(body: dict, say, get_text_cache: Callable[[], aioredis.
     text = text.replace(mention, "").strip()
     
     await say("Message event, I'll get right on that!")
-    
+
     if isinstance(model, MessageSubType.file_share.value)  :
         for fileinfo in model.files:
             if fileinfo.mimetype in [MimeType.AUDIO_WEBM.value, MimeType.AUDIO_MP4.value]:
-                with get_text_cache() as _text_cache:
+                with get_cache() as _text_cache:
                     text_cache: aioredis.Redis = _text_cache
                     await text_cache.set(fileinfo.id,  text, expire=dt.timedelta(minutes=5))
                     # cache the text for the file
