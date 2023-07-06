@@ -159,8 +159,8 @@ async def handle_file_changed(body, say) -> None:
     await say(f"File Changed: Calling with {file_info=}", channel=channel)
     transcription = await file_info.vtt_txt(SLACK_BOT_TOKEN)
     await say(f"Retrieving Transcription  {transcription=}", channel=channel)
-    with get_cache() as _text_cache:
-        text_cache: aioredis.Redis = _text_cache
+    try:
+        text_cache: aioredis.Redis = get_cache()
         cached_text: str =text_cache.get(file_info.id)
         if not cached_text:
             await say(f"Cache miss {text_cache.keys()=}", channel=channel)
@@ -168,7 +168,12 @@ async def handle_file_changed(body, say) -> None:
         else:
             await say(f"Cache hit {cached_text=}", channel=channel)
             return None
-        #channel = model.channel
+    except Exception as e:
+        await say(f"Error {e=}", channel=channel)
+        raise e
+    finally:
+        text_cache.close()
+       
     
 
 @app.event("message")
@@ -197,13 +202,20 @@ async def handle_message(body: dict, say):
     if isinstance(model, MessageSubType.file_share.value)  :
         for fileinfo in model.files:
             if fileinfo.mimetype in [MimeType.AUDIO_WEBM.value, MimeType.AUDIO_MP4.value]:
-                with get_cache() as _text_cache:
-                    text_cache: aioredis.Redis = _text_cache
+                say(f"getting cache")
+                try:
+                    text_cache: aioredis.Redis = get_cache()
                     await text_cache.set(fileinfo.id,  text, expire=dt.timedelta(minutes=5))
                     # cache the text for the file
                     await say(f" caching key and  values {fileinfo.id=} {text=}")
                     await say(f" cache keys {list(text_cache.keys())=}")
                     await say(f"Need to wait for audio to be transcribed for  {fileinfo}", channel=model.channel)
+                except Exception as e:
+                    await say(f"Error {e=}")
+                    raise e
+                finally:
+                    await text_cache.close()
+                    
     return model
 
 @app.event("app_mention")
