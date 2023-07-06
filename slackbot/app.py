@@ -161,7 +161,7 @@ async def handle_file_changed(body, say) -> None:
     await say(f"Retrieving Transcription  {transcription=}", channel=channel)
     try:
         text_cache: aioredis.Redis = get_cache()
-        cached_text: str =text_cache.get(file_info.id)
+        cached_text: str =await text_cache.get(file_info.id)
         if not cached_text:
             await say(f"Cache miss {text_cache.keys()=}", channel=channel)
             return None
@@ -202,12 +202,12 @@ async def handle_message(body: dict, say):
     if isinstance(model, MessageSubType.file_share.value)  :
         for fileinfo in model.files:
             if fileinfo.mimetype in [MimeType.AUDIO_WEBM.value, MimeType.AUDIO_MP4.value]:
-                say(f"getting cache")
+                say(f"************getting cache")
                 try:
+                    await say(f"*************caching key and  values {fileinfo.id=} {text=}")
                     text_cache: aioredis.Redis = get_cache()
-                    await text_cache.set(fileinfo.id,  text, expire=dt.timedelta(minutes=5))
+                    await text_cache.set(fileinfo.id,  text, ex=dt.timedelta(minutes=5))
                     # cache the text for the file
-                    await say(f" caching key and  values {fileinfo.id=} {text=}")
                     await say(f" cache keys {list(text_cache.keys())=}")
                     await say(f"Need to wait for audio to be transcribed for  {fileinfo}", channel=model.channel)
                 except Exception as e:
