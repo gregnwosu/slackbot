@@ -3,8 +3,6 @@ import pytest
 from slackbot import app
 
 
-
-
 @pytest.mark.asyncio
 async def test_redis_cache():
     redis = app.get_cache()

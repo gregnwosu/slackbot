@@ -1,5 +1,4 @@
 
-from aiohttp import BasicAuth
 from slackbot.parsing.appmention.event import  AppMentionEvent
 import os
 import datetime as dt
@@ -21,13 +20,10 @@ from aiocache import cached
 import sys
 from slackbot.parsing.file.event import FileInfo, FileEvent
 from slack_bolt.authorization import AuthorizeResult
-import cachetools
 import aioredis
-from aioredis import Redis 
 from slackbot.parsing.file.model import MimeType
-from slackbot.parsing.message.event import FileShareMessageEvent, MessageSubType
+from slackbot.parsing.message.event import MessageSubType
 import requests
-from typing import Callable
 # Configure the logging level and format
 logging.basicConfig(
     level=logging.INFO,
