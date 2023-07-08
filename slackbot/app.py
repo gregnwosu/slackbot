@@ -200,8 +200,8 @@ async def handle_message(body: dict, say):
             if fileinfo.mimetype in [MimeType.AUDIO_WEBM.value, MimeType.AUDIO_MP4.value]:
                 say(f"************getting cache for text {fileinfo.id=} {text=}")
                 try:
-                    await say(f"*************caching key and  values {fileinfo.id=} {text=}")
                     text_cache: aioredis.Redis = get_cache()
+                    await say(f"*************caching key and  values {fileinfo.id=} {text=} {text_cache=}}")
                     await text_cache.set(fileinfo.id,  text, ex=dt.timedelta(minutes=5))
                     # cache the text for the file
                     await say(f" cache keys {list(text_cache.keys())=}")
