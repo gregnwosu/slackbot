@@ -201,10 +201,10 @@ async def handle_message(body: dict, say):
                 say(f"************getting cache for text {fileinfo.id=} {text=}")
                 try:
                     text_cache: aioredis.Redis = get_cache()
-                    await say(f"*************caching key and  values {fileinfo.id=} {text=} {text_cache=}}")
+                    await say(f"*************caching key and  values {fileinfo.id=} {text=} {text_cache=}")
                     await text_cache.set(fileinfo.id,  text, ex=dt.timedelta(minutes=5))
                     # cache the text for the file
-                    await say(f" cache keys {list(text_cache.keys())=}")
+                    await say(f"cache keys {text_cache.keys()=}")
                     await say(f"Need to wait for audio to be transcribed for  {fileinfo}", channel=model.channel)
                 except Exception as e:
                     await say(f"Error {e=}")
