@@ -198,7 +198,7 @@ async def handle_message(body: dict, say):
     if isinstance(model, MessageSubType.file_share.value)  :
         for fileinfo in model.files:
             if fileinfo.mimetype in [MimeType.AUDIO_WEBM.value, MimeType.AUDIO_MP4.value]:
-                say(f"************getting cache")
+                say(f"************getting cache for text {fileinfo.id=} {text=}")
                 try:
                     await say(f"*************caching key and  values {fileinfo.id=} {text=}")
                     text_cache: aioredis.Redis = get_cache()
