@@ -28,11 +28,11 @@ from cachetools import TTLCache, cached
 
 
 async def generate_audio(text,  cache: aioredis.Redis, voice="Bella", model="eleven_monolingual_v1"):
-    if cache.exists(text):
-        return cache.get(text)
+    if result := await cache.get(text):
+        return result
     elevenlabs.set_api_key(os.environ["ELEVENLABS_API_KEY"])
     audio = elevenlabs.generate(text=text, voice=voice, model=model)
-    cache.set(text, audio)
+    await cache.set(text, audio)
     return audio
 
 
