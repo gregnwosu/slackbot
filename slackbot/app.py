@@ -166,11 +166,11 @@ async def handle_file_changed(body, say) -> None:
             await say(f"Cache hit {cached_text=}", channel=channel)
         slack_client: AsyncWebClient = cached_slack_client()
         ai_request = f"hi please service this request: \n {transcription} extra info is {cached_text}"
-        say(f"Request is: audio {ai_request=}", channel=channel)
+        await say(f"Request is: audio {ai_request=}", channel=channel)
         ai_answer = functions.draft_email(user_input=ai_request)
         audio_bytes = functions.generate_audio(ai_answer)
-        say(f"TextResponse: audio {ai_answer=}", channel=channel)
-        response = slack_client.files_upload(
+        await say(f"TextResponse: audio {ai_answer=}", channel=channel)
+        response = await slack_client.files_upload(
             channels=[channel],
             file=audio_bytes,
             filename='audio.mpeg',
