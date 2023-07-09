@@ -173,8 +173,8 @@ async def handle_file_changed(body, say) -> None:
         response = await slack_client.files_upload(
             channels=[channel],
             file=audio_bytes,
-            filename='audio.mpeg',
-            filetype='audio/mpeg')
+            filename='audio.mp3',
+            filetype='audio/mp3')
         return None
     except Exception as e:
         await say(f"Error {e=}", channel=channel)
