@@ -20,4 +20,8 @@ variable "resource_group_name_prefix" {
  variable "ELEVENLABS_API_KEY" { }
  variable "REDIS_KEY" { }
  variable "REDIS_URL" { }
+ variable "PINECONE_API_KEY" { }
+ variable "PINECONE_ENVIRONMENT" { }
+   
+ 
 

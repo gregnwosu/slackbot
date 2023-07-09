@@ -30,3 +30,4 @@ gunicorn
 pytest
 pytest-cov
 starlette
+pinecone-client

@@ -58,6 +58,8 @@ jobs:
           ELEVENLABS_API_KEY: ${{secrets.ELEVENLABS_API_KEY}}
           REDIS_URL: ${{secrets.REDIS_URL}}
           REDIS_KEY: ${{secrets.REDIS_KEY}}
+          PINECONE_API_KEY: ${{secrets.PINECONE_API_KEY}}
+          PINECONE_ENVIRONMENT: ${{secrets.PINECONE_ENVIORNMENT}}
 
       # - name: Comment coverage
       #   uses: coroo/pytest-coverage-commentator@v1.0.2
@@ -131,6 +133,8 @@ jobs:
           TF_VAR_ELEVENLABS_API_KEY: ${{secrets.ELEVENLABS_API_KEY}}
           TF_VAR_REDIS_URL: ${{secrets.REDIS_URL}}
           TF_VAR_REDIS_KEY: ${{secrets.REDIS_KEY}}
+          TF_VAR_PINECONE_API_KEY: ${{secrets.PINECONE_API_KEY}}
+          TF_VAR_PINECONE_ENVIRONMENT: ${{secrets.PINECONE_ENVIORNMENT}}
 
       # Add a comment to pull requests with plan results
       - name: add-plan-comment
@@ -234,6 +238,8 @@ jobs:
           TF_VAR_ELEVENLABS_API_KEY: ${{secrets.ELEVENLABS_API_KEY}}
           TF_VAR_REDIS_URL: ${{secrets.REDIS_URL}}
           TF_VAR_REDIS_KEY: ${{secrets.REDIS_KEY}}
+          TF_VAR_PINECONE_API_KEY: ${{secrets.PINECONE_API_KEY}}
+          TF_VAR_PINECONE_ENVIRONMENT: ${{secrets.PINECONE_ENVIORNMENT}}
 
       - name: 'Deploy to Azure Web App'
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
