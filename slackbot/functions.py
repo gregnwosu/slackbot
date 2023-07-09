@@ -26,6 +26,12 @@ import elevenlabs
 from cachetools import TTLCache, cached
 
 
+def generate_audio(text, voice="Bella", model="eleven_monolingual_v1"):
+    elevenlabs.set_api_key(os.environ["ELEVENLABS_API_KEY"])
+    audio = elevenlabs.generate(text=text, voice=voice, model=model)
+    return audio
+
+
 #TODO make this into a tool.
 def draft_email(user_input, name="Dave") -> str:
     chat = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=1)
@@ -63,14 +69,6 @@ def draft_email(user_input, name="Dave") -> str:
 @cached(cache=TTLCache(maxsize=100, ttl=300))
 def openai_llm():
     return OpenAI(temperatture=0, openai_api_key=os.environ["OPENAI_API_KEY"])
-
-# no need to record audio, just send the audio file to openai
-# def record_audio(duration, fs, channels):
-#     print("Recording...")
-#     recording = sd.rec(int(duration * fs), samplerate=fs, channels=channels)
-#     sd.wait()
-#     print("Finished recording.")
-#     return recording
 
 
 def transcribe_audio(recording, fs):

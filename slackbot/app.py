@@ -23,6 +23,7 @@ from slack_bolt.authorization import AuthorizeResult
 import aioredis
 from slackbot.parsing.file.model import MimeType
 from slackbot.parsing.message.event import MessageSubType
+import slackbot.functions as functions
 import requests
 # Configure the logging level and format
 logging.basicConfig(
@@ -160,15 +161,26 @@ async def handle_file_changed(body, say) -> None:
         cached_text: str =await text_cache.get(file_info.id)
         if not cached_text:
             await say(f"Cache miss {text_cache.keys()=}", channel=channel)
-            return None
+            
         else:
             await say(f"Cache hit {cached_text=}", channel=channel)
-            return None
+        slack_client: AsyncWebClient = cached_slack_client()
+        ai_request = f"hi please service this request: \n {transcription} extra info is {cached_text}"
+        say(f"Request is: audio {ai_request=}", channel=channel)
+        ai_answer = functions.draft_email(user_input=ai_request)
+        audio_bytes = functions.generate_audio(ai_answer)
+        say(f"TextResponse: audio {ai_answer=}", channel=channel)
+        response = slack_client.files_upload(
+            channels=[channel],
+            file=audio_bytes,
+            filename='audio.mpeg',
+            filetype='audio')
+        return None
     except Exception as e:
         await say(f"Error {e=}", channel=channel)
         raise e
     finally:
-        text_cache.close()
+        await text_cache.close()
        
     
 
