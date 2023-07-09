@@ -174,7 +174,7 @@ async def handle_file_changed(body, say) -> None:
             channels=[channel],
             file=audio_bytes,
             filename='audio.mpeg',
-            filetype='audio')
+            filetype='audio/mpeg')
         return None
     except Exception as e:
         await say(f"Error {e=}", channel=channel)
