@@ -44,7 +44,7 @@ async def generate_audio(text,  cache: aioredis.Redis, voice="Bella", model="ele
 # when thre response is a function call ask epert will call the function with the expert required but with the depth decremented.
 
 
-async def convo(user_input:str, expert_name="Dave", channel="admin") -> str:
+async def convo(input:str, expert_name="Dave", channel="admin") -> str:
     chat = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=1)
 
     template = """
@@ -59,6 +59,8 @@ async def convo(user_input:str, expert_name="Dave", channel="admin") -> str:
     If any expert realises they're wrong at any point then they acknowledge this and backtrack to where they went wrong to start another train of thought.
     Each expert will assign a likelihood of their current assertion being correct.
     Continue until all experts agree on the single most likely answer.
+    the history of the conversation is stored in the memory of the chatbot and is as follows:
+    {history}
     Make sure to sign off with {signature}
     """
 
@@ -66,16 +68,18 @@ async def convo(user_input:str, expert_name="Dave", channel="admin") -> str:
 
     system_message_prompt = SystemMessagePromptTemplate.from_template(template)
 
-    human_template = "Heres the Question:\n\n{user_input}"
+    human_template = "Heres the Question:\n\n{input}"
     human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)
 
     chat_prompt = ChatPromptTemplate.from_messages(
         [system_message_prompt, human_message_prompt]
     )
     
+
     chain = ConversationChain(llm=chat, prompt=chat_prompt)#, memory=ConversationBufferMemory())
     #history and input are supplied by the conversationalbuffermemory
     return await chain.arun( signature=signature, input=input, history="")
+
 
 
 #elevenlabs.set_api_key(os.environ["ELEVENLABS_API_KEY"])
