@@ -47,7 +47,7 @@ async def generate_audio(text,  cache: aioredis.Redis, voice="Bella", model="ele
 async def convo(user_input:str, expert_name="Dave", channel="admin") -> str:
     chat = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=1)
 
-    template = f"""
+    template = """
     Imagine three different experts are answering this question.
     They will brainstorm the answer step by step; reasoning carefully and taking all the facts into consideration..
     All experts will write down 1 step of their thinking , then share with the group.
@@ -59,14 +59,14 @@ async def convo(user_input:str, expert_name="Dave", channel="admin") -> str:
     If any expert realises they're wrong at any point then they acknowledge this and backtrack to where they went wrong to start another train of thought.
     Each expert will assign a likelihood of their current assertion being correct.
     Continue until all experts agree on the single most likely answer.
-    The Question is: {user_input}
-    
+    Make sure to sign off with {signature}
     """
 
-    signature = f"Kind regards, \n\{expert_name}"
+    signature = "Kind regards, \n\{expert_name}"
+
     system_message_prompt = SystemMessagePromptTemplate.from_template(template)
 
-    human_template = "Here's the reply from the panel of experts:}"
+    human_template = "Heres the Question:\n\n{user_input}"
     human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)
 
     chat_prompt = ChatPromptTemplate.from_messages(
@@ -74,7 +74,7 @@ async def convo(user_input:str, expert_name="Dave", channel="admin") -> str:
     )
     memory_key = f"expert:{expert_name},channel:{channel}"
     chain = ConversationChain(llm=chat, prompt=chat_prompt, memory=ConversationBufferMemory(memory_key=memory_key))
-    return await chain.arun(user_input=user_input, signature=signature, name=expert_name)
+    return await chain.arun(user_input=user_input, signature=signature, expert_name=expert_name)
 
 
 #elevenlabs.set_api_key(os.environ["ELEVENLABS_API_KEY"])
