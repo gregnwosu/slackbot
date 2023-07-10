@@ -36,12 +36,18 @@ async def generate_audio(text,  cache: aioredis.Redis, voice="Bella", model="ele
     return audio
 
 
-#TODO make this into a tool.
-async def convo(user_input:str, name="Dave") -> str:
+#TODO this needs to be changed to use OpenAI function calling.
+# There will be a function called ask experts which will take a list of experts to call
+# Ask experts will call ask expert.
+# Each enum of experts will have a name a model and a slackbot api key
+# Ask expert will call the convo model but with the depth decremented, when the value is 0 it will not call any more openai function calling
+# when thre response is a function call ask epert will call the function with the expert required but with the depth decremented.
+
+
+async def convo(user_input:str, expert_name="Dave", channel="admin") -> str:
     chat = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=1)
 
     template = f"""
-    
     Imagine three different experts are answering this question.
     They will brainstorm the answer step by step; reasoning carefully and taking all the facts into consideration..
     All experts will write down 1 step of their thinking , then share with the group.
@@ -57,18 +63,18 @@ async def convo(user_input:str, name="Dave") -> str:
     
     """
 
-    signature = f"Kind regards, \n\{name}"
+    signature = f"Kind regards, \n\{expert_name}"
     system_message_prompt = SystemMessagePromptTemplate.from_template(template)
 
-    human_template = "Here's the email to reply to and consider any other comments from the user for reply as well: {user_input}"
+    human_template = "Here's the reply from the panel of experts:}"
     human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)
 
     chat_prompt = ChatPromptTemplate.from_messages(
         [system_message_prompt, human_message_prompt]
     )
-
-    chain = ConversationChain(llm=chat, prompt=chat_prompt)
-    return await chain.arun(user_input=user_input, signature=signature, name=name)
+    memory_key = f"expert:{expert_name},channel:{channel}"
+    chain = ConversationChain(llm=chat, prompt=chat_prompt, memory=ConversationBufferMemory(memory_key=memory_key))
+    return await chain.arun(user_input=user_input, signature=signature, name=expert_name)
 
 
 #elevenlabs.set_api_key(os.environ["ELEVENLABS_API_KEY"])
