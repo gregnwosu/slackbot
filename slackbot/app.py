@@ -160,7 +160,8 @@ async def handle_file_changed(body, say) -> None:
         bot_cache: aioredis.Redis = get_cache()
         cached_text: str =await bot_cache.get(file_info.id)
         if not cached_text:
-            await say(f"Cache miss {bot_cache.keys()=}", channel=channel)
+            keys = await bot_cache.keys()
+            await say(f"Cache miss {keys=}", channel=channel)
             
         else:
             await say(f"Cache hit {cached_text=}", channel=channel)
@@ -216,7 +217,8 @@ async def handle_message(body: dict, say):
                     await say(f"*************caching key and  values {fileinfo.id=} {text=} {text_cache=}")
                     await text_cache.set(fileinfo.id,  text, ex=dt.timedelta(minutes=5))
                     # cache the text for the file
-                    await say(f"cache keys {text_cache.keys()=}")
+                    keys = await text_cache.keys()
+                    await say(f"cache keys {keys=}")
                     await say(f"Need to wait for audio to be transcribed for  {fileinfo}", channel=model.channel)
                 except Exception as e:
                     await say(f"Error {e=}")
