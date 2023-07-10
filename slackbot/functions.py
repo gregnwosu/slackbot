@@ -72,8 +72,8 @@ async def convo(user_input:str, expert_name="Dave", channel="admin") -> str:
     chat_prompt = ChatPromptTemplate.from_messages(
         [system_message_prompt, human_message_prompt]
     )
-    memory_key = f"expert:{expert_name},channel:{channel}"
-    chain = ConversationChain(llm=chat, prompt=chat_prompt, memory=ConversationBufferMemory(memory_key=memory_key))
+    
+    chain = ConversationChain(llm=chat, prompt=chat_prompt, memory=ConversationBufferMemory())
     return await chain.arun(user_input=user_input, signature=signature)
 
 
