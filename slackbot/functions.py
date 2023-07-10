@@ -62,7 +62,7 @@ async def convo(user_input:str, expert_name="Dave", channel="admin") -> str:
     Make sure to sign off with {signature}
     """
 
-    signature = "Kind regards, \n\{expert_name}"
+    signature = f"Kind regards, \n\{expert_name}"
 
     system_message_prompt = SystemMessagePromptTemplate.from_template(template)
 
@@ -74,7 +74,7 @@ async def convo(user_input:str, expert_name="Dave", channel="admin") -> str:
     )
     memory_key = f"expert:{expert_name},channel:{channel}"
     chain = ConversationChain(llm=chat, prompt=chat_prompt, memory=ConversationBufferMemory(memory_key=memory_key))
-    return await chain.arun(user_input=user_input, signature=signature, expert_name=expert_name)
+    return await chain.arun(user_input=user_input, signature=signature)
 
 
 #elevenlabs.set_api_key(os.environ["ELEVENLABS_API_KEY"])
