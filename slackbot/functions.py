@@ -61,14 +61,14 @@ async def convo(input:str, expert_name="Dave", channel="admin") -> str:
     Continue until all experts agree on the single most likely answer.
     the history of the conversation is stored in the memory of the chatbot and is as follows:
     {history}
-    Make sure to sign off with {signature}
+    
     """
 
-    signature = f"Kind regards, \n\{expert_name}"
+    ## NB  ConversationChain only supports history and input as parameters: https://github.com/hwchase17/langchain/issues/1800
 
     system_message_prompt = SystemMessagePromptTemplate.from_template(template)
 
-    human_template = "Heres the Question:\n\n{input}"
+    human_template = "Heres the situation:\n\n{input}"
     human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)
 
     chat_prompt = ChatPromptTemplate.from_messages(
@@ -76,9 +76,9 @@ async def convo(input:str, expert_name="Dave", channel="admin") -> str:
     )
     
 
-    chain = ConversationChain(llm=chat, prompt=chat_prompt)#, memory=ConversationBufferMemory())
+    chain = ConversationChain(llm=chat, prompt=chat_prompt, memory=ConversationBufferMemory())
     #history and input are supplied by the conversationalbuffermemory
-    return await chain.arun( signature=signature, input=input, history="")
+    return await chain.arun(input=input )
 
 
 
