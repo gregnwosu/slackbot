@@ -1,10 +1,7 @@
-# ToDO
+[![Build and deploy Python app to Azure Web App - slackbotwebapp](https://github.com/gregnwosu/slackbot/actions/workflows/main_slackbotwebapp.yml/badge.svg)](https://github.com/gregnwosu/slackbot/actions/workflows/main_slackbotwebapp.yml)
 
-forest of thoughts prompting
-https://www.youtube.com/watch?v=y6SVA3aAfco&t=322s
-
-distrbute cache
-https://www.youtube.com/watch?v=QSFIK2Ytbh4
+# todo:
+openai function calling to other experts
 
 # Slack AI Assistant with Python & LangChain
 
