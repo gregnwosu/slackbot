@@ -73,8 +73,9 @@ async def convo(user_input:str, expert_name="Dave", channel="admin") -> str:
         [system_message_prompt, human_message_prompt]
     )
     
-    chain = ConversationChain(llm=chat, prompt=chat_prompt, memory=ConversationBufferMemory())
-    return await chain.arun(user_input=user_input, signature=signature)
+    chain = ConversationChain(llm=chat, prompt=chat_prompt)#, memory=ConversationBufferMemory())
+    #history and input are supplied by the conversationalbuffermemory
+    return await chain.arun( signature=signature, input=input, history="")
 
 
 #elevenlabs.set_api_key(os.environ["ELEVENLABS_API_KEY"])
