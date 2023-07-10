@@ -1,10 +1,11 @@
 from typing import Any, Coroutine
 from langchain.chat_models import ChatOpenAI
-from langchain.chains import LLMChain
+from langchain.chains import LLMChain, ConversationChain
 from langchain.agents import initialize_agent, load_tools
 from langchain.agents.agent import AgentExecutor
 from langchain.agents.agent_toolkits import ZapierToolkit
 from langchain.llms import OpenAI 
+
 from langchain.agents.agent_types import AgentType
 from langchain.memory import ConversationBufferMemory 
 from langchain.utilities.zapier import ZapierNLAWrapper
@@ -22,46 +23,58 @@ from langchain.prompts.chat import (
 )
 import os 
 import elevenlabs
-
+import aioredis
 from cachetools import TTLCache, cached
 
 
-def generate_audio(text, voice="Bella", model="eleven_monolingual_v1"):
+async def generate_audio(text,  cache: aioredis.Redis, voice="Bella", model="eleven_monolingual_v1"):
+    if result := await cache.get(text):
+        return result
     elevenlabs.set_api_key(os.environ["ELEVENLABS_API_KEY"])
     audio = elevenlabs.generate(text=text, voice=voice, model=model)
+    await cache.set(text, audio)
     return audio
 
 
-#TODO make this into a tool.
-def draft_email(user_input, name="Dave") -> str:
+#TODO this needs to be changed to use OpenAI function calling.
+# There will be a function called ask experts which will take a list of experts to call
+# Ask experts will call ask expert.
+# Each enum of experts will have a name a model and a slackbot api key
+# Ask expert will call the convo model but with the depth decremented, when the value is 0 it will not call any more openai function calling
+# when thre response is a function call ask epert will call the function with the expert required but with the depth decremented.
+
+
+async def convo(user_input:str, expert_name="Dave", channel="admin") -> str:
     chat = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=1)
 
-    template = """
-    
-    You are a helpful assistant that drafts an email reply based on an a new email.
-    
-    Your goal is to help the user quickly create a perfect email reply.
-    
-    Keep your reply short and to the point and mimic the style of the email so you reply in a similar manner to match the tone.
-    
-    Start your reply by saying: "Hi {name}, here's a draft for your reply:". And then proceed with the reply on a new line.
-    
-    Make sure to sign of with {signature}.
+    template = f"""
+    Imagine three different experts are answering this question.
+    They will brainstorm the answer step by step; reasoning carefully and taking all the facts into consideration..
+    All experts will write down 1 step of their thinking , then share with the group.
+    They will each critique their own response and the responses of others.
+    They critique more heavily the responses that led them to change their mind.
+    They will check their answers based on science and the laws of physics , math and logic.
+    Then all experts will go on to the next step and write down this step in thier thinking.
+    If at any time they realise that there is a flaw in their logic they will backtrack to where the flaw occured.
+    If any expert realises they're wrong at any point then they acknowledge this and backtrack to where they went wrong to start another train of thought.
+    Each expert will assign a likelihood of their current assertion being correct.
+    Continue until all experts agree on the single most likely answer.
+    The Question is: {user_input}
     
     """
 
-    signature = f"Kind regards, \n\{name}"
+    signature = f"Kind regards, \n\{expert_name}"
     system_message_prompt = SystemMessagePromptTemplate.from_template(template)
 
-    human_template = "Here's the email to reply to and consider any other comments from the user for reply as well: {user_input}"
+    human_template = "Here's the reply from the panel of experts:}"
     human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)
 
     chat_prompt = ChatPromptTemplate.from_messages(
         [system_message_prompt, human_message_prompt]
     )
-
-    chain = LLMChain(llm=chat, prompt=chat_prompt)
-    return chain.run(user_input=user_input, signature=signature, name=name)
+    memory_key = f"expert:{expert_name},channel:{channel}"
+    chain = ConversationChain(llm=chat, prompt=chat_prompt, memory=ConversationBufferMemory(memory_key=memory_key))
+    return await chain.arun(user_input=user_input, signature=signature, name=expert_name)
 
 
 #elevenlabs.set_api_key(os.environ["ELEVENLABS_API_KEY"])
@@ -104,7 +117,7 @@ class EmailTool(BaseTool):
 
     def _run(self, text:str) -> str:
         """Use the tool"""
-        return draft_email(text)
+        return convo(text)
     
 
     async def _arun(self, *args: Any, **kwargs: Any) -> Coroutine[Any, Any, Any]:
