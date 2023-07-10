@@ -25,6 +25,7 @@ import os
 import elevenlabs
 import aioredis
 from cachetools import TTLCache, cached
+import datetime as dt
 
 
 async def generate_audio(text,  cache: aioredis.Redis, voice="Bella", model="eleven_monolingual_v1"):
@@ -32,7 +33,7 @@ async def generate_audio(text,  cache: aioredis.Redis, voice="Bella", model="ele
         return result
     elevenlabs.set_api_key(os.environ["ELEVENLABS_API_KEY"])
     audio = elevenlabs.generate(text=text, voice=voice, model=model)
-    await cache.set(text, audio)
+    await cache.set(text, audio, ex=dt.timedelta(minutes=5))
     return audio
 
 

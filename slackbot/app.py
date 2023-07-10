@@ -166,7 +166,8 @@ async def handle_file_changed(body, say) -> None:
         else:
             await say(f"Cache hit {cached_text=}", channel=channel)
         slack_client: AsyncWebClient = cached_slack_client()
-        ai_request = f"hi please service this request: \n {transcription} extra info is {cached_text}"
+        extra_info = f", extra info is {cached_text}" if cached_text else ""
+        ai_request = f"hi please service this request: \n {transcription}  {extra_info}"
         await say(f"Request is: audio {ai_request=}", channel=channel)
         ai_answer = await functions.convo(input=ai_request)
         await say(f"Response is:  {ai_answer=}", channel=channel)
