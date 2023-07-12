@@ -1,4 +1,5 @@
 from langchain import SerpAPIWrapper
+from slack_sdk.web.client import WebClient
 from langchain.agents import initialize_agent, Tool
 from langchain.agents import AgentType
 from langchain.chat_models import ChatOpenAI
@@ -32,6 +33,8 @@ class Agents(Enum):
         self.slack_key = slack_key
         self.memory = memory
         self.model = model
+        self.slack_client: WebClient = WebClient(token=self.slack_key)
+        
 
     
     def tools(self) -> List[Tool]:
@@ -56,7 +59,7 @@ Your name is {self.name}. Please introduce yourself whenever speaking.
 
 We are here to answer the question: {input}. To do this effectively, we will follow a structured process:
 
-Use the supplied functions to get different experts opinions answering this question. You should get at least two opinions from different experts.
+you must use the supplied functions to get different experts opinions answering this question. you should choose the experts yourself. You should get at least two opinions from different experts.
             Ideally each expert should be asked a different question, or ask the expert what they think of your conclusion. The reply from each expert should help decompose the question into smaller questions, which there again can be decomposed into smaller questions.
 1. Decompose the main question into smaller, manageable sub-questions. Each expert should propose at least one sub-question related to their area of expertise.
 
@@ -74,7 +77,7 @@ Use the supplied functions to get different experts opinions answering this ques
 
 8. If we reach a point where the discussion is not progressing or is going in circles, we will take a step back and revisit our sub-questions or propose new ones.
 
-
+9. If you have been asked 3 different questions on the same subject you should respond with a summary of your thoughts on the subject, and conclude without invoking any other experts.
 
 Remember, our goal is to answer the main question as effectively as possible. The history of the conversation is stored in the memory of the chatbot and is as follows: {{history}}
 """
@@ -89,10 +92,13 @@ Remember, our goal is to answer the main question as effectively as possible. Th
 
         
         llm  = initialize_agent(self.tools() , self.model, agent=AgentType.OPENAI_MULTI_FUNCTIONS, 
-                                verbose=True, memory=self.memory,  max_iterations=2,
-                                early_stopping_method="generate")
+                                verbose=True, memory=self.memory,  
+                                )
         #chain = ConversationChain(llm=llm, prompt=chat_prompt, memory=ConversationBufferMemory())
-        return  llm.run(input=template)
+        answer =   llm.run(input=template)
+        # use self.slack_client to send message to slack
+        self.slack_client.chat_postMessage(channel="admin", text=answer)
+        return answer
 
 
 
