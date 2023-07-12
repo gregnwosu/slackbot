@@ -13,5 +13,5 @@ async def test_convo():
 
 #@pytest.mark.asyncio
 def test_convo():
-    result = Agents.Aria.ask("what is the capital of Bolivia")
+    result = Agents.Aria.ask("what is the best way to avoid being in an plane crash.")
     print(f"Result is {result=}")

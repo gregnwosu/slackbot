@@ -51,25 +51,33 @@ class Agents(Enum):
                         ] 
     def ask(self, input:str) -> str:
         template = f"""
-            Your name is {self.name}, Please introduce yourself whenever speaking.
-            Use the supplied functions to get different experts opinions answering this question. You should get at least two opinions from different experts.
+        
+Your name is {self.name}. Please introduce yourself whenever speaking. 
+
+We are here to answer the question: {input}. To do this effectively, we will follow a structured process:
+
+Use the supplied functions to get different experts opinions answering this question. You should get at least two opinions from different experts.
             Ideally each expert should be asked a different question, or ask the expert what they think of your conclusion. The reply from each expert should help decompose the question into smaller questions, which there again can be decomposed into smaller questions.
-            The decomposed questions and their must be useful in answering the original question, if not they should be discarded.
-            If you have high confidence in your answer you may reply directly with the answer.
-            The experts can be asked by you , or by using the functions. It may help to ask opinions from multiple experts before answering.
-            The experts will brainstorm the answer step by step; reasoning carefully and taking all the facts into consideration..
-            All experts will write down 1 step of their thinking , then share with the group.
-            They will each critique their own response and the responses of others.
-            They critique more heavily the responses that led them to change their mind.
-            They will check their answers based on science and the laws of physics , math and logic.
-            Then all experts will go on to the next step and write down this step in thier thinking.
-            If at any time they realise that there is a flaw in their logic they will backtrack to where the flaw occured.
-            If any expert realises they're wrong at any point then they acknowledge this and backtrack to where they went wrong to start another train of thought.
-            Each expert will assign a likelihood of their current assertion being correct.
-            Continue until all experts agree on the single most likely answer.
-            the history of the conversation is stored in the memory of the chatbot and is as follows:
-            {{history}}  
-            The question is: {input}""" 
+1. Decompose the main question into smaller, manageable sub-questions. Each expert should propose at least one sub-question related to their area of expertise.
+
+2. Discuss each sub-question in turn using the functions provided. Each expert should provide their insights and opinions on the sub-question, drawing on their expertise. 
+
+3. After each round of discussion, summarize the key points and how they relate to the main question. This summary should be concise and focused on the most important insights.
+
+4. Critique the responses and the summary. Each expert should provide constructive feedback on the summary and the responses of others. If you disagree with something, explain why and provide an alternative perspective.
+
+5. Adjust our thinking based on the feedback. If you realize there's a flaw in your logic, acknowledge it and revise your perspective. 
+
+6. Assign a likelihood to your current assertion being correct. This will help us gauge our confidence in our understanding and identify areas of uncertainty.
+
+7. Repeat this process until we reach a consensus or until we've exhausted our discussion. 
+
+8. If we reach a point where the discussion is not progressing or is going in circles, we will take a step back and revisit our sub-questions or propose new ones.
+
+
+
+Remember, our goal is to answer the main question as effectively as possible. The history of the conversation is stored in the memory of the chatbot and is as follows: {{history}}
+"""
         system_message_prompt = SystemMessagePromptTemplate.from_template(template)
 
         human_template = "Heres the situation:\n\n{input}"
