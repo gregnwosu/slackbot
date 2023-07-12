@@ -7,6 +7,7 @@ class MimeType(str, Enum):
     AUDIO_WEBM = "audio/webm"
     AUDIO = "audio"
     AUDIO_MP4 = "audio/mp4"
+    AUDIO_MP3 = "audio/mp3"
 
 class FileType(str, Enum):
     WEBM = "webm"
