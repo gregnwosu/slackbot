@@ -21,6 +21,10 @@ load_dotenv(find_dotenv())
 SERPAPI_API_KEY = os.environ["SERPAPI_API_KEY"]
 
 
+def make_function_async(func):
+    async def wrapper(*args, **kwargs):
+            return func(*args, **kwargs)
+    return wrapper    
 class Agents(Enum):
     Aria = ("Aria", os.environ["SLACK_BOT_TOKEN"], ConversationBufferMemory(),
              ChatOpenAI(model_name="gpt-3.5-turbo", 
@@ -34,6 +38,8 @@ class Agents(Enum):
         self.memory = memory
         self.model = model
         self.slack_client: WebClient = WebClient(token=self.slack_key)
+    
+   
         
 
     
@@ -57,29 +63,30 @@ class Agents(Enum):
         
 Your name is {self.name}. Please introduce yourself whenever speaking. 
 
-We are here to answer the question: {input}. To do this effectively, we will follow a structured process:
+We are here to answer the question: "{input}".
 
-you must use the supplied functions to get different experts opinions answering this question. you should choose the experts yourself. You should get at least two opinions from different experts.
-            Ideally each expert should be asked a different question, or ask the expert what they think of your conclusion. The reply from each expert should help decompose the question into smaller questions, which there again can be decomposed into smaller questions.
-1. Decompose the main question into smaller, manageable sub-questions. Each expert should propose at least one sub-question related to their area of expertise.
+To do this effectively, you will follow a structured process:
 
-2. Discuss each sub-question in turn using the functions provided. Each expert should provide their insights and opinions on the sub-question, drawing on their expertise. 
+Decompose the problem into parts. Use the functions to ask the most appropriate expert for each part.
+You must only ask each expert a question. You must only respond with an answer.
+You can only ask questions to functions. You cannot ask a question in response to a question.
+    
+    1. All questions asked to an agent will be prefixed by a numeric level. e.g. "Level 2: What does crimson mean?" 
+    2. The level will be decremented each time a question is asked.
+    3. If no level is specified then the level will be 3.
+    4. You will decrement the level by 1 each time when you receive a question, this new level should be passed to any functions you call.
+    5. Once the level reaches 0 then no more questions will be asked by you to any agent. You should then recombine the answers to the questions to form the answer to the original question.
+    6. When returning an answer to the original question you will assign a likelihood of your current assertion being correct.
+    7. You will brainstorm the answer step by step; reasoning carefully and taking all the facts into consideration..
+    8. The maximum number of functions the you can call is 3, after that you should then recombine the answers to the questions to form the answer to the original question.
+    9. You will check their answers based on science and the laws of physics , math and logic.
+    10. If at any time you realise that there is a flaw in the logic of an opinion you have  recieved you will backtrack to where the flaw occured.
+    11. If you realise any expert is wrong at any point then acknowledge this and backtrack to where they went wrong to start another train of thought.
+    12. Continue until all experts agree on the single most likely answer or the level reaches 0.
+    13. Any level other than 3 will be considered a partial answer and an internal thought, not a final answer and should not be displayed.
 
-3. After each round of discussion, summarize the key points and how they relate to the main question. This summary should be concise and focused on the most important insights.
-
-4. Critique the responses and the summary. Each expert should provide constructive feedback on the summary and the responses of others. If you disagree with something, explain why and provide an alternative perspective.
-
-5. Adjust our thinking based on the feedback. If you realize there's a flaw in your logic, acknowledge it and revise your perspective. 
-
-6. Assign a likelihood to your current assertion being correct. This will help us gauge our confidence in our understanding and identify areas of uncertainty.
-
-7. Repeat this process until we reach a consensus or until we've exhausted our discussion. 
-
-8. If we reach a point where the discussion is not progressing or is going in circles, we will take a step back and revisit our sub-questions or propose new ones.
-
-9. If you have been asked 3 different questions on the same subject you should respond with a summary of your thoughts on the subject, and conclude without invoking any other experts.
-
-Remember, our goal is to answer the main question as effectively as possible. The history of the conversation is stored in the memory of the chatbot and is as follows: {{history}}
+Remember, our goal is to answer the question: "{input}", repeat the question to yourself before each step to ensure you are on track.
+ the main question as effectively as possible. The history of the conversation is stored in the memory of the chatbot and is as follows: {{history}}
 """
         system_message_prompt = SystemMessagePromptTemplate.from_template(template)
 
@@ -89,15 +96,13 @@ Remember, our goal is to answer the main question as effectively as possible. Th
         chat_prompt = ChatPromptTemplate.from_messages(
             [system_message_prompt, human_message_prompt]
         )
-
         
         llm  = initialize_agent(self.tools() , self.model, agent=AgentType.OPENAI_MULTI_FUNCTIONS, 
-                                verbose=True, memory=self.memory,  
-                                )
+                                verbose=True, memory=self.memory )
         #chain = ConversationChain(llm=llm, prompt=chat_prompt, memory=ConversationBufferMemory())
-        answer =   llm.run(input=template)
-        # use self.slack_client to send message to slack
-        self.slack_client.chat_postMessage(channel="admin", text=answer)
+        answer =  llm.run(input=template)
+        #use self.slack_client to send message to slack
+        #self.slack_client.chat_postMessage(channel="admin", text=answer)
         return answer
 
 

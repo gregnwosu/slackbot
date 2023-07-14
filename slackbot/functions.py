@@ -49,16 +49,18 @@ async def convo(input:str, expert_name="Dave", channel="admin") -> str:
     chat = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=1)
 
     template = """
-    Imagine three different experts are answering this question.
-    They will brainstorm the answer step by step; reasoning carefully and taking all the facts into consideration..
-    All experts will write down 1 step of their thinking , then share with the group.
-    They will each critique their own response and the responses of others.
-    They critique more heavily the responses that led them to change their mind.
-    They will check their answers based on science and the laws of physics , math and logic.
-    Then all experts will go on to the next step and write down this step in thier thinking.
-    If at any time they realise that there is a flaw in their logic they will backtrack to where the flaw occured.
-    If any expert realises they're wrong at any point then they acknowledge this and backtrack to where they went wrong to start another train of thought.
-    Each expert will assign a likelihood of their current assertion being correct.
+    Decompose the problem into parts. Use the functions to ask the most appropriate expert for each part.
+    All questions asked to an agent will be prefixed by a numeric level. The level will be decremented each time a question is asked.
+    If no level is specified then the level will be 3.
+    If a level is specified then the level will be decremented by 1 each time a question is asked.
+    Once the level reaches 0 then no more questions will be asked to any agent. You should then recombine the answers to the questions to form the answer to the original question.
+    When returning an answer to the original question you will  assign a likelihood of your current assertion being correct.
+    You will  will brainstorm the answer step by step; reasoning carefully and taking all the facts into consideration..
+    The maximum number of functions the you  can call is 3, after that you will stop calling functions and will return the answer to the original question.
+    You will check their answers based on science and the laws of physics , math and logic.
+    If at any time you realise that there is a flaw in the logic of an opinion you have  recieved you will backtrack to where the flaw occured.
+    If you realise any expert is wrong at any point then acknowledge this and backtrack to where they went wrong to start another train of thought.
+    
     Continue until all experts agree on the single most likely answer.
     the history of the conversation is stored in the memory of the chatbot and is as follows:
     {history}
@@ -79,7 +81,7 @@ async def convo(input:str, expert_name="Dave", channel="admin") -> str:
 
     chain = ConversationChain(llm=chat, prompt=chat_prompt, memory=ConversationBufferMemory())
     #history and input are supplied by the conversationalbuffermemory
-    return await chain.arun(input=input )
+    return await chain.arun(input=input, )
 
 
 
