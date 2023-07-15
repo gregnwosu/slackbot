@@ -36,3 +36,15 @@ resource "azurerm_key_vault_secret" "slackbot_synth_endpoint" {
   key_vault_id = azurerm_key_vault.slackbot_secrets.id
 }
 
+
+resource "azurerm_key_vault_secret" "slackbot_redis_key" {
+  name         = "redis-key"
+  value        = azurerm_redis_cache.bot-cache.primary_access_key
+  key_vault_id = azurerm_key_vault.slackbot_secrets.id
+}
+
+resource "azurerm_key_vault_secret" "slackbot_redis_hostname" {
+  name         = "redis-key"
+  value        = azurerm_redis_cache.bot-cache.hostname
+  key_vault_id = azurerm_key_vault.slackbot_secrets.id
+}
