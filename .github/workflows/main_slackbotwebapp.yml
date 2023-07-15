@@ -111,6 +111,7 @@ jobs:
     
   
       - name: Terraform Plan
+        id: plan
         if: github.event_name == 'pull_request'
         run: terraform plan -no-color 
         working-directory: terraform
