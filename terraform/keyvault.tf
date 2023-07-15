@@ -26,14 +26,13 @@ resource "azurerm_key_vault" "slackbot_secrets" {
 
 resource "azurerm_key_vault_secret" "slackbot_synth_primary_access_key" {
   name         = "primary-access-key"
-  value        = data.azurerm_cognitive_services_account.slackbot_synth.primary_access_key
+  value        = azurerm_cognitive_account.slackbot_synth.primary_access_key
   key_vault_id = azurerm_key_vault.slackbot_secrets.id
 }
 
 resource "azurerm_key_vault_secret" "slackbot_synth_endpoint" {
-  name         = "slackbot_synth_endpoint"
-  value        = data.azurerm_cognitive_services_account.slackbot_synth.endpoint
+  name         = "slackbot-synth-endpoint"
+  value        = azurerm_cognitive_account.slackbot_synth.endpoint
   key_vault_id = azurerm_key_vault.slackbot_secrets.id
-  
 }
 
