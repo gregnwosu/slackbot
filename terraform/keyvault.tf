@@ -18,6 +18,8 @@ resource "azurerm_key_vault" "slackbot_secrets" {
     secret_permissions = [
       "Get",
       "List",
+      "Set",
+      "Write"
     ]
   }
    
