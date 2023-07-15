@@ -1,7 +1,8 @@
 
-from aiohttp import BasicAuth
 from slackbot.parsing.appmention.event import  AppMentionEvent
 import os
+import datetime as dt
+from slackbot.tools import Agents
 from slack_sdk.web.async_client import AsyncWebClient
 from slack_sdk.errors import SlackApiError
 from slack_sdk.signature import SignatureVerifier
@@ -20,9 +21,10 @@ from aiocache import cached
 import sys
 from slackbot.parsing.file.event import FileInfo, FileEvent
 from slack_bolt.authorization import AuthorizeResult
-import cachetools
+import aioredis
 from slackbot.parsing.file.model import MimeType
-from slackbot.parsing.message.event import FileShareMessageEvent, MessageSubType
+from slackbot.parsing.message.event import MessageSubType
+import slackbot.functions as functions
 import requests
 # Configure the logging level and format
 logging.basicConfig(
@@ -47,15 +49,21 @@ load_dotenv(find_dotenv())
 SLACK_BOT_TOKEN = os.environ["SLACK_BOT_TOKEN"]
 SLACK_SIGNING_SECRET = os.environ["SLACK_SIGNING_SECRET"]
 SLACK_BOT_USER_ID = os.environ["SLACK_BOT_USER_ID"]
+REDIS_URL = os.environ["REDIS_URL"]
+REDIS_KEY = os.environ["REDIS_KEY"]
 
-text_cache = cachetools.TTLCache(maxsize=100, ttl=300)
+
+def get_cache()-> aioredis.Redis: 
+    return aioredis.Redis(host=REDIS_URL, password=REDIS_KEY, ssl=True, port=6380, db=0, decode_responses=True)
+    
+    
+#cachetools.TTLCache(maxsize=100, ttl=300)
 
 
 async def authorize():
     return AuthorizeResult()
 # Initialize the Slack app
-app = AsyncApp(token=SLACK_BOT_TOKEN,
-               signing_secret = SLACK_SIGNING_SECRET)
+app = AsyncApp(token=SLACK_BOT_TOKEN, signing_secret=SLACK_SIGNING_SECRET)
 handler: AsyncSlackRequestHandler = AsyncSlackRequestHandler(app)
 
 # Initialize the Flask app
@@ -142,18 +150,42 @@ async def handle_file_changed(body, say) -> None:
     """
     # failes because of no channel id
     channel = "C0595A85N4R"
-    await say(f"File Changed:, I'll get right on that! {body=}", channel=channel)
     file_event: FileEvent = FileEvent(**body["event"])
     file_info: FileInfo = await file_event.file_info(cached_slack_client())
+    await say(f"File Changed:, I'll get right on that! {body=}", channel=channel)
     logger.warn(f"File Changed: File Info {file_info=}")
     await say(f"File Changed: Calling with {file_info=}", channel=channel)
     transcription = await file_info.vtt_txt(SLACK_BOT_TOKEN)
     await say(f"Retrieving Transcription  {transcription=}", channel=channel)
-    model: FileShareMessageEvent =text_cache.get(file_info.id, None)
-    if not model:
-        await say(f"Cache miss {file_info=}", channel=channel)
+    try:
+        bot_cache: aioredis.Redis = get_cache()
+        cached_text: str =await bot_cache.get(file_info.id)
+        if not cached_text:
+            keys = await bot_cache.keys()
+            await say(f"Cache miss {keys=}", channel=channel)
+            
+        else:
+            await say(f"Cache hit {cached_text=}", channel=channel)
+        slack_client: AsyncWebClient = cached_slack_client()
+        extra_info = f", extra info is {cached_text}" if cached_text else ""
+        ai_request = f"hi please service this request: \n {transcription}  {extra_info}"
+        await say(f"Request is: audio {ai_request=}", channel=channel)
+        ai_answer =  Agents.Aria.ask(input=ai_request)
+        await say(f"Response is:  {ai_answer=}", channel=channel)
+        audio_bytes = await functions.generate_audio(ai_answer, bot_cache)
+        await say(f"TextResponse: audio {ai_answer=}", channel=channel)
+        response = await slack_client.files_upload(
+            channels=[channel],
+            file=audio_bytes,
+            filename='audio.mp3',
+            filetype=MimeType.AUDIO_MP3.value)
         return None
-    #channel = model.channel
+    except Exception as e:
+        await say(f"Error {e=}", channel=channel)
+        raise e
+    finally:
+        await bot_cache.close()
+       
     
 
 @app.event("message")
@@ -178,12 +210,25 @@ async def handle_message(body: dict, say):
     text = text.replace(mention, "").strip()
     
     await say("Message event, I'll get right on that!")
+
     if isinstance(model, MessageSubType.file_share.value)  :
         for fileinfo in model.files:
             if fileinfo.mimetype in [MimeType.AUDIO_WEBM.value, MimeType.AUDIO_MP4.value]:
-                text_cache[fileinfo.id] = model
-                # cache the text for the file
-                await say(f"Need to wait for audio to be transcribed for  {fileinfo}", channel=model.channel)
+                say(f"************getting cache for text {fileinfo.id=} {text=}")
+                try:
+                    text_cache: aioredis.Redis = get_cache()
+                    await say(f"*************caching key and  values {fileinfo.id=} {text=} {text_cache=}")
+                    await text_cache.set(fileinfo.id,  text, ex=dt.timedelta(minutes=5))
+                    # cache the text for the file
+                    keys = await text_cache.keys()
+                    await say(f"cache keys {keys=}")
+                    await say(f"Need to wait for audio to be transcribed for  {fileinfo}", channel=model.channel)
+                except Exception as e:
+                    await say(f"Error {e=}")
+                    raise e
+                finally:
+                    await text_cache.close()
+                    
     return model
 
 @app.event("app_mention")

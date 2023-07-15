@@ -1,3 +1,8 @@
+[![Build and deploy Python app to Azure Web App - slackbotwebapp](https://github.com/gregnwosu/slackbot/actions/workflows/main_slackbotwebapp.yml/badge.svg)](https://github.com/gregnwosu/slackbot/actions/workflows/main_slackbotwebapp.yml)
+
+# todo:
+openai function calling to other experts
+
 # Slack AI Assistant with Python & LangChain
 
 Here's a step-by-step guide to creating a Slack bot, installing it in a workspace, setting up a Python code with Flask, and using ngrok.

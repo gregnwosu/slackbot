@@ -89,7 +89,7 @@ class FileInfo(pydantic.BaseModel):
         prose_lines = [line for line in lines if  re.match(pattern, line)]
         
         # Remove leading and trailing newlines
-        stripped_prose = ' '.join(prose_lines).strip().replace('-', '')
+        stripped_prose = ' '.join(prose_lines).strip().replace('-', '').replace('WEBVTT', '')
         
         return stripped_prose
 

@@ -3,7 +3,7 @@ resource "azurerm_service_plan" "serviceplan" {
   sku_name            = "F1"
   os_type             = "Linux"
   location            = var.resource_group_location
-  resource_group_name = azurerm_resource_group.LangChain-Experiments.name
+  resource_group_name = "langchain-experiments"
 
 
 }
@@ -24,6 +24,8 @@ resource "azurerm_linux_web_app" "slackbotwebapp" {
     "HUGGING_FACE_API_KEY"           = "${var.HUGGING_FACE_API_KEY}"
     "VAR_ZAPIER_API_KEY"             = "${var.ZAPIER_API_KEY}"
     "ELEVENLABS_API_KEY"             = "${var.ELEVENLABS_API_KEY}"
+    "REDIS_KEY"                      = "${var.REDIS_KEY}"
+    "REDIS_URL"                      = "${var.REDIS_URL}" 
 
     #get variable from the environment
 

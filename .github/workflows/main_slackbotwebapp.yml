@@ -21,9 +21,11 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Set up Python version
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v4
         with:
           python-version: '3.8'
+          cache: 'pip'
+          
 
       - name: Create and start virtual environment
         run: |
@@ -54,6 +56,8 @@ jobs:
           HUGGING_FACE_API_KEY: ${{secrets.HUGGING_FACE_API_KEY}}
           ZAPIER_API_KEY: ${{secrets.ZAPIER_API_KEY}}
           ELEVENLABS_API_KEY: ${{secrets.ELEVENLABS_API_KEY}}
+          REDIS_URL: ${{secrets.REDIS_URL}}
+          REDIS_KEY: ${{secrets.REDIS_KEY}}
 
       # - name: Comment coverage
       #   uses: coroo/pytest-coverage-commentator@v1.0.2
@@ -93,7 +97,7 @@ jobs:
           terraform_version: 1.4.6
   
       - name: Terraform Init
-        run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP"
+        run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP" 
 
         working-directory: terraform
         env:
@@ -107,6 +111,7 @@ jobs:
     
   
       - name: Terraform Plan
+        id: plan
         if: github.event_name == 'pull_request'
         run: terraform plan -no-color 
         working-directory: terraform
@@ -125,6 +130,8 @@ jobs:
           TF_VAR_HUGGING_FACE_API_KEY: ${{secrets.HUGGING_FACE_API_KEY}}
           TF_VAR_ZAPIER_API_KEY: ${{secrets.ZAPIER_API_KEY}}
           TF_VAR_ELEVENLABS_API_KEY: ${{secrets.ELEVENLABS_API_KEY}}
+          TF_VAR_REDIS_URL: ${{secrets.REDIS_URL}}
+          TF_VAR_REDIS_KEY: ${{secrets.REDIS_KEY}}
 
       # Add a comment to pull requests with plan results
       - name: add-plan-comment
@@ -183,7 +190,7 @@ jobs:
           terraform_version: 1.4.6
   
       - name: Terraform Init
-        run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP"
+        run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP" 
 
         working-directory: terraform
         env:
@@ -194,6 +201,18 @@ jobs:
           RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
           STORAGE_ACCOUNT: ${{ secrets.TF_STORAGE_ACCOUNT }}
           CONTAINER_NAME: ${{ secrets.TF_CONTAINER_NAME }}
+    
+      # - name: Terraform Import
+      #   run: terraform import azurerm_resource_group.LangChain-Experiments /subscriptions/$ARM_SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP
+      #   working-directory: terraform
+      #   env:
+      #       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      #       ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      #       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      #       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+      #       RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
+      #       STORAGE_ACCOUNT: ${{ secrets.TF_STORAGE_ACCOUNT }}
+      #       CONTAINER_NAME: ${{ secrets.TF_CONTAINER_NAME }}
     
   
       - name: Terraform Apply
@@ -214,6 +233,8 @@ jobs:
           TF_VAR_HUGGING_FACE_API_KEY: ${{secrets.HUGGING_FACE_API_KEY}}
           TF_VAR_ZAPIER_API_KEY: ${{secrets.ZAPIER_API_KEY}}
           TF_VAR_ELEVENLABS_API_KEY: ${{secrets.ELEVENLABS_API_KEY}}
+          TF_VAR_REDIS_URL: ${{secrets.REDIS_URL}}
+          TF_VAR_REDIS_KEY: ${{secrets.REDIS_KEY}}
 
       - name: 'Deploy to Azure Web App'
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'

@@ -18,4 +18,6 @@ variable "resource_group_name_prefix" {
  variable "HUGGING_FACE_API_KEY" { }
  variable "ZAPIER_API_KEY" { }
  variable "ELEVENLABS_API_KEY" { }
+ variable "REDIS_KEY" { }
+ variable "REDIS_URL" { }
 
