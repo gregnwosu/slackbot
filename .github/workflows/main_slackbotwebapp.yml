@@ -108,8 +108,25 @@ jobs:
           RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
           STORAGE_ACCOUNT: ${{ secrets.TF_STORAGE_ACCOUNT }}
           CONTAINER_NAME: ${{ secrets.TF_CONTAINER_NAME }}
+          
+      - name:  Terraform Validate
+        id: validate
+        if: github.ref != 'refs/heads/main' && (success() || failure())
+        run: terraform validate -no-color
+
+      - name: Checkov
+        if: github.event_name == 'pull_request'
+        id: checkov
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: terraform
+          quiet: true
+          framework: terraform
+          output_format: github_failed_only
+          container_user: 1000
+          soft_fail: true
+          skip_check: CKV_AZURE_88,CKV_AZURE_71,CKV_AZURE_16
     
-  
       - name: Terraform Plan
         id: plan
         if: github.event_name == 'pull_request'
