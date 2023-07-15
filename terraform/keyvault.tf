@@ -11,13 +11,13 @@ resource "azurerm_key_vault" "slackbot_secrets" {
     object_id = data.azurerm_client_config.current.object_id
 
     key_permissions = [
-      "get",
-      "list",
+      "Get",
+      "List",
     ]
 
     secret_permissions = [
-      "get",
-      "list",
+      "Get",
+      "List",
     ]
   }
    
