@@ -36,3 +36,6 @@ pytest-asyncio
 # speech
 
 azure-cognitiveservices-speech
+
+# dev
+pre-commit
