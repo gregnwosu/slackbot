@@ -31,3 +31,7 @@ gunicorn
 pytest
 pytest-cov
 starlette
+
+# speech
+
+azure-cognitiveservices-speech
