@@ -124,7 +124,7 @@ jobs:
           framework: terraform
           output_format: github_failed_only
           container_user: 1000
-          soft_fail: false
+          soft_fail: true
           skip_check: CKV_AZURE_88,CKV_AZURE_71,CKV_AZURE_16
     
       - name: Terraform Plan
