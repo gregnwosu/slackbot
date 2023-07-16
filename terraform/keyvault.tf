@@ -26,7 +26,7 @@ resource "azurerm_key_vault" "slackbot_secrets" {
 
 
 resource "azurerm_key_vault_secret" "slackbot_synth_primary_access_key" {
-  name         = "primary-access-key"
+  name         = "slackbot-synth-primary-access-key"
   value        = azurerm_cognitive_account.LangChain_Experiments.primary_access_key
   key_vault_id = azurerm_key_vault.slackbot_secrets.id
 }
