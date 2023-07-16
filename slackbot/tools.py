@@ -1,19 +1,29 @@
-from langchain import SerpAPIWrapper
-from slack_sdk.web.client import WebClient
+from slack_sdk.web.async_client import AsyncWebClient
 from langchain.agents import initialize_agent, Tool
 from langchain.agents import AgentType
 from langchain.chat_models import ChatOpenAI
+from slackbot.parsing.file.model import MimeType
 import os
 from enum import Enum
-from typing import Any, List
-from langchain.chains import LLMChain, ConversationChain
+from typing import Any
 from langchain.prompts.chat import (
     ChatPromptTemplate,
     SystemMessagePromptTemplate,
     HumanMessagePromptTemplate,
 )
-from langchain.memory import ConversationBufferMemory 
+
+import azure.cognitiveservices.speech as speechsdk
+
+
+import os
+from azure.cognitiveservices.speech import (
+    SpeechSynthesizer,
+    SpeechSynthesisOutputFormat,
+    SpeechSynthesisResult,
+)
+from langchain.memory import ConversationBufferMemory
 from dotenv import load_dotenv, find_dotenv
+import io
 
 load_dotenv(find_dotenv())
 
@@ -23,45 +33,89 @@ SERPAPI_API_KEY = os.environ["SERPAPI_API_KEY"]
 
 def make_function_async(func):
     async def wrapper(*args, **kwargs):
-            return func(*args, **kwargs)
-    return wrapper    
+        return func(*args, **kwargs)
+
+    return wrapper
+
+
 class Agents(Enum):
-    Aria = ("Aria", os.environ["SLACK_BOT_TOKEN"], ConversationBufferMemory(),
-             ChatOpenAI(model_name="gpt-3.5-turbo", 
-                        temperature=1, openai_api_key=os.environ["OPENAI_API_KEY"]))
-    Geoffrey = ("Geoffrey", os.environ["SLACK_BOT_TOKEN"], ConversationBufferMemory(), ChatOpenAI(model_name="gpt-4", temperature=0, openai_api_key=os.environ["OPENAI_API_KEY"]))
-    
-    def __init__(self, name:str, slack_key:str, memory:Any , model:Any) -> None:
+    Aria = (
+        "Aria",
+        os.environ["SLACK_BOT_TOKEN"],
+        ConversationBufferMemory(),
+        ChatOpenAI(
+            model_name="gpt-3.5-turbo",
+            temperature=1,
+            openai_api_key=os.environ["OPENAI_API_KEY"],
+        ),
+    )
+    Geoffrey = (
+        "Geoffrey",
+        os.environ["SLACK_BOT_TOKEN"],
+        ConversationBufferMemory(),
+        ChatOpenAI(
+            model_name="gpt-4",
+            temperature=0,
+            openai_api_key=os.environ["OPENAI_API_KEY"],
+        ),
+    )
+
+    def __init__(self, name: str, slack_key: str, memory: Any, model: Any) -> None:
         super().__init__()
-        #self.name = name
+        # self.name = name
         self.slack_key = slack_key
         self.memory = memory
         self.model = model
-        self.slack_client: WebClient = WebClient(token=self.slack_key)
-    
-   
-        
+        self.slack_client: AsyncWebClient = AsyncWebClient(token=self.slack_key)
 
-    
-    def tools(self) -> List[Tool]:
+    def tools(self) -> list[Tool]:
         return [
-                    Tool(
-                        name="Search",
-                        func=SerpAPIWrapper(serpapi_api_key=os.environ["SERPAPI_API_KEY"]).run,
-                        description="Useful when you need to answer questions about current events. You should ask targeted questions."
-                        
-                    ),
-                    Tool(name="Adria", 
-                        func=Agents.Aria.ask, 
-                        description="Adria is a language model that can answer questions and generate text. Shes fast friendly and mildy creative always ready to help"),
-                    Tool(name="Geoffrey",
-                        func=Agents.Geoffrey.ask,
-                        description="Geoffrey is a language model that can answer questions and generate text. He is slow , thoughtful not creative and doesnt like to be asked too frequently.")
-                        ] 
-    def ask(self, input:str) -> str:
+            # Tool(
+            #     name="Search",
+            #     func=SerpAPIWrapper(serpapi_api_key=os.environ["SERPAPI_API_KEY"]).run,
+            #     description="Useful when you need to answer questions about current events. You should ask targeted questions."
+            # ),
+            Tool(
+                name="Adria",
+                func=Agents.Aria.ask,
+                description="Adria is a language model that can answer questions and generate text. Shes fast friendly and mildy creative always ready to help",
+            ),
+            Tool(
+                name="Geoffrey",
+                func=Agents.Geoffrey.ask,
+                description="Geoffrey is a language model that can answer questions and generate text. He is slow , thoughtful not creative and doesnt like to be asked too frequently.",
+            ),
+        ]
+
+    async def speak(self, text: str) -> str:
+
+        subscription_key = "<your-subscription-key>"
+        endpoint = "<your-endpoint>"
+        speech_config = speechsdk.SpeechConfig(
+            subscription="YOUR_SUBSCRIPTION_KEY", region="YOUR_REGION"
+        )
+
+        synthesizer: SpeechSynthesizer = SpeechSynthesizer(speech_config=speech_config)
+        speech_config.set_speech_synthesis_output_format(
+            SpeechSynthesisOutputFormat.Audio16Khz32KBitRateMonoMp3
+        )
+        output_file = io.BytesIO()
+
+        result: SpeechSynthesisResult = await synthesizer.speak_text_async(text)
+        result.audio_data
+        data: bytes = result.audio_data
+
+        response = await self.slack_client.files_upload(
+            channels=["admin"],
+            file=data,
+            filename="audio.mp3",
+            filetype=MimeType.AUDIO_MP3.value,
+        )
+
+    async def ask(self, input: str) -> str:
         template = f"""
-        
-Your name is {self.name}. Please introduce yourself whenever speaking. 
+
+Your name is {self.name}. Please introduce yourself whenever speaking.
 
 We are here to answer the question: "{input}".
 
@@ -70,8 +124,8 @@ To do this effectively, you will follow a structured process:
 Decompose the problem into parts. Use the functions to ask the most appropriate expert for each part.
 You must only ask each expert a question. You must only respond with an answer.
 You can only ask questions to functions. You cannot ask a question in response to a question.
-    
-    1. All questions asked to an agent will be prefixed by a numeric level. e.g. "Level 2: What does crimson mean?" 
+
+    1. All questions asked to an agent will be prefixed by a numeric level. e.g. "Level 2: What does crimson mean?"
     2. The level will be decremented each time a question is asked.
     3. If no level is specified then the level will be 3.
     4. You will decrement the level by 1 each time when you receive a question, this new level should be passed to any functions you call.
@@ -96,16 +150,16 @@ Remember, our goal is to answer the question: "{input}", repeat the question to 
         chat_prompt = ChatPromptTemplate.from_messages(
             [system_message_prompt, human_message_prompt]
         )
-        
-        llm  = initialize_agent(self.tools() , self.model, agent=AgentType.OPENAI_MULTI_FUNCTIONS, 
-                                verbose=True, memory=self.memory )
-        #chain = ConversationChain(llm=llm, prompt=chat_prompt, memory=ConversationBufferMemory())
-        answer =  llm.run(input=template)
-        #use self.slack_client to send message to slack
-        #self.slack_client.chat_postMessage(channel="admin", text=answer)
+
+        llm = initialize_agent(
+            self.tools(),
+            self.model,
+            agent=AgentType.OPENAI_MULTI_FUNCTIONS,
+            verbose=True,
+            memory=self.memory,
+        )
+        # chain = ConversationChain(llm=llm, prompt=chat_prompt, memory=ConversationBufferMemory())
+        answer = await llm.arun(input=template)
+        # use self.slack_client to send message to slack
+        # self.slack_client.chat_postMessage(channel="admin", text=answer)
         return answer
-
-
-
-
-
