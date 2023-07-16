@@ -68,7 +68,7 @@ class Agents(Enum):
         self.model = model
         self.slack_client: AsyncWebClient = AsyncWebClient(token=self.slack_key)
 
-    def tools(self) -> list[Tool]:
+    def tools(self):
         return [
             # Tool(
             #     name="Search",
