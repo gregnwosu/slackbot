@@ -187,3 +187,29 @@ For video tutorials on how to use the LangChain library and run experiments, vis
 # resources
 
 https://www.youtube.com/watch?v=imDfPmMKEjM&t=31s
+
+<!-- BEGIN_TF_DOCS -->
+## Requirements
+
+No requirements.
+
+## Providers
+
+No providers.
+
+## Modules
+
+No modules.
+
+## Resources
+
+No resources.
+
+## Inputs
+
+No inputs.
+
+## Outputs
+
+No outputs.
+<!-- END_TF_DOCS -->
