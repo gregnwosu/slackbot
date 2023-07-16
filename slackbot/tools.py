@@ -98,19 +98,19 @@ class Agents(Enum):
         speech_config.set_speech_synthesis_output_format(
             SpeechSynthesisOutputFormat.Audio16Khz32KBitRateMonoMp3
         )
-        output_file = io.BytesIO()
 
         result: SpeechSynthesisResult = await synthesizer.speak_text_async(text)
         result.audio_data
         data: bytes = result.audio_data
 
-        response = await self.slack_client.files_upload(
-            channels=["admin"],
+        response = await self.slack_client.files_upload_v2(
+            channel="admin",
             file=data,
             filename="audio.mp3",
             filetype=MimeType.AUDIO_MP3.value,
+            initial_comment=text,
         )
-        return response["file"]["url_private"]
+        return response["data"]
 
     async def ask(self, input: str) -> str:
         template = f"""
