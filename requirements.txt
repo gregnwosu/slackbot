@@ -39,3 +39,6 @@ azure-cognitiveservices-speech
 
 # dev
 pre-commit
+
+azure-keyvault-secrets
+azure-identity
