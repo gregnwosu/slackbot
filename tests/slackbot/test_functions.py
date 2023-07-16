@@ -8,13 +8,17 @@ load_dotenv(find_dotenv())
 
 @pytest.mark.skip
 async def test_convo():
-    result = await convo(
+    await convo(
         input="what is the capital of Bolivia", expert_name="Dave", channel="admin"
     )
-   # print(f"Result is {result=}")
+
+
+# print(f"Result is {result=}")
 
 
 @pytest.mark.asyncio
-async def test_convo():
-    result = await Agents.Aria.ask("what happened to the Edomites.")
-   # print(f"Result is {result=}")
+async def test_convo2():
+    await Agents.Aria.ask("what happened to the Edomites.")
+
+
+# print(f"Result is {result=}")
