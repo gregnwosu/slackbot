@@ -13,7 +13,7 @@ from langchain.prompts.chat import (
 )
 
 import azure.cognitiveservices.speech as speechsdk
-
+from typing import List
 
 import os
 from azure.cognitiveservices.speech import (
@@ -88,7 +88,6 @@ class Agents(Enum):
         ]
 
     async def speak(self, text: str) -> str:
-
         subscription_key = "<your-subscription-key>"
         endpoint = "<your-endpoint>"
         speech_config = speechsdk.SpeechConfig(
@@ -111,6 +110,7 @@ class Agents(Enum):
             filename="audio.mp3",
             filetype=MimeType.AUDIO_MP3.value,
         )
+        return response["file"]["url_private"]
 
     async def ask(self, input: str) -> str:
         template = f"""
