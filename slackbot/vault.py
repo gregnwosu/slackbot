@@ -1,6 +1,9 @@
 from azure.identity.aio import DefaultAzureCredential
 from azure.keyvault.secrets.aio import SecretClient
 import os
+from dotenv import load_dotenv, find_dotenv
+
+load_dotenv(find_dotenv())
 
 VAULT_URL = os.environ["VAULT_URL"]
 

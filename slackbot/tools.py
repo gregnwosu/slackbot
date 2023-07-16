@@ -3,6 +3,7 @@ from langchain.agents import initialize_agent, Tool
 from langchain.agents import AgentType
 from langchain.chat_models import ChatOpenAI
 from slackbot.parsing.file.model import MimeType
+from slackbot.vault import get_secret
 import os
 from enum import Enum
 from typing import Any
@@ -78,20 +79,22 @@ class Agents(Enum):
             Tool(
                 name="Adria",
                 func=Agents.Aria.ask,
+                coroutine=Agents.Aria.ask,
                 description="Adria is a language model that can answer questions and generate text. Shes fast friendly and mildy creative always ready to help",
             ),
             Tool(
                 name="Geoffrey",
                 func=Agents.Geoffrey.ask,
+                coroutine=Agents.Geoffrey.ask,
                 description="Geoffrey is a language model that can answer questions and generate text. He is slow , thoughtful not creative and doesnt like to be asked too frequently.",
             ),
         ]
 
     async def speak(self, text: str) -> str:
-        subscription_key = "<your-subscription-key>"
-        endpoint = "<your-endpoint>"
+        primary_access_key = await get_secret("slackbot-synth-primary-access-key")
+        endpoint = await get_secret("slackbot-synth-endpoint")
         speech_config = speechsdk.SpeechConfig(
-            subscription="YOUR_SUBSCRIPTION_KEY", region="YOUR_REGION"
+            subscription=primary_access_key, endpoint=endpoint, region="westeurope"
         )
 
         synthesizer: SpeechSynthesizer = SpeechSynthesizer(speech_config=speech_config)
