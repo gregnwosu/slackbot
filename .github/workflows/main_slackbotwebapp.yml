@@ -25,22 +25,22 @@ jobs:
         with:
           python-version: '3.8'
           cache: 'pip'
-          
+
 
       - name: Create and start virtual environment
         run: |
           python -m venv venv
           source venv/bin/activate
-      
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-        
+
       - name: Build Coverage File
         run: |
-          python -m pytest tests --cache-clear --doctest-modules --junitxml=junit/test-results.xml --cov=slackbot --cov-report=xml --cov-report=html 
+          python -m pytest tests --cache-clear --doctest-modules --junitxml=junit/test-results.xml --cov=slackbot --cov-report=xml --cov-report=html
         env:
           PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
@@ -58,6 +58,7 @@ jobs:
           ELEVENLABS_API_KEY: ${{secrets.ELEVENLABS_API_KEY}}
           REDIS_URL: ${{secrets.REDIS_URL}}
           REDIS_KEY: ${{secrets.REDIS_KEY}}
+          VAULT_URL: ${{secrets.VAULT_URL}}
 
       # - name: Comment coverage
       #   uses: coroo/pytest-coverage-commentator@v1.0.2
@@ -67,7 +68,7 @@ jobs:
         with:
           name: python-app
           path: |
-            . 
+            .
             !venv/
 
   test:
@@ -89,15 +90,15 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      
+
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.4.6
-  
+
       - name: Terraform Init
-        run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP" 
+        run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP"
 
         working-directory: terraform
         env:
@@ -108,7 +109,7 @@ jobs:
           RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
           STORAGE_ACCOUNT: ${{ secrets.TF_STORAGE_ACCOUNT }}
           CONTAINER_NAME: ${{ secrets.TF_CONTAINER_NAME }}
-          
+
       - name:  Terraform Validate
         id: validate
         if: github.ref != 'refs/heads/main' && (success() || failure())
@@ -126,11 +127,11 @@ jobs:
           container_user: 1000
           soft_fail: true
           skip_check: CKV_AZURE_88,CKV_AZURE_71,CKV_AZURE_16
-    
+
       - name: Terraform Plan
         id: plan
         if: github.event_name == 'pull_request'
-        run: terraform plan -no-color 
+        run: terraform plan -no-color
         working-directory: terraform
         env:
           PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
@@ -149,6 +150,8 @@ jobs:
           TF_VAR_ELEVENLABS_API_KEY: ${{secrets.ELEVENLABS_API_KEY}}
           TF_VAR_REDIS_URL: ${{secrets.REDIS_URL}}
           TF_VAR_REDIS_KEY: ${{secrets.REDIS_KEY}}
+          TF_VAR_VAULT_URL: ${{secrets.VAULT_URL}}
+          VAULT_URL: ${{secrets.VAULT_URL}}
 
       # Add a comment to pull requests with plan results
       - name: add-plan-comment
@@ -164,15 +167,15 @@ jobs:
             #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
             #### Terraform Validation 🤖${{ steps.validate.outputs.stdout }}
             #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
-        
+
             <details><summary>Show Plan</summary>
-            
+
             \`\`\`${process.env.PLAN}\`\`\`
-            
+
             </details>
-            
+
             *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
-              
+
             github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
@@ -199,15 +202,13 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      
-
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.4.6
-  
+
       - name: Terraform Init
-        run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP" 
+        run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP"
 
         working-directory: terraform
         env:
@@ -218,7 +219,7 @@ jobs:
           RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
           STORAGE_ACCOUNT: ${{ secrets.TF_STORAGE_ACCOUNT }}
           CONTAINER_NAME: ${{ secrets.TF_CONTAINER_NAME }}
-    
+
       # - name: Terraform Import
       #   run: terraform import azurerm_resource_group.LangChain-Experiments /subscriptions/$ARM_SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP
       #   working-directory: terraform
@@ -230,8 +231,8 @@ jobs:
       #       RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
       #       STORAGE_ACCOUNT: ${{ secrets.TF_STORAGE_ACCOUNT }}
       #       CONTAINER_NAME: ${{ secrets.TF_CONTAINER_NAME }}
-    
-  
+
+
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve
@@ -252,6 +253,7 @@ jobs:
           TF_VAR_ELEVENLABS_API_KEY: ${{secrets.ELEVENLABS_API_KEY}}
           TF_VAR_REDIS_URL: ${{secrets.REDIS_URL}}
           TF_VAR_REDIS_KEY: ${{secrets.REDIS_KEY}}
+          TF_VAR_VAULT_URL: ${{secrets.VAULT_URL}}
 
       - name: 'Deploy to Azure Web App'
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'

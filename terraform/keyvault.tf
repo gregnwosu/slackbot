@@ -1,11 +1,11 @@
 resource "azurerm_key_vault" "slackbot_secrets" {
-  name                = "slackbot-secrets"
-  location            = azurerm_resource_group.LangChain-Experiments.location
-  resource_group_name = azurerm_resource_group.LangChain-Experiments.name
-  sku_name            = "standard"
+  name                     = "slackbot-secrets"
+  location                 = azurerm_resource_group.LangChain-Experiments.location
+  resource_group_name      = azurerm_resource_group.LangChain-Experiments.name
+  sku_name                 = "standard"
   purge_protection_enabled = true
-  tenant_id                   = data.azurerm_client_config.current.tenant_id
-  
+  tenant_id                = data.azurerm_client_config.current.tenant_id
+
   access_policy {
     tenant_id = data.azurerm_client_config.current.tenant_id
     object_id = data.azurerm_client_config.current.object_id
@@ -21,8 +21,8 @@ resource "azurerm_key_vault" "slackbot_secrets" {
       "Set",
     ]
   }
-   
-  }
+
+}
 
 
 resource "azurerm_key_vault_secret" "slackbot_synth_primary_access_key" {
