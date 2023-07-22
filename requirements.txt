@@ -18,6 +18,7 @@ fastapi
 slack_bolt
 aiohttp
 httpx
+async-lru
 # needed for voice
 soundfile
 keyboard
