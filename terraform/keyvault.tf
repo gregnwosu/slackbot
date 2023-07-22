@@ -49,3 +49,10 @@ resource "azurerm_key_vault_secret" "slackbot_redis_hostname" {
   value        = azurerm_redis_cache.bot-cache.hostname
   key_vault_id = azurerm_key_vault.slackbot_secrets.id
 }
+
+
+resource "azurerm_key_vault_secret" "slackbot_azure_cogservices_key" {
+  key_vault_id = azurerm_key_vault.slackbot_secrets.id
+  name         = "cogservices-key"
+  value        = azurerm_cognitive_account.slackbot_azure_cogservices.primary_access_key
+}

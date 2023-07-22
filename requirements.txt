@@ -1,5 +1,6 @@
 python-dotenv
 langchain
+tiktoken
 openai
 slack-sdk
 slack-bolt
@@ -12,7 +13,7 @@ aiocache
 aioredis
 requests
 types-requests
-
+tenacity
 fastapi
 slack_bolt
 aiohttp
