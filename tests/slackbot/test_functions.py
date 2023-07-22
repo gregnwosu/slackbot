@@ -2,6 +2,8 @@ import pytest
 from slackbot.functions import convo
 from slackbot.tools import Agents
 from dotenv import load_dotenv, find_dotenv
+from langchain.memory import ConversationSummaryBufferMemory
+from langchain import OpenAI
 
 load_dotenv(find_dotenv())
 
@@ -18,7 +20,12 @@ async def test_convo():
 
 @pytest.mark.asyncio
 async def test_convo2():
-    await Agents.Aria.ask("what happened to the Edomites.")
+    fn = Agents.Aria.make_ask(
+        memory=ConversationSummaryBufferMemory(llm=OpenAI()), level=3
+    )
+    await fn(
+        input="Why do modern day caucasians want to hide the fact they are descended from the ancient Edomites?"
+    )
 
 
 # print(f"Result is {result=}")
