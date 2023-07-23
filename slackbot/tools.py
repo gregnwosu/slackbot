@@ -35,6 +35,24 @@ load_dotenv(find_dotenv())
 SERPAPI_API_KEY = os.environ["SERPAPI_API_KEY"]
 
 
+async def text_to_speech(text: str) -> bytes:
+    primary_access_key = await get_secret("slackbot-synth-primary-access-key")
+    endpoint = await get_secret("slackbot-synth-endpoint")
+    speech_config = speechsdk.SpeechConfig(
+        subscription=primary_access_key, endpoint=endpoint, region="westeurope"
+    )
+
+    synthesizer: SpeechSynthesizer = SpeechSynthesizer(speech_config=speech_config)
+    speech_config.set_speech_synthesis_output_format(
+        SpeechSynthesisOutputFormat.Audio16Khz32KBitRateMonoMp3
+    )
+
+    result: SpeechSynthesisResult = await synthesizer.speak_text_async(text)
+    result.audio_data
+    data: bytes = result.audio_data
+    return data
+
+
 def make_function_async(func):
     async def wrapper(*args, **kwargs):
         return func(*args, **kwargs)
@@ -107,20 +125,7 @@ class Agents(Enum):
         ]
 
     async def speak(self, text: str) -> str:
-        primary_access_key = await get_secret("slackbot-synth-primary-access-key")
-        endpoint = await get_secret("slackbot-synth-endpoint")
-        speech_config = speechsdk.SpeechConfig(
-            subscription=primary_access_key, endpoint=endpoint, region="westeurope"
-        )
-
-        synthesizer: SpeechSynthesizer = SpeechSynthesizer(speech_config=speech_config)
-        speech_config.set_speech_synthesis_output_format(
-            SpeechSynthesisOutputFormat.Audio16Khz32KBitRateMonoMp3
-        )
-
-        result: SpeechSynthesisResult = await synthesizer.speak_text_async(text)
-        result.audio_data
-        data: bytes = result.audio_data
+        data = await text_to_speech(text)
 
         response = await self.slack_client.files_upload_v2(
             channel="admin",
