@@ -39,7 +39,9 @@ async def text_to_speech(text: str) -> bytes:
     primary_access_key = await get_secret("slackbot-synth-primary-access-key")
     endpoint = await get_secret("slackbot-synth-endpoint")
     speech_config = speechsdk.SpeechConfig(
-        subscription=primary_access_key, endpoint=endpoint, region="westeurope"
+        subscription=primary_access_key,
+        endpoint=endpoint,
+        # region="westeurope"
     )
 
     synthesizer: SpeechSynthesizer = SpeechSynthesizer(speech_config=speech_config)
@@ -47,7 +49,7 @@ async def text_to_speech(text: str) -> bytes:
         SpeechSynthesisOutputFormat.Audio16Khz32KBitRateMonoMp3
     )
 
-    result: SpeechSynthesisResult = await synthesizer.speak_text_async(text)
+    result: SpeechSynthesisResult = synthesizer.speak_text_async(text).get()
     result.audio_data
     data: bytes = result.audio_data
     return data
