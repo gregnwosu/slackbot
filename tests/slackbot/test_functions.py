@@ -38,4 +38,4 @@ async def test_text_to_speech():
 
     data = await text_to_speech(text)
     assert data is not None
-    # elevenlabs.play_audio(data)
+    elevenlabs.play(data)
