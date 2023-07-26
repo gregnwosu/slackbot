@@ -20,20 +20,16 @@ resource "azurerm_key_vault_access_policy" "slackbot_app" {
   ]
 
   secret_permissions = [
+    "List",
     "Get",
-    "List"
+    "Set",
+    "Delete",
+    "Recover",
+    "Backup",
+    "Restore"
   ]
 }
 
-resource "azurerm_key_vault_access_policy" "greg_access_policy" {
-  key_vault_id = azurerm_key_vault.slackbot_secrets.id
-  tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = data.azuread_user.greg_data.object_id
-
-  key_permissions = [
-    "Get", "List", "Encrypt", "Decrypt"
-  ]
-}
 
 
 resource "azuread_directory_role" "user_admin" {
@@ -44,10 +40,6 @@ resource "azuread_directory_role_member" "slackbot_user_admin" {
   role_object_id   = azuread_directory_role.user_admin.object_id
   member_object_id = data.azurerm_client_config.current.object_id
 }
-
-
-
-
 
 resource "azurerm_key_vault_secret" "slackbot_synth_primary_access_key" {
   name         = "slackbot-synth-primary-access-key"
