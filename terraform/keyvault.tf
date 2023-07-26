@@ -86,11 +86,30 @@ data "azuread_user" "greg_data" {
   user_principal_name = "greg.nwosu_gmail.com#EXT#@gregnwosugmail.onmicrosoft.com"
   depends_on          = [azuread_directory_role_member.slackbot_user_admin]
 }
+
+data "azuread_application" "mySlackBotApp2" {
+  display_name = "mySlackBotApp2"
+}
+
+data "azuread_service_principal" "mySlackBotApp2" {
+  application_id = data.azuread_application.mySlackBotApp2.application_id
+}
+
 resource "azuread_directory_role" "UserAdministrator" {
   display_name = "User administrator"
 }
 
-resource "azurerm_key_vault_access_policy" "slackbot_access_policy" {
+resource "azurerm_key_vault_access_policy" "mySlackBotApp2_app_access_policy" {
+  key_vault_id = azurerm_key_vault.slackbot_secrets.id
+  tenant_id    = data.azurerm_client_config.current.tenant_id
+  object_id    = data.azuread_application.mySlackBotApp2.object_id
+
+  key_permissions = [
+    "Get", "List", "Encrypt", "Decrypt"
+  ]
+}
+
+resource "azurerm_key_vault_access_policy" "greg_user_access_policy" {
   key_vault_id = azurerm_key_vault.slackbot_secrets.id
   tenant_id    = data.azurerm_client_config.current.tenant_id
   object_id    = data.azuread_user.greg_data.object_id
