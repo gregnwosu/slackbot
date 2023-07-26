@@ -100,20 +100,20 @@ resource "azuread_directory_role" "UserAdministrator" {
 }
 
 resource "azurerm_key_vault_access_policy" "mySlackBotApp2_app_access_policy" {
-  key_vault_id = azurerm_key_vault.slackbot_secrets.id
-  tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = data.azuread_application.mySlackBotApp2.object_id
-
+  key_vault_id       = azurerm_key_vault.slackbot_secrets.id
+  tenant_id          = data.azurerm_client_config.current.tenant_id
+  object_id          = data.azuread_application.mySlackBotApp2.object_id
+  secret_permissions = ["Get", "List", "Set"]
   key_permissions = [
     "Get", "List", "Encrypt", "Decrypt"
   ]
 }
 
 resource "azurerm_key_vault_access_policy" "greg_user_access_policy" {
-  key_vault_id = azurerm_key_vault.slackbot_secrets.id
-  tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = data.azuread_user.greg_data.object_id
-
+  key_vault_id       = azurerm_key_vault.slackbot_secrets.id
+  tenant_id          = data.azurerm_client_config.current.tenant_id
+  object_id          = data.azuread_user.greg_data.object_id
+  secret_permissions = ["Get", "List", "Set"]
   key_permissions = [
     "Get", "List", "Encrypt", "Decrypt"
   ]
