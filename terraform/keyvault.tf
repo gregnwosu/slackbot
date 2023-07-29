@@ -6,21 +6,7 @@ resource "azurerm_key_vault" "slackbot_secrets" {
   purge_protection_enabled = true
   tenant_id                = data.azurerm_client_config.current.tenant_id
 
-  access_policy {
-    tenant_id = data.azurerm_client_config.current.tenant_id
-    object_id = data.azurerm_client_config.current.object_id
-
-    key_permissions = [
-      "Get",
-      "List",
-    ]
-
-    secret_permissions = [
-      "Get",
-      "List",
-      "Set",
-    ]
-  }
+  
 
 }
 
