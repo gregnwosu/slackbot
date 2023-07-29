@@ -4,6 +4,7 @@ resource "azurerm_key_vault" "slackbot_secrets" {
   resource_group_name      = azurerm_resource_group.LangChain-Experiments.name
   sku_name                 = "standard"
   purge_protection_enabled = true
+  enable_rbac_authorization       = true
   tenant_id                = data.azurerm_client_config.current.tenant_id
 
 
@@ -16,17 +17,15 @@ resource "azurerm_key_vault_access_policy" "slackbot_app" {
 
   key_permissions = [
     "Get",
-    "List"
+    "List",
+    "Encrypt",
+    "Decrypt",
   ]
 
   secret_permissions = [
     "List",
     "Get",
     "Set",
-    "Delete",
-    "Recover",
-    "Backup",
-    "Restore"
   ]
 }
 
@@ -91,22 +90,22 @@ resource "azuread_directory_role" "UserAdministrator" {
   display_name = "User administrator"
 }
 
-# resource "azurerm_key_vault_access_policy" "mySlackBotApp2_app_access_policy" {
-#   key_vault_id       = azurerm_key_vault.slackbot_secrets.id
-#   tenant_id          = data.azurerm_client_config.current.tenant_id
-#   object_id          = data.azuread_application.mySlackBotApp2.object_id
-#   secret_permissions = ["Get", "List", "Set"]
-#   key_permissions = [
-#     "Get", "List", "Encrypt", "Decrypt"
-#   ]
-# }
+resource "azurerm_key_vault_access_policy" "mySlackBotApp2_app_access_policy" {
+  key_vault_id       = azurerm_key_vault.slackbot_secrets.id
+  tenant_id          = data.azurerm_client_config.current.tenant_id
+  object_id          = data.azuread_application.mySlackBotApp2.object_id
+  secret_permissions = ["Get", "List", "Set"]
+  key_permissions = [
+    "Get", "List", "Encrypt", "Decrypt"
+  ]
+}
 
-# resource "azurerm_key_vault_access_policy" "greg_user_access_policy" {
-#   key_vault_id       = azurerm_key_vault.slackbot_secrets.id
-#   tenant_id          = data.azurerm_client_config.current.tenant_id
-#   object_id          = data.azuread_user.greg_data.object_id
-#   secret_permissions = ["Get", "List", "Set"]
-#   key_permissions = [
-#     "Get", "List", "Encrypt", "Decrypt"
-#   ]
-# }
+resource "azurerm_key_vault_access_policy" "greg_user_access_policy" {
+  key_vault_id       = azurerm_key_vault.slackbot_secrets.id
+  tenant_id          = data.azurerm_client_config.current.tenant_id
+  object_id          = data.azuread_user.greg_data.object_id
+  secret_permissions = ["Get", "List", "Set"]
+  key_permissions = [
+    "Get", "List", "Encrypt", "Decrypt"
+  ]
+}

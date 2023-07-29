@@ -1,2 +1,4 @@
 **/*.pyc
 .env
+terraform/.terraform/**/*.*
+terraform/.terraform.lock.hcl
