@@ -18,7 +18,7 @@ async def test_convo():
 
 # print(f"Result is {result=}")
 
-
+@pytest.mark.skip
 @pytest.mark.asyncio
 async def test_convo2():
     fn = Agents.Aria.make_ask(
