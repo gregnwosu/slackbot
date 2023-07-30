@@ -79,6 +79,13 @@ class Agents(Enum):
         self.slack_client: AsyncWebClient = AsyncWebClient(token=self.slack_key)
 
     def tools(self, level: int, memory=ConversationSummaryBufferMemory(llm=OpenAI())):
+        if level < 1:
+            return [Tool(
+                name="Aria",
+                func=Agents.Aria.make_ask(level=level, memory=memory),
+                coroutine=Agents.Aria.make_ask(level=level, memory=memory),
+                description="Adria is a language model that can answer questions and generate text. Shes fast friendly and mildy creative always ready to help",
+            ),]
         return [
             # Tool(
             #     name="Search",
@@ -143,6 +150,7 @@ class Agents(Enum):
                             Decompose the problem into parts. Use the functions to ask the most appropriate expert for each part.
                             You must only ask each expert a question. You must only respond with an answer.
                             You can only ask questions to functions. You cannot ask a question in response to a question.
+                                0. You may not ask any question the same as or similar to that which has already been asked of an expert within memory.
                                 1. All questions asked to an agent will have numeric level. e.g. "Level 2: What does crimson mean?"
                                 2. The level will be decremented each time a question is asked.
                                 3. This is a level {level} question.
