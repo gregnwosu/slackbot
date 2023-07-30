@@ -13,7 +13,7 @@ resource "azurerm_key_vault" "slackbot_secrets" {
 resource "azurerm_key_vault_access_policy" "slackbot_app" {
   key_vault_id = azurerm_key_vault.slackbot_secrets.id
   tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = data.azurerm_client_config.current.object_id
+  object_id    = data.azuread_service_principal.mySlackBotApp2.object_id
 
   key_permissions = [
     "Get",
@@ -35,10 +35,14 @@ resource "azuread_directory_role" "user_admin" {
   display_name = "User administrator"
 }
 
+data "azuread_user" "greg" {
+  user_principal_name = "greg.nwosu_gmail.com#EXT#@gregnwosugmail.onmicrosoft.com"
+  #display_name        = "Greg Nwosu"
+}
+
 resource "azuread_directory_role_member" "slackbot_user_admin" {
   role_object_id   = azuread_directory_role.user_admin.object_id
-  member_object_id = data.azuread_user.greg_data.object_id
-#data.azurerm_client_config.current.object_id
+  member_object_id = data.azuread_user.greg.object_id
 }
 
 resource "azurerm_key_vault_secret" "slackbot_synth_primary_access_key" {
@@ -65,6 +69,7 @@ resource "azurerm_key_vault_secret" "slackbot_redis_hostname" {
   value        = azurerm_redis_cache.bot-cache.hostname
   key_vault_id = azurerm_key_vault.slackbot_secrets.id
 }
+
 
 
 resource "azurerm_key_vault_secret" "slackbot_azure_cogservices_key" { # all cog services use the same key
