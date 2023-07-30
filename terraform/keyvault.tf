@@ -37,7 +37,8 @@ resource "azuread_directory_role" "user_admin" {
 
 resource "azuread_directory_role_member" "slackbot_user_admin" {
   role_object_id   = azuread_directory_role.user_admin.object_id
-  member_object_id = data.azurerm_client_config.current.object_id
+  member_object_id = data.azuread_user.greg_data.object_id
+#data.azurerm_client_config.current.object_id
 }
 
 resource "azurerm_key_vault_secret" "slackbot_synth_primary_access_key" {
