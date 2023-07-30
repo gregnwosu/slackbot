@@ -2,6 +2,7 @@
 
 # todo:
 openai function calling to other experts
+Needed to go to AD in azure portal and add myapp to directory readers, i dont think this can be done in terraform
 
 # Slack AI Assistant with Python & LangChain
 
