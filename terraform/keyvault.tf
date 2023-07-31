@@ -99,27 +99,27 @@ resource "azuread_directory_role" "UserAdministrator" {
 data "azuread_application" "slackbot_app" {
   display_name = "mySlackBotApp2"
 }
-resource "azurerm_role_assignment" "slackbot_secrets_user_assignment" {
-  scope                = azurerm_key_vault.slackbot_secrets.id
-  role_definition_name = "Key Vault Secrets User"
-  principal_id         = data.azuread_application.mySlackBotApp2.object_id
-}
-resource "azurerm_role_assignment" "greg_secrets_user_assignment" {
-  scope                = azurerm_key_vault.slackbot_secrets.id
-  role_definition_name = "Key Vault Secrets User"
-  principal_id         = data.azuread_user.greg_data.object_id
-}
+# resource "azurerm_role_assignment" "slackbot_secrets_user_assignment" {
+#   scope                = azurerm_key_vault.slackbot_secrets.id
+#   role_definition_name = "Key Vault Secrets User"
+#   principal_id         = data.azuread_application.mySlackBotApp2.object_id
+# }
+# resource "azurerm_role_assignment" "greg_secrets_user_assignment" {
+#   scope                = azurerm_key_vault.slackbot_secrets.id
+#   role_definition_name = "Key Vault Secrets User"
+#   principal_id         = data.azuread_user.greg_data.object_id
+# }
 
-resource "azurerm_role_assignment" "slackbot_keyvault_administrator_assignment" {
-  scope                = azurerm_key_vault.slackbot_secrets.id
-  role_definition_name = "Key Vault Administrator"
-  principal_id         = data.azuread_application.mySlackBotApp2.object_id
-}
-resource "azurerm_role_assignment" "greg_keyvault_administrator_assignment" {
-  scope                = azurerm_key_vault.slackbot_secrets.id
-  role_definition_name = "Key Vault Adminstrator"
-  principal_id         = data.azuread_user.greg_data.object_id
-}
+# resource "azurerm_role_assignment" "slackbot_keyvault_administrator_assignment" {
+#   scope                = azurerm_key_vault.slackbot_secrets.id
+#   role_definition_name = "Key Vault Administrator"
+#   principal_id         = data.azuread_application.mySlackBotApp2.object_id
+# }
+# resource "azurerm_role_assignment" "greg_keyvault_administrator_assignment" {
+#   scope                = azurerm_key_vault.slackbot_secrets.id
+#   role_definition_name = "Key Vault Adminstrator"
+#   principal_id         = data.azuread_user.greg_data.object_id
+# }
 # resource "azurerm_key_vault_access_policy" "mySlackBotApp2_app_access_policy" {
 #   key_vault_id       = azurerm_key_vault.slackbot_secrets.id
 #   tenant_id          = data.azurerm_client_config.current.tenant_id
