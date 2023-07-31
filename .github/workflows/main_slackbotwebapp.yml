@@ -8,6 +8,7 @@ on:
   pull_request:
     branches:
       - main
+      - '**'
   push:
     branches:
       - main
@@ -20,6 +21,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - uses: FedericoCarboni/setup-ffmpeg@v2
+   
       - name: Set up Python version
         uses: actions/setup-python@v4
         with:
@@ -104,8 +107,8 @@ jobs:
         env:
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
           STORAGE_ACCOUNT: ${{ secrets.TF_STORAGE_ACCOUNT }}
           CONTAINER_NAME: ${{ secrets.TF_CONTAINER_NAME }}
@@ -137,8 +140,11 @@ jobs:
           PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          TF_VAR_ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          TF_VAR_ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+          TF_VAR_ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           TF_VAR_SLACK_BOT_TOKEN: ${{secrets.TF_VAR_SLACK_BOT_TOKEN}}
           TF_VAR_SLACK_SIGNING_SECRET: ${{secrets.TF_VAR_SLACK_SIGNING_SECRET}}
           TF_VAR_SLACK_BOT_USER_ID: ${{secrets.TF_VAR_SLACK_BOT_USER_ID}}

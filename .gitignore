@@ -1,2 +1,14 @@
-.env
 **/*.pyc
+azure_credentials.json
+terraform/.terraform.lock.hcl
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/.terraform/**/*.*
+.env
+terraform/.terraform/providers/registry.terraform.io/hashicorp/azuread/2.40.0/linux_amd64/terraform-provider-azuread_v2.40.0_x5
+terraform/.terraform/providers/registry.terraform.io/hashicorp/azurerm/3.57.0/linux_amd64/terraform-provider-azurerm_v3.57.0_x5
+terraform/.terraform/providers/registry.terraform.io/hashicorp/null/3.2.1/linux_amd64/terraform-provider-null_v3.2.1_x5
+terraform/terraform.tfstate.backup
+terraform/.terraform.lock.hcl
+terraform/terraform.tfstate
+azure_credentials.json
