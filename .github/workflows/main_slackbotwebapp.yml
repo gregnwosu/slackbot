@@ -246,8 +246,11 @@ jobs:
         env:
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          TF_VAR_ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          TF_VAR_ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+          TF_VAR_ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           TF_VAR_SLACK_BOT_TOKEN: ${{secrets.TF_VAR_SLACK_BOT_TOKEN}}
           TF_VAR_SLACK_SIGNING_SECRET: ${{secrets.TF_VAR_SLACK_SIGNING_SECRET}}
           TF_VAR_SLACK_BOT_USER_ID: ${{secrets.TF_VAR_SLACK_BOT_USER_ID}}
@@ -260,6 +263,8 @@ jobs:
           TF_VAR_REDIS_URL: ${{secrets.REDIS_URL}}
           TF_VAR_REDIS_KEY: ${{secrets.REDIS_KEY}}
           TF_VAR_VAULT_URL: ${{secrets.VAULT_URL}}
+          VAULT_URL: ${{secrets.VAULT_URL}}
+
 
       - name: 'Deploy to Azure Web App'
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
