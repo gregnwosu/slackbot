@@ -110,6 +110,7 @@ data "azuread_application" "slackbot_app" {
 #   principal_id         = data.azuread_user.greg_data.object_id
 # }
 
+
 # resource "azurerm_role_assignment" "slackbot_keyvault_administrator_assignment" {
 #   scope                = azurerm_key_vault.slackbot_secrets.id
 #   role_definition_name = "Key Vault Administrator"
@@ -117,9 +118,10 @@ data "azuread_application" "slackbot_app" {
 # }
 # resource "azurerm_role_assignment" "greg_keyvault_administrator_assignment" {
 #   scope                = azurerm_key_vault.slackbot_secrets.id
-#   role_definition_name = "Key Vault Adminstrator"
+#   role_definition_name = "Key Vault Administrator"
 #   principal_id         = data.azuread_user.greg_data.object_id
 # }
+
 # resource "azurerm_key_vault_access_policy" "mySlackBotApp2_app_access_policy" {
 #   key_vault_id       = azurerm_key_vault.slackbot_secrets.id
 #   tenant_id          = data.azurerm_client_config.current.tenant_id
