@@ -5,6 +5,7 @@ from dotenv import load_dotenv, find_dotenv
 from langchain.memory import ConversationSummaryBufferMemory
 from langchain import OpenAI
 import elevenlabs
+import os
 
 load_dotenv(find_dotenv())
 
@@ -17,6 +18,7 @@ async def test_convo():
 
 
 # print(f"Result is {result=}")
+
 
 @pytest.mark.skip
 @pytest.mark.asyncio
@@ -38,4 +40,6 @@ async def test_text_to_speech():
 
     data = await text_to_speech(text)
     assert data is not None
-    elevenlabs.play(data)
+    # check if running from azure webapp
+    if "SCM_DO_BUILD_DURING_DEPLOYMENT" not in os.environ:
+        elevenlabs.play(data)
