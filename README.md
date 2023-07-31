@@ -2,7 +2,15 @@
 
 # todo:
 openai function calling to other experts
+Needed to go to AD in azure portal and add myapp to directory readers, i dont think this can be done in terraform
+Option 1: Azure Portal
 
+Go to the Azure portal (https://portal.azure.com) and navigate to "Azure Active Directory."
+Select "Roles and administrators" from the left-hand menu.
+Click on "Directory Readers."
+Click on "Add assignments."
+Search for the service principal or user account you are using in Terraform and select it.
+Click "Add" to grant the "Directory Readers" role.
 # Slack AI Assistant with Python & LangChain
 
 Here's a step-by-step guide to creating a Slack bot, installing it in a workspace, setting up a Python code with Flask, and using ngrok.
