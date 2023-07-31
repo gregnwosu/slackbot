@@ -1,0 +1,7 @@
+**/*.pyc
+azure_credentials.json
+terraform/.terraform.lock.hcl
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/.terraform/**/*.*
+.env
