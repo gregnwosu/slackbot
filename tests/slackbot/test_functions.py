@@ -41,5 +41,5 @@ async def test_text_to_speech():
     data = await text_to_speech(text)
     assert data is not None
     # check if running from azure webapp
-    if "SCM_DO_BUILD_DURING_DEPLOYMENT" not in os.environ:
+    if "GITHUB_ACTIONS" not in os.environ:
         elevenlabs.play(data)
