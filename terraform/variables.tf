@@ -21,3 +21,6 @@ variable "ELEVENLABS_API_KEY" {}
 variable "REDIS_KEY" {}
 variable "REDIS_URL" {}
 variable "VAULT_URL" {}
+variable "ARM_CLIENT_ID" {}
+variable "ARM_CLIENT_SECRET" {}
+variable "ARM_TENANT_ID" {}

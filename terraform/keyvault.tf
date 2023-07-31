@@ -1,11 +1,12 @@
 resource "azurerm_key_vault" "slackbot_secrets" {
-  name                     = "slackbot-secrets"
-  location                 = azurerm_resource_group.LangChain-Experiments.location
-  resource_group_name      = azurerm_resource_group.LangChain-Experiments.name
-  sku_name                 = "standard"
-  purge_protection_enabled = true
-  enable_rbac_authorization       = true
-  tenant_id                = data.azurerm_client_config.current.tenant_id
+  name                      = "slackbot-secrets"
+  location                  = azurerm_resource_group.LangChain-Experiments.location
+  resource_group_name       = azurerm_resource_group.LangChain-Experiments.name
+  sku_name                  = "standard"
+  purge_protection_enabled  = true
+  enable_rbac_authorization = true
+  tenant_id                 = data.azurerm_client_config.current.tenant_id
+
 
 
 }
@@ -21,6 +22,7 @@ resource "azurerm_key_vault_access_policy" "slackbot_app" {
     "Encrypt",
     "Decrypt",
   ]
+
 
   secret_permissions = [
     "List",

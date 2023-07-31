@@ -27,6 +27,10 @@ resource "azurerm_linux_web_app" "slackbotwebapp" {
     "REDIS_KEY"                      = "${var.REDIS_KEY}"
     "REDIS_URL"                      = "${var.REDIS_URL}"
     "VAULT_URL"                      = "${var.VAULT_URL}"
+    "ARM_CLIENT_ID"                  = "${var.ARM_CLIENT_ID}"
+    "ARM_CLIENT_SECRET"              = "${var.ARM_CLIENT_SECRET}"
+    "ARM_TENANT_ID"                  = "${var.ARM_TENANT_ID}"
+
     #get variable from the environment
 
   }

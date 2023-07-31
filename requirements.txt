@@ -32,6 +32,7 @@ gunicorn
 # tests
 pytest
 pytest-cov
+pytest-env
 starlette
 pytest-asyncio
 
