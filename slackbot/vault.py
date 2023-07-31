@@ -7,6 +7,10 @@ from async_lru import alru_cache
 load_dotenv(find_dotenv())
 
 VAULT_URL = os.environ["VAULT_URL"]
+os.environ["AZURE_CLIENT_ID"] = os.environ["ARM_CLIENT_ID"]
+os.environ["AZURE_CLIENT_SECRET"] = os.environ["ARM_CLIENT_SECRET"]
+os.environ["AZURE_TENANT_ID"] = os.environ["ARM_TENANT_ID"]
+
 
 # cache result from async function
 @alru_cache(maxsize=50)
