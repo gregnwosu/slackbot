@@ -9,6 +9,29 @@ Here's a step-by-step guide to creating a Slack bot, installing it in a workspac
 
 Interacting with AI agents via Slack provides a more natural way of communication and provides an integration with your team's workflow and allows for the integration of multiple bots for various tasks. This can improve efficiency and streamline communication, while also allowing the AI agents to become an integral part of your team.
 
+To add "Application.ReadWrite.OwnedBy" and "RoleManagement.ReadWrite.Directory" application permissions to a service principal in Azure, you need to configure these permissions in the Azure Active Directory (Azure AD) app registration associated with the service principal. Here's how you can do it:
+
+Open the Azure portal (https://portal.azure.com/) and sign in with an account that has the necessary permissions to manage app registrations.
+
+Navigate to "Azure Active Directory" from the left-hand menu.
+
+Under "Manage," click on "App registrations."
+
+Find and select the app registration corresponding to the service principal you want to update.
+
+In the app registration overview page, click on "API permissions."
+
+Click on the "Add a permission" button.
+
+In the "Request API permissions" pane, select "Microsoft Graph" as the API.
+
+In the "Application permissions" section, search for "Application.ReadWrite.OwnedBy" and "RoleManagement.ReadWrite.Directory."
+
+Select both of these permissions and click on the "Add permissions" button to add them to the app registration.
+
+After adding the permissions, click on the "Grant admin consent for {your organization}" button to grant consent for the added permissions. This will ensure that the app registration (service principal) has the required permissions.
+
+
 ## Part 1 — Slack Setup
 
 #### 1. Create a new Slack app

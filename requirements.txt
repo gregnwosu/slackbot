@@ -18,6 +18,7 @@ fastapi
 slack_bolt
 aiohttp
 httpx
+async-lru
 # needed for voice
 soundfile
 keyboard
@@ -31,6 +32,7 @@ gunicorn
 # tests
 pytest
 pytest-cov
+pytest-env
 starlette
 pytest-asyncio
 

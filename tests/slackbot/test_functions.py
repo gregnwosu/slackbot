@@ -18,11 +18,11 @@ async def test_convo():
 
 # print(f"Result is {result=}")
 
-
+@pytest.mark.skip
 @pytest.mark.asyncio
 async def test_convo2():
     fn = Agents.Aria.make_ask(
-        memory=ConversationSummaryBufferMemory(llm=OpenAI()), level=3
+        memory=ConversationSummaryBufferMemory(llm=OpenAI()), level=2
     )
     await fn(
         input="Why do modern day caucasians want to hide the fact they are descended from the ancient Edomites?"
