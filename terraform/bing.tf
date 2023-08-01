@@ -13,7 +13,7 @@ resource "azurerm_resource_group_template_deployment" "bing_search_deployment" {
       value = "Global"
     },
     "sku" = {
-      value = "F0"
+      value = "S0"
     },
     "kind" = {
       value = "Bing.Search.v7"
