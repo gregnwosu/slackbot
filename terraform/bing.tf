@@ -1,7 +1,7 @@
 resource "azurerm_resource_group_template_deployment" "bing_search_deployment" {
   name                = "bing-search-deployment"
   resource_group_name = azurerm_resource_group.LangChain-Experiments.name
-  deployment_mode     = "Complete"
+  deployment_mode     = "Incremental"
   parameters_content = jsonencode({
     "name" = {
       value = "bing-search"
