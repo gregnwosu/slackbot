@@ -72,6 +72,11 @@ resource "azurerm_key_vault_secret" "slackbot_redis_hostname" {
   key_vault_id = azurerm_key_vault.slackbot_secrets.id
 }
 
+resource "azurerm_key_vault_secret" "secret" {
+  key_vault_id = azurerm_key_vault.slackbot_secrets.id
+  name         = "bing-service-access-key"
+  value        = jsondecode(azurerm_resource_group_template_deployment.bing_search_deployment.output_content).accessKeys.value.key1
+}
 
 
 resource "azurerm_key_vault_secret" "slackbot_azure_cogservices_key" { # all cog services use the same key
@@ -101,6 +106,8 @@ resource "azuread_directory_role" "UserAdministrator" {
 data "azuread_application" "slackbot_app" {
   display_name = "mySlackBotApp2"
 }
+
+
 # resource "azurerm_role_assignment" "slackbot_secrets_user_assignment" {
 #   scope                = azurerm_key_vault.slackbot_secrets.id
 #   role_definition_name = "Key Vault Secrets User"
