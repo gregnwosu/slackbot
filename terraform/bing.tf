@@ -58,7 +58,7 @@ resource "azurerm_resource_group_template_deployment" "bing_search_deployment" {
               "key2": "[listKeys(resourceId('Microsoft.Bing/accounts', parameters('name')), '2020-06-10').key2]"
           }
     }
-    
+    }
 }
 TEMPLATE
 
