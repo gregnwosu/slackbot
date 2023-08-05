@@ -16,7 +16,7 @@ Documentation: https://docs.microsoft.com/en-us/bing/search-apis/bing-web-search
 # mkt = 'en-US'
 # params = { 'q': query, 'mkt': mkt }
 # headers = { 'Ocp-Apim-Subscription-Key': subscription_key }
-mkt = 'en-US'
+mkt = 'en-GB'
 
 async def search_bing(query):
     primary_access_key = await get_secret("bing-service-access-key")
