@@ -17,15 +17,15 @@ Documentation: https://docs.microsoft.com/en-us/bing/search-apis/bing-web-search
 # params = { 'q': query, 'mkt': mkt }
 # headers = { 'Ocp-Apim-Subscription-Key': subscription_key }
 
+mkt = 'en-GB'
+
 async def search_bing(query):
-    primary_access_key = await get_secret("bing-service-acccess-key")
+    primary_access_key = await get_secret("bing-service-access-key")
     endpoint = await get_secret("bing-service-endpoint")
     headers = {"Ocp-Apim-Subscription-Key": primary_access_key}
-    params = {"q": query, "count": 3}
+    params = {"q": query, "mkt": mkt}
     async with aiohttp.ClientSession() as session:
-        async with session.get(f"{endpoint}bing/v7.0/search", headers=headers, params=params) as response:
+        async with session.get(f"{endpoint}v7.0/search", headers=headers, params=params) as response:
             response.raise_for_status()
             return await response.json()
-
-
 
