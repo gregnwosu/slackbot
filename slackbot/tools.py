@@ -5,7 +5,7 @@ from langchain.chat_models import ChatOpenAI
 
 import os
 from enum import Enum
-from search import search_bing
+from slackbot.search import search_bing
 from typing import Any
 from langchain.prompts.chat import (
     ChatPromptTemplate,
