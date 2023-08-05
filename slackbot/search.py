@@ -1,18 +1,5 @@
-import os
-from langchain.agents import Tool
-from dotenv import load_dotenv
 import aiohttp
 
-
-#Copyright (c) Microsoft Corporation. All rights reserved.
-#Licensed under the MIT License.
-
-# -*- coding: utf-8 -*-
-
-import json
-import os 
-from pprint import pprint
-import requests
 from slackbot.vault import get_secret
 
 '''

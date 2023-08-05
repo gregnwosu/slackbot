@@ -6,7 +6,7 @@ from langchain.memory import ConversationSummaryBufferMemory
 from langchain import OpenAI
 import elevenlabs
 import os
-from search import search_bing
+from slackbot.search import search_bing
 load_dotenv(find_dotenv())
 
 
