@@ -1,33 +1,24 @@
-from langchain import SerpAPIWrapper
 from slack_sdk.web.async_client import AsyncWebClient
 from langchain.agents import initialize_agent, Tool
 from langchain.agents import AgentType
 from langchain.chat_models import ChatOpenAI
-from slackbot.parsing.file.model import MimeType
-from slackbot.vault import get_secret
+
 import os
 from enum import Enum
-from typing import Any, List
+from slackbot.search import search_bing
+from typing import Any
 from langchain.prompts.chat import (
     ChatPromptTemplate,
     SystemMessagePromptTemplate,
-    HumanMessagePromptTemplate,
 )
-from langchain.chains import LLMChain, ConversationChain
-import azure.cognitiveservices.speech as speechsdk
-from typing import List
+from langchain.chains import ConversationChain
+
 from langchain import OpenAI
 
 import os
-from azure.cognitiveservices.speech import (
-    SpeechSynthesizer,
-    SpeechSynthesisOutputFormat,
-    SpeechSynthesisResult,
-)
 from langchain.memory import ConversationSummaryBufferMemory
 from dotenv import load_dotenv, find_dotenv
-import io
-from tenacity import retry, stop_after_attempt, wait_fixed
+from tenacity import retry, stop_after_attempt
 
 load_dotenv(find_dotenv())
 
@@ -35,24 +26,6 @@ load_dotenv(find_dotenv())
 SERPAPI_API_KEY = os.environ["SERPAPI_API_KEY"]
 
 
-async def text_to_speech(text: str) -> bytes:
-    primary_access_key = await get_secret("slackbot-synth-primary-access-key")
-    endpoint = await get_secret("slackbot-synth-endpoint")
-    speech_config = speechsdk.SpeechConfig(
-        subscription=primary_access_key,
-        endpoint=endpoint,
-        # region="westeurope"
-    )
-
-    synthesizer: SpeechSynthesizer = SpeechSynthesizer(speech_config=speech_config)
-    speech_config.set_speech_synthesis_output_format(
-        SpeechSynthesisOutputFormat.Audio16Khz32KBitRateMonoMp3
-    )
-
-    result: SpeechSynthesisResult = synthesizer.speak_text_async(text).get()
-    result.audio_data
-    data: bytes = result.audio_data
-    return data
 
 
 def make_function_async(func):
@@ -131,19 +104,15 @@ class Agents(Enum):
                 coroutine=Agents.Geoffrey.make_ask(level=level, memory=memory),
                 description="Geoffrey is a language model that can answer questions and generate text. He is slow , thoughtful not creative and doesnt like to be asked too frequently.",
             ),
+           Tool(
+    name="search",
+    func=search_bing,
+    description="useful for when you need to answer questions about current events",
+    coroutine=search_bing,
+)
         ]
 
-    async def speak(self, text: str) -> str:
-        data = await text_to_speech(text)
 
-        response = await self.slack_client.files_upload_v2(
-            channel="admin",
-            file=data,
-            filename="audio.mp3",
-            filetype=MimeType.AUDIO_MP3.value,
-            initial_comment=text,
-        )
-        return response["data"]
 
     def make_ask(self, memory, level: int):
         @retry(stop=stop_after_attempt(3))
