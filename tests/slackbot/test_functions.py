@@ -1,6 +1,6 @@
 import pytest
 from slackbot.functions import convo
-from slackbot.tools import Agents,
+from slackbot.tools import Agents
 from slackbot.speak import text_to_speech
 from dotenv import load_dotenv, find_dotenv
 from langchain.memory import ConversationSummaryBufferMemory
