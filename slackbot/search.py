@@ -26,6 +26,3 @@ async def search_bing(query):
         async with session.get(f"{endpoint}bing/v7.0/search", headers=headers, params=params) as response:
             response.raise_for_status()
             return await response.json()
-
-
-
