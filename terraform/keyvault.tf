@@ -72,11 +72,21 @@ resource "azurerm_key_vault_secret" "slackbot_redis_hostname" {
   key_vault_id = azurerm_key_vault.slackbot_secrets.id
 }
 
-resource "azurerm_key_vault_secret" "secret" {
+
+resource "azurerm_key_vault_secret" "bing_service_acccess_key" {
   key_vault_id = azurerm_key_vault.slackbot_secrets.id
   name         = "bing-service-access-key"
-  value        = jsondecode(azurerm_resource_group_template_deployment.bing_search_deployment.output_content).accessKeys.value.key1
+  value        = jsondecode(azurerm_resource_group_template_deployment.bing_search_deployment.output_content)["accessKeys"]["value"]["key1"]
+  depends_on = [ azurerm_resource_group_template_deployment.bing_search_deployment  ]
 }
+
+resource "azurerm_key_vault_secret" "bing_service_endpoint" {
+  key_vault_id = azurerm_key_vault.slackbot_secrets.id
+  name         = "bing-service-endpoint"
+  value        = jsondecode(azurerm_resource_group_template_deployment.bing_search_deployment.output_content)["accessKeys"]["value"]["endpoint"]
+  depends_on = [ azurerm_resource_group_template_deployment.bing_search_deployment  ]
+}
+
 
 
 resource "azurerm_key_vault_secret" "slackbot_azure_cogservices_key" { # all cog services use the same key

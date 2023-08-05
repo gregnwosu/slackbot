@@ -1,6 +1,9 @@
 [![Build and deploy Python app to Azure Web App - slackbotwebapp](https://github.com/gregnwosu/slackbot/actions/workflows/main_slackbotwebapp.yml/badge.svg)](https://github.com/gregnwosu/slackbot/actions/workflows/main_slackbotwebapp.yml)
 
 # todo:
+sometimes the deployment template for bing services doesnt work
+you will have to delete it using the resources id first 
+```az resource delete resource id```
 openai function calling to other experts
 Needed to go to AD in azure portal and add myapp to directory readers, i dont think this can be done in terraform
 Option 1: Azure Portal

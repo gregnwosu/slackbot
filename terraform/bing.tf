@@ -1,16 +1,18 @@
 resource "azurerm_resource_group_template_deployment" "bing_search_deployment" {
   name                = "bing-search-deployment"
+  
   resource_group_name = azurerm_resource_group.LangChain-Experiments.name
   deployment_mode     = "Incremental"
+
   parameters_content = jsonencode({
     "name" = {
-      value = "bing-search"
+      value = "bing_search"
     },
     "location" = {
       value = "Global"
     },
     "sku" = {
-      value = "S0"
+      value = "F1"
     },
     "kind" = {
       value = "Bing.Search.v7"
@@ -48,16 +50,21 @@ resource "azurerm_resource_group_template_deployment" "bing_search_deployment" {
         }
     ],
     "outputs": {
+      
       "accessKeys": {
-          "type": "object",
+          "type": "Object",
           "value": {
               "key1": "[listKeys(resourceId('Microsoft.Bing/accounts', parameters('name')), '2020-06-10').key1]",
-              "key2": "[listKeys(resourceId('Microsoft.Bing/accounts', parameters('name')), '2020-06-10').key2]"
+              "key2": "[listKeys(resourceId('Microsoft.Bing/accounts', parameters('name')), '2020-06-10').key2]",
+              "endpoint": "[reference(resourceId('Microsoft.Bing/accounts', parameters('name')), '2020-06-10').endpoint]"
           }
-    }
+        }
     }
 }
 TEMPLATE
 }
 
-
+# data "azurerm_resource_group_template_deployment" "bing_search_deployment" {
+#   name                = "bing-search-deployment"
+#   resource_group_name = azurerm_resource_group.LangChain-Experiments.name
+# }
