@@ -16,6 +16,7 @@ Documentation: https://docs.microsoft.com/en-us/bing/search-apis/bing-web-search
 # mkt = 'en-US'
 # params = { 'q': query, 'mkt': mkt }
 # headers = { 'Ocp-Apim-Subscription-Key': subscription_key }
+
 mkt = 'en-GB'
 
 async def search_bing(query):
@@ -27,3 +28,4 @@ async def search_bing(query):
         async with session.get(f"{endpoint}v7.0/search", headers=headers, params=params) as response:
             response.raise_for_status()
             return await response.json()
+

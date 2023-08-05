@@ -11,6 +11,8 @@ from starlette.responses import Response
 from slack_bolt.async_app import AsyncApp
 from slack_bolt.adapter.fastapi.async_handler import AsyncSlackRequestHandler
 from fastapi import FastAPI, Request, HTTPException, Response
+from langchain.memory import ConversationSummaryBufferMemory
+from langchain import OpenAI
 from dotenv import find_dotenv, load_dotenv
 import logging
 from functools import wraps
@@ -170,7 +172,10 @@ async def handle_file_changed(body, say) -> None:
         extra_info = f", extra info is {cached_text}" if cached_text else ""
         ai_request = f"hi please service this request: \n {transcription}  {extra_info}"
         await say(f"Request is: audio {ai_request=}", channel=channel)
-        ai_answer =  Agents.Aria.ask(input=ai_request)
+        fn = Agents.Aria.make_ask(
+        memory=ConversationSummaryBufferMemory(llm=OpenAI()), level=2
+        )
+        ai_answer =  fn(input=ai_request)
         await say(f"Response is:  {ai_answer=}", channel=channel)
         audio_bytes = await functions.generate_audio(ai_answer, bot_cache)
         await say(f"TextResponse: audio {ai_answer=}", channel=channel)
