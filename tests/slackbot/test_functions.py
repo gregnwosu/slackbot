@@ -6,7 +6,7 @@ from langchain.memory import ConversationSummaryBufferMemory
 from langchain import OpenAI
 import elevenlabs
 import os
-
+from search import search_bing
 load_dotenv(find_dotenv())
 
 
@@ -43,3 +43,13 @@ async def test_text_to_speech():
     # check if running from azure webapp
     if "GITHUB_ACTIONS" not in os.environ:
         elevenlabs.play(data)
+
+
+@pytest.mark.asyncio
+async def test_search():
+    query = "Mongolian Throat Singing"
+
+    data = await search_bing(query)
+    assert data is not None
+    # check if running from azure webapp
+    print(data)
