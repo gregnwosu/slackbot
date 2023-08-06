@@ -6,9 +6,11 @@ am expert is made of :
    - a platform,
    - a model
    - a prompt template
-   - tools 
-##add petals platform
+   - tools
+
+## add petals platform
   https://youtu.be/8jEGVaRKmFc?t=316
+  
 ## add gorilla
 make gorilla capabale to build experts
  - make gorilla capable to save experts
