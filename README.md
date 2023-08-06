@@ -1,6 +1,19 @@
 [![Build and deploy Python app to Azure Web App - slackbotwebapp](https://github.com/gregnwosu/slackbot/actions/workflows/main_slackbotwebapp.yml/badge.svg)](https://github.com/gregnwosu/slackbot/actions/workflows/main_slackbotwebapp.yml)
 
 # todo:
+re-engineer so that
+am expert is made of :
+   - a platform,
+   - a model
+   - a prompt template
+   - tools 
+add petals platform https://youtu.be/8jEGVaRKmFc?t=316
+add gorilla
+make gorilla capabale to build experts
+ - make gorilla capable to save experts
+ - make gorilla capalbe to discover models
+ - make gorilla capable to ask experts for prompt templates
+
 sometimes the deployment template for bing services doesnt work
 you will have to delete it using the resources id first 
 ```az resource delete resource id```
