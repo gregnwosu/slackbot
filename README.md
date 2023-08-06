@@ -15,6 +15,7 @@ make gorilla capabale to build experts
  - make gorilla capalbe to discover models
  - make gorilla capable to ask experts for prompt templates
 
+# gotchas
 sometimes the deployment template for bing services doesnt work
 you will have to delete it using the resources id first 
 ```az resource delete resource id```
