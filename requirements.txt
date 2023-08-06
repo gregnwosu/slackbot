@@ -45,3 +45,11 @@ pre-commit
 
 azure-keyvault-secrets
 azure-identity
+
+# gorilla
+transformers[sentencepiece] 
+datasets
+# gorilla flax
+jax
+jaxlib
+flax
