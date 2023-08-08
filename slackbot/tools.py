@@ -20,10 +20,9 @@ import os
 from langchain.memory import ConversationSummaryBufferMemory
 from dotenv import load_dotenv, find_dotenv
 from tenacity import retry, stop_after_attempt
+from langchain.chat_models import ChatOpenAI
 
 load_dotenv(find_dotenv())
-
-
 
 
 
@@ -40,11 +39,10 @@ class Agents(Enum):
         os.environ["SLACK_BOT_TOKEN"],
         LLM.GPT3_5_TURBO.value
     )
-    Daisuke = (
-        "Daisuke",
+    Gorilla = (
+        "Gorilla",
         os.environ["SLACK_BOT_TOKEN"],
         LLM.Gorilla.value
-        
     )
     Geoffrey = (
         "Geoffrey",
@@ -61,12 +59,14 @@ class Agents(Enum):
 
     def tools(self, level: int, memory=ConversationSummaryBufferMemory(llm=OpenAI())):
         if level < 1:
-            return [Tool(
-                name="Aria",
-                func=Agents.Aria.make_ask(level=level, memory=memory),
-                coroutine=Agents.Aria.make_ask(level=level, memory=memory),
-                description="Adria is a language model that can answer questions and generate text. Shes fast friendly and mildy creative always ready to help",
-            ),]
+            return [
+                Tool(
+                    name="Aria",
+                    func=Agents.Aria.make_ask(level=level, memory=memory),
+                    coroutine=Agents.Aria.make_ask(level=level, memory=memory),
+                    description="Adria is a language model that can answer questions and generate text. Shes fast friendly and mildy creative always ready to help",
+                ),
+            ]
         return [
          
             Tool(
@@ -76,10 +76,10 @@ class Agents(Enum):
                 description="Adria is a language model that can answer questions and generate text. Shes fast friendly and mildy creative always ready to help",
             ),
             Tool(
-                name="Daisuke",
-                func=Agents.Daisuke.make_ask(level=level, memory=memory),
-                coroutine=Agents.Daisuke.make_ask(level=level, memory=memory),
-                description="Daisuke is a language model that can answer questions and generate text. Shes fast friendly and extremely creative always and therefore sometimes lacks correctness and focus. As such she should have her work checked by a more precise agent.",
+                name="Gorilla",
+                func=Agents.Gorilla.make_ask(level=level, memory=memory),
+                coroutine=Agents.Gorilla.make_ask(level=level, memory=memory),
+                description="Gorilla is a language model that can answer questions and generate text. Shes fast friendly and extremely creative always and therefore sometimes lacks correctness and focus. As such she should have her work checked by a more precise agent.",
             ),
             Tool(
                 name="Geoffrey",
@@ -87,15 +87,13 @@ class Agents(Enum):
                 coroutine=Agents.Geoffrey.make_ask(level=level, memory=memory),
                 description="Geoffrey is a language model that can answer questions and generate text. He is slow , thoughtful not creative and doesnt like to be asked too frequently.",
             ),
-           Tool(
-    name="search",
-    func=search_bing,
-    description="useful for when you need to answer questions about current events",
-    coroutine=search_bing,
-)
+            Tool(
+                name="search",
+                func=search_bing,
+                description="useful for when you need to answer questions about current events",
+                coroutine=search_bing,
+            ),
         ]
-
-
 
     def make_ask(self, memory, level: int):
         @retry(stop=stop_after_attempt(3))
@@ -136,6 +134,7 @@ class Agents(Enum):
                     verbose=True,
                     memory=memory,
                     prompt=template)
+
                 answer = await llm.arun(input=template)
             else:
                 system_message_prompt = SystemMessagePromptTemplate.from_template(template)

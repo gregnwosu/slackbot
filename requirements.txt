@@ -1,5 +1,6 @@
 python-dotenv
 langchain
+pydantic==1.10.12
 tiktoken
 openai
 slack-sdk
@@ -45,3 +46,11 @@ pre-commit
 
 azure-keyvault-secrets
 azure-identity
+
+# gorilla
+transformers[sentencepiece] 
+datasets
+# gorilla flax
+jax
+jaxlib
+flax
