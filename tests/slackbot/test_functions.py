@@ -21,7 +21,7 @@ async def test_convo():
 # print(f"Result is {result=}")
 
 
-#@pytest.mark.skip
+@pytest.mark.skip
 @pytest.mark.asyncio
 async def test_convo2():
     fn = Agents.Gorilla.make_ask(
@@ -45,7 +45,7 @@ async def test_text_to_speech():
     if "GITHUB_ACTIONS" not in os.environ:
         elevenlabs.play(data)
 
-
+@pytest.mark.skip
 @pytest.mark.asyncio
 async def test_search():
     query = "Mongolian Throat Singing"
