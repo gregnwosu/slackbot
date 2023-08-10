@@ -40,12 +40,19 @@ async def text_to_speech(text: str) -> bytes:
 
 async def speak( input_question: str, channel:str, agent: Agents, memory=None, level=None) -> str:
     data = await text_to_speech(input_question)
-
+    
     response = await agent.value.slack_client.files_upload_v2(
         channel=channel,
         content=data,
         title="audio.mp3",
-        filetype=MimeType.AUDIO_MP3.value,
+        #filetype=MimeType.AUDIO_MP3.value,
         initial_comment=input_question,
     )
+    #https://avatars.githubusercontent.com/u/193151?size=64
+
+    # response = agent.value.slack_client.files_upload(
+    #         channels=[channel],
+    #         content=data,
+    #         filename='audio.mp3',
+    #         filetype=MimeType.AUDIO_MP3.value)
     return response["data"]

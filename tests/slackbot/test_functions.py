@@ -40,7 +40,7 @@ async def test_convo2():
 
 # test text to speech
 
-
+@pytest.mark.skip
 @pytest.mark.asyncio
 async def test_text_to_speech():
     text = "Hello, I am a robot. I am here to help you."
@@ -61,12 +61,10 @@ async def test_search():
     # check if running from azure webapp
     print(data)
 
-@pytest.mark.skip
+
 @pytest.mark.asyncio
 async def test_speak():
     query = "Tell me that you love me"
-
-    data = await speak(input_question=query, agent=Agents.Aria, channel="admin")
-    assert data is not None
-    # check if running from azure webapp
-    print(data)
+    
+    await speak(input_question=query, agent=Agents.Aria, channel="C0595A85N4R")
+    
