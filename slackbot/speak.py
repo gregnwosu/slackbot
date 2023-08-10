@@ -1,13 +1,13 @@
 from slackbot.parsing.file.model import MimeType
 from slackbot.vault import get_secret
-import os
 from azure.cognitiveservices.speech import (
     SpeechSynthesizer,
     SpeechSynthesisOutputFormat,
     SpeechSynthesisResult,
 )
 from dotenv import load_dotenv, find_dotenv
-from tenacity import retry, stop_after_attempt
+from slack_sdk.web.async_client import AsyncWebClient
+from slackbot.agent import Agents
 
 load_dotenv(find_dotenv())
 import azure.cognitiveservices.speech as speechsdk
@@ -26,18 +26,33 @@ async def text_to_speech(text: str) -> bytes:
     )
 
     result: SpeechSynthesisResult = synthesizer.speak_text_async(text).get()
-    result.audio_data
+    print(f""" 
+          *** result {result} ***
+    *********************************************
+    *** synthesizing speech: {text} ***
+    *********************************************
+    ***  Speech synthesis result status: {result.reason} ***
+    {len(result.audio_data)} bytes of audio returned
+    
+    """)
     data: bytes = result.audio_data
     return data
 
-async def speak(self, text: str) -> str:
-    data = await text_to_speech(text)
-
-    response = await self.slack_client.files_upload_v2(
-        channel="admin",
-        file=data,
-        filename="audio.mp3",
-        filetype=MimeType.AUDIO_MP3.value,
-        initial_comment=text,
+async def speak( input_question: str, channel:str, agent: Agents, memory=None, level=None) -> str:
+    data = await text_to_speech(input_question)
+    
+    response = await agent.value.slack_client.files_upload_v2(
+        channel=channel,
+        content=data,
+        title="audio.mp3",
+        #filetype=MimeType.AUDIO_MP3.value,
+        initial_comment=input_question,
     )
+    #https://avatars.githubusercontent.com/u/193151?size=64
+
+    # response = agent.value.slack_client.files_upload(
+    #         channels=[channel],
+    #         content=data,
+    #         filename='audio.mp3',
+    #         filetype=MimeType.AUDIO_MP3.value)
     return response["data"]

@@ -1,6 +1,7 @@
 import pytest
 from slackbot.functions import convo
 from slackbot.tools import Agents
+from slackbot.tools import Conversation
 from slackbot.speak import text_to_speech
 from dotenv import load_dotenv, find_dotenv
 from langchain.memory import ConversationSummaryBufferMemory
@@ -8,6 +9,9 @@ from langchain import OpenAI
 import elevenlabs
 import os
 from slackbot.search import search_bing
+from slackbot.speak import speak
+
+
 load_dotenv(find_dotenv())
 
 
@@ -24,17 +28,19 @@ async def test_convo():
 @pytest.mark.skip
 @pytest.mark.asyncio
 async def test_convo2():
-    fn = Agents.Gorilla.make_ask(
-        memory=ConversationSummaryBufferMemory(llm=OpenAI()), level=2
+    convo = Conversation(agent = None, level=3, memory=ConversationSummaryBufferMemory(llm=OpenAI(model_name="gpt-4")), channel="admin")
+    result = await convo.ask(
+        agent=Agents.Aria,
+        input_question="What is the likelihood of a nuclear war in the next 10 years?",
+        level=2,
+        channel = convo.channel,
+        memory=convo.memory,
     )
-    await fn(
-        input="Why do modern day caucasians want to hide the fact they are descended from the ancient Edomites?"
-    )
-
+    
 
 # test text to speech
 
-
+@pytest.mark.skip
 @pytest.mark.asyncio
 async def test_text_to_speech():
     text = "Hello, I am a robot. I am here to help you."
@@ -54,3 +60,11 @@ async def test_search():
     assert data is not None
     # check if running from azure webapp
     print(data)
+
+
+@pytest.mark.asyncio
+async def test_speak():
+    query = "Tell me that you love me"
+    
+    await speak(input_question=query, agent=Agents.Aria, channel="C0595A85N4R")
+    
