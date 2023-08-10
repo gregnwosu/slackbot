@@ -59,7 +59,7 @@ class FileInfo(pydantic.BaseModel):
     url_private_download: str
     vtt: Optional[str]
     duration_ms: int
-    aac: str
+    aac: Optional[str] = None
     audio_wave_samples: List[int]
     media_display_type: MimeType
     permalink: str
