@@ -84,12 +84,12 @@ async def get_gorilla_response(input_question:str, memory: ConversationSummaryBu
     print(f"  SAYS {chat=}")
     print(f"  CODE {code=}")
     print("EXECUTING")
-    #code_result = exec(code)
+    code_result = exec(code)
     print("EXECUTED")
-    #print("CODE RESULT", code_result)
+    print("CODE RESULT", code_result)
     print(""" ***********************************************************
           ***********************GORILLA END***************************""")
-    return chat
+    return code_result
 
 
 class Tools(Enum):

@@ -142,6 +142,15 @@ async def handle_file_created(body, say):
 async def handle_file_shared(body, say) -> None:
     return None
 
+async def get_memory_for_channel(channel_id: str) -> ConversationSummaryBufferMemory:
+    async with get_cache() as channel_memory_cache:
+        channel_memory = channel_memory_cache.get(f"memory:{channel_id}")
+        if not channel_memory:
+            channel_memory = ConversationSummaryBufferMemory(llm=OpenAI(model_name="gpt-4"))
+            channel_memory_cache.set(f"memory:{channel_id}", channel_memory,  ex=dt.timedelta(hours=5))
+        return channel_memory
+    
+
 @app.event("file_change")
 async def handle_file_changed(body, say) -> None:
     """
@@ -175,8 +184,8 @@ async def handle_file_changed(body, say) -> None:
         extra_info = f", extra info is {cached_text}" if cached_text else ""
         ai_request = f"hi please service this request: \n {transcription}  {extra_info}"
         
-        
-        convo = Conversation(agent = None, level=3, memory=ConversationSummaryBufferMemory(llm=OpenAI(model_name="gpt-4")), channel=channel)
+        channel_memory = await get_memory_for_channel(channel)
+        convo = Conversation(agent = None, level=3, memory=channel_memory, channel=channel)
         ai_answer = await convo.ask(
             agent=Agents.Aria,
             input_question=ai_request,
@@ -187,7 +196,6 @@ async def handle_file_changed(body, say) -> None:
        
         
         audio_bytes = await functions.generate_audio(ai_answer, bot_cache)
-        
         
         response = await slack_client.files_upload(
             channels=[channel],
