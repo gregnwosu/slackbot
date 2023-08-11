@@ -84,12 +84,15 @@ async def get_gorilla_response(input_question:str, memory: ConversationSummaryBu
     print(f"  SAYS {chat=}")
     print(f"  CODE {code=}")
     print("EXECUTING")
-    code_result = exec(code)
-    print("EXECUTED")
-    print("CODE RESULT", code_result)
-    print(""" ***********************************************************
-          ***********************GORILLA END***************************""")
-    return code_result
+    try:
+        code_result = exec(code)
+        return code_result
+    except Exception as e:
+        return f""" I tried to answer {input_question} by generating this code :
+        
+        {code}
+        
+        but I got an error. The error was {e}. Please ask Geoffrey to review my code and give me advice on how to fix it."""
 
 
 class Tools(Enum):
