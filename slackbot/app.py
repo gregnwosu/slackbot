@@ -136,7 +136,7 @@ async def get_bot_user_id():
 async def handle_file_created(body, say):
     """ downloads the file transcribes it and sends it back to the user"""
     print(f"File Created:, I'll get right on that! {body=}")
-    logger.warn(f"File Created:, I'll get right on that! {body=}")
+    logger.debug(f"File Created:, I'll get right on that! {body=}")
 
 @app.event("file_shared")
 async def handle_file_shared(body, say) -> None:
@@ -152,27 +152,32 @@ async def handle_file_changed(body, say) -> None:
         say (callable): A function for sending a response to the channel.
     """
     # failes because of no channel id
-    channel = "C0595A85N4R"
     file_event: FileEvent = FileEvent(**body["event"])
     file_info: FileInfo = await file_event.file_info(cached_slack_client())
-    await say(f"File Changed:, I'll get right on that! {body=}", channel=channel)
-    logger.warn(f"File Changed: File Info {file_info=}")
-    await say(f"File Changed: Calling with {file_info=}", channel=channel)
+    channel = file_info.shares.public.keys()[0] if file_info.shares else "C0595A85N4R"
+    if logger.isEnabledFor(logging.DEBUG):
+        await say(f"File Changed:, I'll get right on that! {body=}", channel=channel)
+    logger.debug(f"File Changed: File Info {file_info=}")
     transcription = await file_info.vtt_txt(SLACK_BOT_TOKEN)
-    await say(f"Retrieving Transcription  {transcription=}", channel=channel)
+    if logger.isEnabledFor(logging.DEBUG):
+        await say(f"File Changed: Calling with {file_info=}", channel=channel)
+        await say(f"Retrieving Transcription  {transcription=}", channel=channel)
     try:
         bot_cache: aioredis.Redis = get_cache()
         cached_text: str =await bot_cache.get(file_info.id)
         if not cached_text:
             keys = await bot_cache.keys()
-            await say(f"Cache miss {keys=}", channel=channel)
+            if logger.isEnabledFor(logging.DEBUG):
+                await say(f"Cache miss {keys=}", channel=channel)
             
         else:
-            await say(f"Cache hit {cached_text=}", channel=channel)
+            if logger.isEnabledFor(logging.DEBUG):
+                await say(f"Cache hit {cached_text=}", channel=channel)
         slack_client: AsyncWebClient = cached_slack_client()
         extra_info = f", extra info is {cached_text}" if cached_text else ""
         ai_request = f"hi please service this request: \n {transcription}  {extra_info}"
-        await say(f"Request is: audio {ai_request=}", channel=channel)
+        if logger.isEnabledFor(logging.DEBUG):
+            await say(f"Request is: audio {ai_request=}", channel=channel)
         convo = Conversation(agent = None, level=3, memory=ConversationSummaryBufferMemory(llm=OpenAI(model_name="gpt-4")), channel="C0595A85N4R")
         ai_answer = await convo.ask(
             agent=Agents.Aria,
@@ -181,9 +186,11 @@ async def handle_file_changed(body, say) -> None:
             channel = convo.channel,
             memory=convo.memory,
         )
-        await say(f"Response is:  {ai_answer=}", channel=channel)
+        if logger.isEnabledFor(logging.DEBUG):
+            await say(f"Response is:  {ai_answer=}", channel=channel)
         audio_bytes = await functions.generate_audio(ai_answer, bot_cache)
-        await say(f"TextResponse: audio {ai_answer=}", channel=channel)
+        if logger.isEnabledFor(logging.DEBUG):
+            await say(f"TextResponse: audio {ai_answer=}", channel=channel)
         response = await slack_client.files_upload(
             channels=[channel],
             file=audio_bytes,
@@ -227,11 +234,13 @@ async def handle_message(body: dict, say):
                 say(f"************getting cache for text {fileinfo.id=} {text=}")
                 try:
                     text_cache: aioredis.Redis = get_cache()
-                    await say(f"*************caching key and  values {fileinfo.id=} {text=} {text_cache=}")
+                    if logger.isEnabledFor(logging.DEBUG):
+                        await say(f"*************caching key and  values {fileinfo.id=} {text=} {text_cache=}")
                     await text_cache.set(fileinfo.id,  text, ex=dt.timedelta(minutes=5))
                     # cache the text for the file
                     keys = await text_cache.keys()
-                    await say(f"cache keys {keys=}")
+                    if logger.isEnabledFor(logging.DEBUG):
+                        await say(f"cache keys {keys=}")
                     await say(f"Need to wait for audio to be transcribed for  {fileinfo}", channel=model.channel)
                 except Exception as e:
                     await say(f"Error {e=}")
