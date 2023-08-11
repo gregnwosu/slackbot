@@ -154,32 +154,29 @@ async def handle_file_changed(body, say) -> None:
     # failes because of no channel id
     file_event: FileEvent = FileEvent(**body["event"])
     file_info: FileInfo = await file_event.file_info(cached_slack_client())
-    await say(f"File Changed:, Body is \n\n {body=}", channel="C0595A85N4R")
-    channel = list(file_info.shares.public)[0] if file_info.shares else "C0595A85N4R"
-    await say(f"File Changed:, Channel is \n\n {channel=}", channel="C0595A85N4R")
     
-    await say(f"File Changed: File Info {file_info=}", channel="C0595A85N4R")
+    channel = list(file_info.shares.public)[0] if file_info.shares else "C0595A85N4R"
+    
     transcription = await file_info.vtt_txt(SLACK_BOT_TOKEN)
     # if logger.isEnabledFor(logging.DEBUG):
-    await say(f"File Changed: Calling with {file_info=}", channel="C0595A85N4R")
-    await say(f"File Changed: Retrieving Transcription  {transcription=}", channel="C0595A85N4R")
+    
     try:
         bot_cache: aioredis.Redis = get_cache()
         cached_text: str =await bot_cache.get(file_info.id)
         if not cached_text:
             keys = await bot_cache.keys()
-            # if logger.isEnabledFor(logging.DEBUG):
-            await say(f"File Changed: Cache miss {keys=}", channel="C0595A85N4R")
+            if logger.isEnabledFor(logging.DEBUG):
+                await say(f"File Changed: Cache miss {keys=}", channel=channel)
             
         else:
-            # if logger.isEnabledFor(logging.DEBUG):
-            await say(f"File Changed: Cache hit {cached_text=}", channel="C0595A85N4R")
+            if logger.isEnabledFor(logging.DEBUG):
+                await say(f"File Changed: Cache hit {cached_text=}", channel=channel)
         slack_client: AsyncWebClient = cached_slack_client()
         extra_info = f", extra info is {cached_text}" if cached_text else ""
         ai_request = f"hi please service this request: \n {transcription}  {extra_info}"
         
-        await say(f"File Changed: Request is: audio {ai_request=}", channel="C0595A85N4R")
-        convo = Conversation(agent = None, level=3, memory=ConversationSummaryBufferMemory(llm=OpenAI(model_name="gpt-4")), channel="C0595A85N4R")
+        
+        convo = Conversation(agent = None, level=3, memory=ConversationSummaryBufferMemory(llm=OpenAI(model_name="gpt-4")), channel=channel)
         ai_answer = await convo.ask(
             agent=Agents.Aria,
             input_question=ai_request,
@@ -188,14 +185,15 @@ async def handle_file_changed(body, say) -> None:
             memory=convo.memory,
         )
        
-        await say(f"File Changed: Response is:  {ai_answer=}", channel="C0595A85N4R")
+        
         audio_bytes = await functions.generate_audio(ai_answer, bot_cache)
         
-        await say(f"File Changed: TextResponse: audio {audio_bytes=}", channel="C0595A85N4R")
+        
         response = await slack_client.files_upload(
             channels=[channel],
             file=audio_bytes,
             filename='audio.mp3',
+            initial_comment=ai_answer,
             filetype=MimeType.AUDIO_MP3.value)
         return None
     except Exception as e:
