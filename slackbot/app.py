@@ -1,6 +1,6 @@
 import sys
 import os 
-import io
+import json
 import datetime as dt
 import pickle
 import functools
@@ -24,13 +24,16 @@ from langchain.memory import ConversationSummaryBufferMemory
 from langchain import OpenAI
 from dotenv import find_dotenv, load_dotenv
 import logging
-
+from typing import Optional
+from langchain.schema import messages_from_dict, messages_to_dict
 # from aiocache.serializers import PickleSerializer
 from slackbot.parsing.file.event import FileInfo, FileEvent
 from slackbot.parsing.file.model import MimeType
 from slackbot.parsing.message.event import MessageSubType
 import slackbot.functions as functions
 from slackbot.tools import Conversation
+from langchain.memory.chat_message_histories.in_memory import ChatMessageHistory
+from typing import List, Optional
 
 # Configure the logging level and format
 logging.basicConfig(
@@ -46,7 +49,6 @@ logger = logging.getLogger(__name__)
 class BearerAuth(requests.auth.AuthBase):
     def __init__(self, token):
         self.token = token
-
     def __call__(self, r):
         r.headers["authorization"] = "Bearer " + self.token
         return r
@@ -166,20 +168,32 @@ async def handle_file_shared(body, say) -> None:
     return None
 
 
+
+
+async def cache_channel_memory(channel_id: str, channel_memory_cache: aioredis.Redis, memory: ConversationSummaryBufferMemory):
+    
+    channel_memory_json: str = json.dumps(messages_to_dict(memory.chat_memory.messages))
+    await channel_memory_cache.set(
+                f"channel_memory:{channel_id}", channel_memory_json, ex=dt.timedelta(hours=5)
+            )
+    
+async def get_memory_from_cache(channel_id: str, channel_memory_cache: aioredis.Redis) -> Optional[ConversationSummaryBufferMemory]:
+    channel_memory_json: Optional[str] = await channel_memory_cache.get(f"channel_memory:{channel_id}")
+    if not channel_memory_json:
+        return None
+    messages = messages_from_dict(json.loads(channel_memory_json))
+    chat_memory: ChatMessageHistory=ChatMessageHistory(messages=messages)
+
+    return  ConversationSummaryBufferMemory(llm=OpenAI(model_name="gpt-4"), chat_memory=chat_memory) 
+
 async def get_memory_for_channel(channel_id: str) -> ConversationSummaryBufferMemory:
     async with get_cache() as channel_memory_cache:
-        channel_data = await channel_memory_cache.get(f"channel_memory:{channel_id}")
-        if not channel_data:
-            buff = io.BytesIO()
-            pickle.dump(obj=ConversationSummaryBufferMemory(llm=OpenAI(model_name="gpt-4")), file=buff)
-            channel_data = buff.getvalue()
-            
-            await channel_memory_cache.set(
-                f"channel_memory:{channel_id}", channel_data, ex=dt.timedelta(hours=5)
-            )
-        return pickle.load(channel_data)
-
-
+        channel_memory: ConversationSummaryBufferMemory= get_memory_from_cache(channel_id=channel_id, channel_memory_cache=channel_memory_cache)
+        if not channel_memory:
+            channel_memory=ConversationSummaryBufferMemory(llm=OpenAI(model_name="gpt-4"))
+            cache_channel_memory(channel_id=channel_id, channel_memory_cache=channel_memory_cache, memory=channel_memory)
+        return channel_memory
+        
 
 @app.event("file_change")
 async def handle_file_changed(body, say) -> None:
@@ -317,9 +331,6 @@ async def handle_mentions(body: dict, say):
 
     await say("Sure, I'll get right on that!")
 
-    # await client.chat_postMessage(
-    #     channel='#admin',
-    #     text="Hello  tsts")
     return Response(status_code=200, content="OKieDokie")
 
 
