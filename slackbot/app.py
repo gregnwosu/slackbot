@@ -169,12 +169,12 @@ async def get_memory_for_channel(channel_id: str) -> ConversationSummaryBufferMe
     async with get_cache() as channel_memory_cache:
         channel_data = await channel_memory_cache.get(f"memory:{channel_id}")
         if not channel_data:
-            channel_data = ConversationSummaryBufferMemory(llm=OpenAI(model_name="gpt-4"))
+            channel_data = pickle.dumps(ConversationSummaryBufferMemory(llm=OpenAI(model_name="gpt-4")))
             
             await channel_memory_cache.set(
                 f"memory:{channel_id}", channel_data, ex=dt.timedelta(hours=5)
             )
-        return channel_data
+        return pickle.loads(channel_data)
 
 
 
