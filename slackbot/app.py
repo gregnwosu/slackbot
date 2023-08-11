@@ -167,15 +167,14 @@ async def handle_file_shared(body, say) -> None:
 
 async def get_memory_for_channel(channel_id: str) -> ConversationSummaryBufferMemory:
     async with get_cache() as channel_memory_cache:
-        channel_data = channel_memory_cache.get(f"memory:{channel_id}")
+        channel_data = await channel_memory_cache.get(f"memory:{channel_id}")
         if not channel_data:
-            channel_data = pickle.dumps(
-                ConversationSummaryBufferMemory(llm=OpenAI(model_name="gpt-4"))
-            )
-            channel_memory_cache.set(
+            channel_data = ConversationSummaryBufferMemory(llm=OpenAI(model_name="gpt-4"))
+            
+            await channel_memory_cache.set(
                 f"memory:{channel_id}", channel_data, ex=dt.timedelta(hours=5)
             )
-        return pickle.loads(channel_data)
+        return channel_data
 
 
 
