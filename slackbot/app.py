@@ -34,6 +34,7 @@ import slackbot.functions as functions
 from slackbot.tools import Conversation
 from langchain.memory.chat_message_histories.in_memory import ChatMessageHistory
 from typing import List, Optional
+from slackbot.llm import LLM
 
 # Configure the logging level and format
 logging.basicConfig(
@@ -184,13 +185,13 @@ async def get_memory_from_cache(channel_id: str, channel_memory_cache: aioredis.
     messages = messages_from_dict(json.loads(channel_memory_json))
     chat_memory: ChatMessageHistory=ChatMessageHistory(messages=messages)
 
-    return  ConversationSummaryBufferMemory(llm=OpenAI(model_name="gpt-4"), chat_memory=chat_memory) 
+    return  ConversationSummaryBufferMemory(llm=LLM.GPT4.value, chat_memory=chat_memory) 
 
 async def get_memory_for_channel(channel_id: str) -> ConversationSummaryBufferMemory:
     async with get_cache() as channel_memory_cache:
         channel_memory: ConversationSummaryBufferMemory= get_memory_from_cache(channel_id=channel_id, channel_memory_cache=channel_memory_cache)
         if not channel_memory:
-            channel_memory=ConversationSummaryBufferMemory(llm=OpenAI(model_name="gpt-4"))
+            channel_memory=ConversationSummaryBufferMemory(llm=LLM.GPT4.value)
             cache_channel_memory(channel_id=channel_id, channel_memory_cache=channel_memory_cache, memory=channel_memory)
         return channel_memory
         
