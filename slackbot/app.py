@@ -247,7 +247,7 @@ async def handle_message(body: dict, say):
                     await say(f"Error {e=}")
                     raise e
                 finally:
-                    await text_cache.close()
+                    await text_cache.close() 
                     
     return model
 
