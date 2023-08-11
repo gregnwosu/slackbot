@@ -1,5 +1,6 @@
 import sys
-import os
+import os 
+import io
 import datetime as dt
 import pickle
 import functools
@@ -169,7 +170,9 @@ async def get_memory_for_channel(channel_id: str) -> ConversationSummaryBufferMe
     async with get_cache() as channel_memory_cache:
         channel_data = await channel_memory_cache.get(f"channel_memory:{channel_id}")
         if not channel_data:
-            channel_data = pickle.dump(ConversationSummaryBufferMemory(llm=OpenAI(model_name="gpt-4")))
+            buff = io.BytesIO()
+            pickle.dump(obj=ConversationSummaryBufferMemory(llm=OpenAI(model_name="gpt-4")), file=buff)
+            channel_data = buff.getvalue()
             
             await channel_memory_cache.set(
                 f"channel_memory:{channel_id}", channel_data, ex=dt.timedelta(hours=5)
