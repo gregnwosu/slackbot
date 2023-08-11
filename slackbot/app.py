@@ -323,9 +323,8 @@ async def handle_mentions(body: dict, say):
 @api.get("/")
 async def root(req: Request):
     client = cached_slack_client()
-    # await client.chat_postMessage(
-    #     channel='#admin',
-    #     text="Hello world!")
+    cache = await get_cache()
+    await cache.flushall()
     return Response(status_code=200, content="OK")
 
 
