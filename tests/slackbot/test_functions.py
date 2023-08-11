@@ -28,7 +28,7 @@ async def test_convo():
 @pytest.mark.skip
 @pytest.mark.asyncio
 async def test_convo2():
-    convo = Conversation(agent = None, level=3, memory=ConversationSummaryBufferMemory(llm=OpenAI(model_name="gpt-4")), channel="admin")
+    convo = Conversation(agent = None, level=3, memory=ConversationSummaryBufferMemory(llm=OpenAI(model_name="gpt-4")), channel="C0595A85N4R")
     result = await convo.ask(
         agent=Agents.Aria,
         input_question="What is the likelihood of a nuclear war in the next 10 years?",

@@ -27,6 +27,7 @@ import aioredis
 from slackbot.parsing.file.model import MimeType
 from slackbot.parsing.message.event import MessageSubType
 import slackbot.functions as functions
+from slackbot.tools import Conversation
 import requests
 # Configure the logging level and format
 logging.basicConfig(
@@ -172,10 +173,14 @@ async def handle_file_changed(body, say) -> None:
         extra_info = f", extra info is {cached_text}" if cached_text else ""
         ai_request = f"hi please service this request: \n {transcription}  {extra_info}"
         await say(f"Request is: audio {ai_request=}", channel=channel)
-        fn = Agents.Aria.make_ask(
-        memory=ConversationSummaryBufferMemory(llm=OpenAI()), level=2
+        convo = Conversation(agent = None, level=3, memory=ConversationSummaryBufferMemory(llm=OpenAI(model_name="gpt-4")), channel="C0595A85N4R")
+        ai_answer = await convo.ask(
+            agent=Agents.Aria,
+            input_question=ai_request,
+            level=2,
+            channel = convo.channel,
+            memory=convo.memory,
         )
-        ai_answer =  fn(input=ai_request)
         await say(f"Response is:  {ai_answer=}", channel=channel)
         audio_bytes = await functions.generate_audio(ai_answer, bot_cache)
         await say(f"TextResponse: audio {ai_answer=}", channel=channel)
