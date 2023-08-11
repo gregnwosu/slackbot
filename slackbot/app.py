@@ -2,7 +2,7 @@ import sys
 import os 
 import json
 import datetime as dt
-import pickle
+
 import functools
 from functools import wraps
 from aiocache import cached
@@ -172,7 +172,6 @@ async def handle_file_shared(body, say) -> None:
 
 
 async def cache_channel_memory(channel_id: str, channel_memory_cache: aioredis.Redis, memory: ConversationSummaryBufferMemory):
-    
     channel_memory_json: str = json.dumps(messages_to_dict(memory.chat_memory.messages))
     await channel_memory_cache.set(
                 f"channel_memory:{channel_id}", channel_memory_json, ex=dt.timedelta(hours=5)
@@ -183,18 +182,18 @@ async def get_memory_from_cache(channel_id: str, channel_memory_cache: aioredis.
     if not channel_memory_json:
         return None
     messages_dicts = json.loads(channel_memory_json)
-    print(f"\n*****************messages_dicts={messages_dicts}")
+    
     messages = messages_from_dict(messages_dicts)
-    chat_memory: ChatMessageHistory=ChatMessageHistory(messages=messages_dicts)
+    chat_memory: ChatMessageHistory=ChatMessageHistory(messages=messages)
 
     return  ConversationSummaryBufferMemory(llm=LLM.GPT4.value, chat_memory=chat_memory) 
 
 async def get_memory_for_channel(channel_id: str) -> ConversationSummaryBufferMemory:
     async with get_cache() as channel_memory_cache:
-        channel_memory: ConversationSummaryBufferMemory= get_memory_from_cache(channel_id=channel_id, channel_memory_cache=channel_memory_cache)
+        channel_memory: ConversationSummaryBufferMemory= await get_memory_from_cache(channel_id=channel_id, channel_memory_cache=channel_memory_cache)
         if not channel_memory:
             channel_memory=ConversationSummaryBufferMemory(llm=LLM.GPT4.value)
-            cache_channel_memory(channel_id=channel_id, channel_memory_cache=channel_memory_cache, memory=channel_memory)
+            await cache_channel_memory(channel_id=channel_id, channel_memory_cache=channel_memory_cache, memory=channel_memory)
         return channel_memory
         
 
