@@ -37,6 +37,7 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(message)s",
     stream=sys.stdout,
 )
+import pickle
 
 logger = logging.getLogger(__name__)
 
@@ -175,6 +176,7 @@ async def get_memory_for_channel(channel_id: str) -> ConversationSummaryBufferMe
                 f"memory:{channel_id}", channel_data, ex=dt.timedelta(hours=5)
             )
         return pickle.loads(channel_data)
+
 
 
 @app.event("file_change")
