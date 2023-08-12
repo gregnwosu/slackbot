@@ -35,6 +35,7 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(message)s",
     stream=sys.stdout,
 )
+import pickle
 
 logger = logging.getLogger(__name__)
 
@@ -144,10 +145,11 @@ async def handle_file_shared(body, say) -> None:
 
 async def get_memory_for_channel(channel_id: str) -> ConversationSummaryBufferMemory:
     async with get_cache() as channel_memory_cache:
-        channel_memory = channel_memory_cache.get(f"memory:{channel_id}")
-        if not channel_memory:
+        channel_data = channel_memory_cache.get(channel_id)
+        if not channel_data:
             channel_memory = ConversationSummaryBufferMemory(llm=OpenAI(model_name="gpt-4"))
-            channel_memory_cache.set(f"memory:{channel_id}", channel_memory,  ex=dt.timedelta(hours=5))
+            # channel_data = pickle.dumps(channel_memory)
+            channel_memory_cache.set(channel_id, channel_memory,  ex=dt.timedelta(hours=5))
         return channel_memory
     
 
