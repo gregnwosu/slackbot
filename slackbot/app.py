@@ -1,6 +1,5 @@
 import sys
 import os 
-import json
 import datetime as dt
 
 import functools
@@ -20,21 +19,15 @@ from starlette.responses import Response
 from fastapi import FastAPI, Request, HTTPException, Response
 from slackbot.parsing.appmention.event import AppMentionEvent
 from slackbot.tools import Agents
-from langchain.memory import ConversationSummaryBufferMemory
-from langchain import OpenAI
 from dotenv import find_dotenv, load_dotenv
 import logging
-from typing import Optional
-from langchain.schema import messages_from_dict, messages_to_dict
 # from aiocache.serializers import PickleSerializer
 from slackbot.parsing.file.event import FileInfo, FileEvent
 from slackbot.parsing.file.model import MimeType
 from slackbot.parsing.message.event import MessageSubType
 import slackbot.functions as functions
 from slackbot.tools import Conversation
-from langchain.memory.chat_message_histories.in_memory import ChatMessageHistory
-from typing import List, Optional
-from slackbot.llm import LLM
+from slackbot.utils import get_cache, get_memory_for_channel
 
 # Configure the logging level and format
 logging.basicConfig(
@@ -42,7 +35,6 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(message)s",
     stream=sys.stdout,
 )
-import pickle
 
 logger = logging.getLogger(__name__)
 
@@ -66,15 +58,7 @@ REDIS_URL = os.environ["REDIS_URL"]
 REDIS_KEY = os.environ["REDIS_KEY"]
 
 
-def get_cache() -> aioredis.Redis:
-    return aioredis.Redis(
-        host=REDIS_URL,
-        password=REDIS_KEY,
-        ssl=True,
-        port=6380,
-        db=0,
-        decode_responses=True,
-    )
+
 
 
 # cachetools.TTLCache(maxsize=100, ttl=300)
@@ -168,34 +152,6 @@ async def handle_file_created(body, say):
 async def handle_file_shared(body, say) -> None:
     return None
 
-
-
-
-async def cache_channel_memory(channel_id: str, channel_memory_cache: aioredis.Redis, memory: ConversationSummaryBufferMemory):
-    channel_memory_json: str = json.dumps(messages_to_dict(memory.chat_memory.messages))
-    await channel_memory_cache.set(
-                f"channel_memory:{channel_id}", channel_memory_json, ex=dt.timedelta(hours=5)
-            )
-    
-async def get_memory_from_cache(channel_id: str, channel_memory_cache: aioredis.Redis) -> Optional[ConversationSummaryBufferMemory]:
-    channel_memory_json: Optional[str] = await channel_memory_cache.get(f"channel_memory:{channel_id}")
-    if not channel_memory_json:
-        return None
-    messages_dicts = json.loads(channel_memory_json)
-    
-    messages = messages_from_dict(messages_dicts)
-    chat_memory: ChatMessageHistory=ChatMessageHistory(messages=messages)
-
-    return  ConversationSummaryBufferMemory(llm=LLM.GPT4.value, chat_memory=chat_memory) 
-
-async def get_memory_for_channel(channel_id: str) -> ConversationSummaryBufferMemory:
-    async with get_cache() as channel_memory_cache:
-        channel_memory: ConversationSummaryBufferMemory= await get_memory_from_cache(channel_id=channel_id, channel_memory_cache=channel_memory_cache)
-        if not channel_memory:
-            channel_memory=ConversationSummaryBufferMemory(llm=LLM.GPT4.value)
-            await cache_channel_memory(channel_id=channel_id, channel_memory_cache=channel_memory_cache, memory=channel_memory)
-        return channel_memory
-        
 
 @app.event("file_change")
 async def handle_file_changed(body, say) -> None:
