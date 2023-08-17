@@ -21,6 +21,7 @@ from starlette.responses import Response
 import slackbot.functions as functions
 from slackbot.conversation import Conversation
 from slackbot.parsing.appmention.event import AppMentionEvent
+
 # from aiocache.serializers import PickleSerializer
 from slackbot.parsing.file.event import FileEvent, FileInfo
 from slackbot.parsing.file.model import MimeType
@@ -41,6 +42,7 @@ logger = logging.getLogger(__name__)
 class BearerAuth(requests.auth.AuthBase):
     def __init__(self, token):
         self.token = token
+
     def __call__(self, r):
         r.headers["authorization"] = "Bearer " + self.token
         return r
@@ -55,7 +57,6 @@ SLACK_SIGNING_SECRET = os.environ["SLACK_SIGNING_SECRET"]
 SLACK_BOT_USER_ID = os.environ["SLACK_BOT_USER_ID"]
 REDIS_URL = os.environ["REDIS_URL"]
 REDIS_KEY = os.environ["REDIS_KEY"]
-
 
 
 async def authorize():
