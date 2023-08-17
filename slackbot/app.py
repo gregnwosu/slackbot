@@ -1,32 +1,31 @@
-import sys
-import os 
 import datetime as dt
-
 import functools
-from functools import wraps
-from aiocache import cached
-import aioredis
-import time
-from fastapi import FastAPI, Request
-import requests
-from slack_sdk.web.async_client import AsyncWebClient
-from slack_sdk.signature import SignatureVerifier
-from slack_sdk.errors import SlackApiError
-from slack_bolt.adapter.fastapi.async_handler import AsyncSlackRequestHandler
-from slack_bolt.authorization import AuthorizeResult
-from slack_bolt.async_app import AsyncApp
-from starlette.responses import Response
-from fastapi import FastAPI, Request, HTTPException, Response
-from slackbot.parsing.appmention.event import AppMentionEvent
-from slackbot.tools import Agents
-from dotenv import find_dotenv, load_dotenv
 import logging
+import os
+import sys
+import time
+from functools import wraps
+
+import aioredis
+import requests
+from aiocache import cached
+from dotenv import find_dotenv, load_dotenv
+from fastapi import FastAPI, HTTPException, Request, Response
+from slack_bolt.adapter.fastapi.async_handler import AsyncSlackRequestHandler
+from slack_bolt.async_app import AsyncApp
+from slack_bolt.authorization import AuthorizeResult
+from slack_sdk.errors import SlackApiError
+from slack_sdk.signature import SignatureVerifier
+from slack_sdk.web.async_client import AsyncWebClient
+from starlette.responses import Response
+import slackbot.functions as functions
+from slackbot.conversation import Conversation
+from slackbot.parsing.appmention.event import AppMentionEvent
 # from aiocache.serializers import PickleSerializer
-from slackbot.parsing.file.event import FileInfo, FileEvent
+from slackbot.parsing.file.event import FileEvent, FileInfo
 from slackbot.parsing.file.model import MimeType
 from slackbot.parsing.message.event import MessageSubType
-import slackbot.functions as functions
-from slackbot.tools import Conversation
+from slackbot.tools import Agents
 from slackbot.utils import get_cache, get_memory_for_channel
 
 # Configure the logging level and format
@@ -57,11 +56,6 @@ SLACK_BOT_USER_ID = os.environ["SLACK_BOT_USER_ID"]
 REDIS_URL = os.environ["REDIS_URL"]
 REDIS_KEY = os.environ["REDIS_KEY"]
 
-
-
-
-
-# cachetools.TTLCache(maxsize=100, ttl=300)
 
 
 async def authorize():

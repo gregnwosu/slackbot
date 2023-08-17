@@ -31,7 +31,7 @@ from slackbot.parsing.file.event import FileInfo, FileEvent
 from slackbot.parsing.file.model import MimeType
 from slackbot.parsing.message.event import MessageSubType
 import slackbot.functions as functions
-from slackbot.tools import Conversation
+from slackbot.conversation import Conversation
 from langchain.memory.chat_message_histories.in_memory import ChatMessageHistory
 from typing import List, Optional
 from slackbot.llm import LLM

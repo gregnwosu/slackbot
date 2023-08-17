@@ -13,86 +13,19 @@ from langchain.chat_models import ChatOpenAI
 import openai
 import os
 from dotenv import load_dotenv, find_dotenv
+from slackbot.gorilla import get_gorilla_response
 
 
 load_dotenv(find_dotenv())
 
-def not_implemented(input_question:str):
-    raise NotImplementedError(f"This function is not implemented yet. {input_question=}")
-@dataclass
-class Conversation:
-    agent: Optional[Agents]
-    level: int
-    memory: ConversationSummaryBufferMemory
-    channel: str
 
-    #@retry(stop=stop_after_attempt(3))
-    async def ask(
-        self,
-        input_question: str,
-        level: int,
-        memory: ConversationSummaryBufferMemory,
-        channel: str,
-        agent: Agents = Agents.Aria,
-    ) -> str:
-        level = level - 1
-        print("""
-              *******************************************
-              *******************************************
-              *******************************************
-              AGENT IS""", agent)
-        tools: List[Tool] = [ Tool(
-                    name=Tools[nm].name,
-                    func=not_implemented, 
-                    coroutine=partial(Tools[nm].value.coroutine if Tools[nm].value.coroutine else self.ask, memory=self.memory, channel=channel, agent=Agents[nm] if hasattr(Agents, nm) else Agents.Aria, level=level),
-                    description=Tools[nm].value.description)
-                    for nm in agent.value.tool_names]
-        tools_description = "\n\t".join([f"{tool.name}:{tool.description}"for tool in tools])
-        initialised_agent = initialize_agent(
-                tools,
-                agent.value.model,
-                agent=AgentType.OPENAI_MULTI_FUNCTIONS,
-                verbose=True,
-                memory=memory,
-                prompt=agent.value.prompt_template)
-        if level > 0:
-            answer = await initialised_agent.arun(input=agent.value.prompt_template.format( input_question=input_question, level=level, tools_description=tools_description))
-        else:
-            answer = await initialised_agent.arun(input=f"please summarise the answer to the question: {input_question}. You may not call any functions or use any tools." )
-        
-        return answer
 
-def make_function_async(func):
-    async def wrapper(*args, **kwargs):
-        return func(*args, **kwargs)
-    return wrapper
+
 @dataclass(frozen=True)
 class ToolDetails:
     name: str
     description: str
     coroutine: Optional[Callable] = None
-
-async def get_gorilla_response(input_question:str, memory: ConversationSummaryBufferMemory,  
-                               agent: Agents, channel: str = None, level: int =None):
-    gorilla_llm: ChatOpenAI = agent.value.model
-    
-    chat_and_code = await gorilla_llm.apredict(input_question)
-    code = chat_and_code.split(">>>:")[-1].strip("\n")
-    chat = chat_and_code.split(">>>:")[0].strip("\n")
-    print(f""" ***********************************************************
-          ***********************GORILLA START {agent.value.display_name}***************************""")
-    print(f"  SAYS {chat=}")
-    print(f"  CODE {code=}")
-    print("EXECUTING")
-    try:
-        code_result = exec(code)
-        return code_result
-    except Exception as e:
-        return f""" I tried to answer {input_question} by generating this code :
-        
-        {code}
-        
-        but I got an error. The error was {e}. Please ask Geoffrey to review my code and give me advice on how to fix it."""
 
 
 class Tools(Enum):
