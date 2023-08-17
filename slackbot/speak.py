@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from slackbot.parsing.file.model import MimeType
 from slackbot.vault import get_secret
 from azure.cognitiveservices.speech import (
@@ -9,10 +10,10 @@ from dotenv import load_dotenv, find_dotenv
 from slack_sdk.web.async_client import AsyncWebClient
 from slackbot.agent import Agents
 import azure.cognitiveservices.speech as speechsdk
+import azure.cognitiveservices.speech as speechsdk
 
 load_dotenv(find_dotenv())
 
-import azure.cognitiveservices.speech as speechsdk
 
 @dataclass
 class InMemoryStream(speechsdk.audio.PullAudioInputStreamCallback):
