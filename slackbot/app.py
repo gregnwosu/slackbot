@@ -26,7 +26,7 @@ import slackbot.functions as functions
 from slackbot.conversation import Conversation
 from slackbot.parsing.appmention.event import AppMentionEvent
 
-from slackbot.tools import Agents
+from slackbot.agent import Agents
 from dotenv import find_dotenv, load_dotenv
 import logging
 
@@ -38,7 +38,7 @@ from slackbot.parsing.message.event import MessageSubType
 
 
 import slackbot.functions as functions
-from slackbot.tools import Conversation
+from slackbot.conversation import Conversation
 
 from slackbot.utils import get_cache, get_memory_for_channel
 
