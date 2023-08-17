@@ -27,7 +27,7 @@ class Conversation:
     memory: ConversationSummaryBufferMemory
     channel: str
 
-    @utils.redis_memory_decorator()
+    @utils.redis_memory_decorator
     #@retry(stop=stop_after_attempt(3))
     async def ask(
         self,
