@@ -8,28 +8,13 @@ from typing import Optional
 import aioredis
 from dotenv import find_dotenv, load_dotenv
 from langchain.memory import ConversationSummaryBufferMemory
-
 # from aiocache.serializers import PickleSerializer
-from langchain.memory.chat_message_histories.in_memory import ChatMessageHistory
+# from aiocache.serializers import PickleSerializer
+from langchain.memory.chat_message_histories.in_memory import \
+    ChatMessageHistory
 from langchain.schema import messages_from_dict, messages_to_dict
 
 from slackbot.llm import LLM
-
-import os 
-import json
-import datetime as dt
-
-import functools
-import aioredis
-from langchain.memory import ConversationSummaryBufferMemory
-from dotenv import find_dotenv, load_dotenv
-from typing import Optional
-from langchain.schema import messages_from_dict, messages_to_dict
-# from aiocache.serializers import PickleSerializer
-from langchain.memory.chat_message_histories.in_memory import ChatMessageHistory
-from typing import Optional
-from slackbot.llm import LLM
-
 
 # Load environment variables from .env file
 load_dotenv(find_dotenv())
