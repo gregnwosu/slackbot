@@ -1,3 +1,7 @@
+
+import sys
+import os 
+
 import datetime as dt
 import functools
 import logging
@@ -22,11 +26,20 @@ import slackbot.functions as functions
 from slackbot.conversation import Conversation
 from slackbot.parsing.appmention.event import AppMentionEvent
 
+from slackbot.tools import Agents
+from dotenv import find_dotenv, load_dotenv
+import logging
+
 # from aiocache.serializers import PickleSerializer
 from slackbot.parsing.file.event import FileEvent, FileInfo
 from slackbot.parsing.file.model import MimeType
 from slackbot.parsing.message.event import MessageSubType
-from slackbot.tools import Agents
+
+
+
+import slackbot.functions as functions
+from slackbot.tools import Conversation
+
 from slackbot.utils import get_cache, get_memory_for_channel
 
 # Configure the logging level and format
@@ -57,6 +70,7 @@ SLACK_SIGNING_SECRET = os.environ["SLACK_SIGNING_SECRET"]
 SLACK_BOT_USER_ID = os.environ["SLACK_BOT_USER_ID"]
 REDIS_URL = os.environ["REDIS_URL"]
 REDIS_KEY = os.environ["REDIS_KEY"]
+
 
 
 async def authorize():
