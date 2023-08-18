@@ -1,11 +1,13 @@
-from enum import Enum
 import os
+from dataclasses import dataclass
+from enum import Enum
 from typing import List
+
 from slack_sdk.web.async_client import AsyncWebClient
-import pydantic
+
 from slackbot.llm import LLM
 from slackbot.prompts import PromptTemplates
-from dataclasses import dataclass 
+
 
 @dataclass
 class Agent:
@@ -14,7 +16,6 @@ class Agent:
     prompt_template: str
     tool_names: List[str]
     slack_client: AsyncWebClient
-
 
 
 class Agents(Enum):
@@ -39,4 +40,3 @@ class Agents(Enum):
         ["SearchBing", "Gorilla"],
         AsyncWebClient(token=os.environ["SLACK_BOT_TOKEN"]),
     )
-    

@@ -1,33 +1,35 @@
+import datetime as dt
+import os
+import tempfile
 from typing import Any, Coroutine
-from langchain.chat_models import ChatOpenAI
-from langchain.chains import ConversationChain
+
+import aioredis
+import elevenlabs
+import openai
+
+# import sounddevice as sd
+import soundfile as sf
+from cachetools import TTLCache, cached
 from langchain.agents import initialize_agent, load_tools
 from langchain.agents.agent import AgentExecutor
 from langchain.agents.agent_toolkits import ZapierToolkit
-from langchain.llms import OpenAI 
-
 from langchain.agents.agent_types import AgentType
-from langchain.memory import ConversationBufferMemory 
-from langchain.utilities.zapier import ZapierNLAWrapper
-import openai
-#import sounddevice as sd
-import soundfile as sf
-import tempfile
-from langchain.tools import BaseTool
-from langchain.utilities.zapier import ZapierNLAWrapper
+from langchain.chains import ConversationChain
+from langchain.chat_models import ChatOpenAI
+from langchain.llms import OpenAI
+from langchain.memory import ConversationBufferMemory
 from langchain.prompts.chat import (
     ChatPromptTemplate,
-    SystemMessagePromptTemplate,
     HumanMessagePromptTemplate,
+    SystemMessagePromptTemplate,
 )
-import os 
-import elevenlabs
-import aioredis
-from cachetools import TTLCache, cached
-import datetime as dt
+from langchain.tools import BaseTool
+from langchain.utilities.zapier import ZapierNLAWrapper
 
 
-async def generate_audio(text,  cache: aioredis.Redis, voice="Bella", model="eleven_monolingual_v1"):
+async def generate_audio(
+    text, cache: aioredis.Redis, voice="Bella", model="eleven_monolingual_v1"
+):
     if result := await cache.get(text):
         return result
     elevenlabs.set_api_key(os.environ["ELEVENLABS_API_KEY"])
@@ -36,7 +38,7 @@ async def generate_audio(text,  cache: aioredis.Redis, voice="Bella", model="ele
     return audio
 
 
-#TODO this needs to be changed to use OpenAI function calling.
+# TODO this needs to be changed to use OpenAI function calling.
 # There will be a function called ask experts which will take a list of experts to call
 # Ask experts will call ask expert.
 # Each enum of experts will have a name a model and a slackbot api key
@@ -44,7 +46,7 @@ async def generate_audio(text,  cache: aioredis.Redis, voice="Bella", model="ele
 # when thre response is a function call ask epert will call the function with the expert required but with the depth decremented.
 
 
-async def convo(input:str, expert_name="Dave", channel="admin") -> str:
+async def convo(input: str, expert_name="Dave", channel="admin") -> str:
     chat = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=1)
 
     template = """
@@ -76,15 +78,18 @@ async def convo(input:str, expert_name="Dave", channel="admin") -> str:
     chat_prompt = ChatPromptTemplate.from_messages(
         [system_message_prompt, human_message_prompt]
     )
-    
 
-    chain = ConversationChain(llm=chat, prompt=chat_prompt, memory=ConversationBufferMemory())
-    #history and input are supplied by the conversationalbuffermemory
-    return await chain.arun(input=input, )
+    chain = ConversationChain(
+        llm=chat, prompt=chat_prompt, memory=ConversationBufferMemory()
+    )
+    # history and input are supplied by the conversationalbuffermemory
+    return await chain.arun(
+        input=input,
+    )
 
 
+# elevenlabs.set_api_key(os.environ["ELEVENLABS_API_KEY"])
 
-#elevenlabs.set_api_key(os.environ["ELEVENLABS_API_KEY"])
 
 @cached(cache=TTLCache(maxsize=100, ttl=300))
 def openai_llm():
@@ -103,34 +108,42 @@ def transcribe_audio(recording, fs):
         os.remove(temp_audio.name)
     return transcript["text"].strip()
 
+
 @cached(cache=TTLCache(maxsize=100, ttl=300))
 def agi() -> AgentExecutor:
     open_ai_llm = openai_llm()
     memory = ConversationBufferMemory(memory_key="slackbot-chat-history")
-    zapier = ZapierNLAWrapper(zapier_nla_api_key=os.environ["ZAPIER_API_KEY"], zapier_nla_oauth_access_token=None)
+    zapier = ZapierNLAWrapper(
+        zapier_nla_api_key=os.environ["ZAPIER_API_KEY"],
+        zapier_nla_oauth_access_token=None,
+    )
     zapier_toolkit = ZapierToolkit.from_zapier_nla_wrapper(zapier)
     tools = zapier_toolkit.get_tools() + load_tools(["human"])
-    return initialize_agent(tools, open_ai_llm, memory=memory, agent=AgentType.CONVERSATIONAL_REACT_DESCRIPTION, verbose=True)
-    
+    return initialize_agent(
+        tools,
+        open_ai_llm,
+        memory=memory,
+        agent=AgentType.CONVERSATIONAL_REACT_DESCRIPTION,
+        verbose=True,
+    )
 
 
 def play_generated_audio(text, voice="Bella", model="eleven_monolingual_v1"):
     audio = elevenlabs.generate(text=text, voice=voice, model=model)
     elevenlabs.play(audio)
 
+
 class EmailTool(BaseTool):
     name = "send email via gmail"
     description = "send email via gmail"
 
-    def _run(self, text:str) -> str:
+    def _run(self, text: str) -> str:
         """Use the tool"""
         return convo(text)
-    
 
     async def _arun(self, *args: Any, **kwargs: Any) -> Coroutine[Any, Any, Any]:
         raise NotImplementedError()
-        #return await super()._arun(*args, **kwargs)
-    
+        # return await super()._arun(*args, **kwargs)
 
     # while True:
     #     print("Press spacebar to start recording.")
@@ -141,6 +154,4 @@ class EmailTool(BaseTool):
     #     assistant_message = agent.run(message)
     #     play_generated_audio(assistant_message)
 
-    #TODO just need to use the slack voice message to send and receive audio
-
-
+    # TODO just need to use the slack voice message to send and receive audio
