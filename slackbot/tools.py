@@ -5,11 +5,14 @@ from tenacity import retry, stop_after_attempt
 from langchain.agents import initialize_agent, Tool
 from langchain.agents import AgentType
 from langchain.memory import ConversationSummaryBufferMemory
-from dotenv import load_dotenv, find_dotenv
 from slackbot.agent import Agents
 from slackbot.search import search_bing
 from slackbot.speak import speak
 from dataclasses import dataclass
+import openai
+import os
+from dotenv import load_dotenv, find_dotenv
+
 
 load_dotenv(find_dotenv())
 
@@ -22,22 +25,28 @@ class Conversation:
     memory: ConversationSummaryBufferMemory
     channel: str
 
-    @retry(stop=stop_after_attempt(3))
+    #@retry(stop=stop_after_attempt(3))
     async def ask(
         self,
-        agent: Agents,
         input_question: str,
         level: int,
         memory: ConversationSummaryBufferMemory,
         channel: str,
+        agent: Agents = Agents.Aria,
     ) -> str:
         level = level - 1
+        print("""
+              *******************************************
+              *******************************************
+              *******************************************
+              AGENT IS""", agent)
         tools: List[Tool] = [ Tool(
                     name=Tools[nm].name,
                     func=not_implemented, 
-                    coroutine=partial(Tools[nm].value.coroutine if Tools[nm].value.coroutine else self.ask ,memory=self.memory, channel=channel, agent=agent, level=level),
+                    coroutine=partial(Tools[nm].value.coroutine if Tools[nm].value.coroutine else self.ask, memory=self.memory, channel=channel, agent=agent, level=level),
                     description=Tools[nm].value.description)
                     for nm in agent.value.tool_names]
+        tools_description = "\n\t".join([f"{tool.name}:{tool.description}"for tool in tools])
         initialised_agent = initialize_agent(
                 tools,
                 agent.value.model,
@@ -46,7 +55,7 @@ class Conversation:
                 memory=memory,
                 prompt=agent.value.prompt_template)
         if level > 0:
-            answer = await initialised_agent.arun(input=agent.value.prompt_template.format(input_question, input_question=input_question, level=level), )
+            answer = await initialised_agent.arun(input=agent.value.prompt_template.format(input_question, input_question=input_question, level=level, tools_description=tools_description))
         else:
             answer = await initialised_agent.arun(input=f"please summarise the answer to the question: {input_question}. You may not call any functions or use any tools.", tools=tools )
         
@@ -62,6 +71,22 @@ class ToolDetails:
     description: str
     coroutine: Optional[Callable] = None
 
+async def get_gorilla_response(input_question:str, memory: ConversationSummaryBufferMemory,  
+                               agent: Agents, channel: str = None, level: int =None):
+    openai.api_key = os.environ["OPENAI_API_KEY"]
+    completion = openai.ChatCompletion.create(
+        model="gorilla-7b-hf-v1",
+        openai_api_key=os.environ["OPENAI_API_KEY"],
+        messages=[{"role": "user", "content": input_question}]
+
+    )
+    print(f"""  GORILLA RESPONSE:
+********************************************************************************
+{completion.choices[0].message.content}
+""")
+    return completion.choices[0].message.content
+
+
 class Tools(Enum):
     Aria=ToolDetails(
                 name="Aria",
@@ -71,7 +96,7 @@ class Tools(Enum):
             )
     Gorilla=ToolDetails(
                 name="Gorilla",
-                coroutine=None,
+                coroutine=get_gorilla_response,
                 description="Gorilla is a language model can take a problem and generate an expert to be used as a tool by Aria. He is best used  to generate a new expert when the problem is too complex for Geoffrey to solve on his own or when the problem requires expert knowledge.",
             )
     Geoffrey=ToolDetails(

@@ -27,7 +27,7 @@ async def test_convo():
 async def test_convo2():
     convo = Conversation(agent = None, level=3, memory=ConversationSummaryBufferMemory(llm=OpenAI()), channel="admin")
     result = await convo.ask(
-        Agents.Aria,
+        agent=Agents.Aria,
         input_question="Why do modern day caucasians want to hide the fact they are descended from the ancient Edomites?",
         level=3,
         channel = convo.channel,
