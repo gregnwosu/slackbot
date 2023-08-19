@@ -6,6 +6,8 @@ from azure.cognitiveservices.speech import (
     SpeechSynthesisResult,
 )
 from dotenv import load_dotenv, find_dotenv
+from slack_sdk.web.async_client import AsyncWebClient
+from slackbot.agent import Agents
 
 load_dotenv(find_dotenv())
 import azure.cognitiveservices.speech as speechsdk
@@ -28,14 +30,14 @@ async def text_to_speech(text: str) -> bytes:
     data: bytes = result.audio_data
     return data
 
-async def speak(self, text: str) -> str:
-    data = await text_to_speech(text)
+async def speak( input_question: str, channel:str, agent: Agents, memory=None, level=None) -> str:
+    data = await text_to_speech(input_question)
 
-    response = await self.slack_client.files_upload_v2(
-        channel="admin",
+    response = await agent.value.slack_client.files_upload_v2(
+        channel=channel,
         file=data,
         filename="audio.mp3",
         filetype=MimeType.AUDIO_MP3.value,
-        initial_comment=text,
+        initial_comment=input_question,
     )
     return response["data"]

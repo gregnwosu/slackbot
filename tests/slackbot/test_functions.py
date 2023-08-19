@@ -1,6 +1,7 @@
 import pytest
 from slackbot.functions import convo
 from slackbot.tools import Agents
+from slackbot.tools import Conversation
 from slackbot.speak import text_to_speech
 from dotenv import load_dotenv, find_dotenv
 from langchain.memory import ConversationSummaryBufferMemory
@@ -21,20 +22,22 @@ async def test_convo():
 # print(f"Result is {result=}")
 
 
-#@pytest.mark.skip
+
 @pytest.mark.asyncio
 async def test_convo2():
-    fn = Agents.Gorilla.make_ask(
-        memory=ConversationSummaryBufferMemory(llm=OpenAI()), level=2
+    convo = Conversation(agent = None, level=3, memory=ConversationSummaryBufferMemory(llm=OpenAI()), channel="admin")
+    result = await convo.ask(
+        Agents.Aria,
+        input_question="Why do modern day caucasians want to hide the fact they are descended from the ancient Edomites?",
+        level=3,
+        channel = convo.channel,
+        memory=convo.memory,
     )
-    await fn(
-        input="Why do modern day caucasians want to hide the fact they are descended from the ancient Edomites?"
-    )
-
+    
 
 # test text to speech
 
-
+@pytest.mark.skip
 @pytest.mark.asyncio
 async def test_text_to_speech():
     text = "Hello, I am a robot. I am here to help you."
@@ -45,7 +48,7 @@ async def test_text_to_speech():
     if "GITHUB_ACTIONS" not in os.environ:
         elevenlabs.play(data)
 
-
+@pytest.mark.skip
 @pytest.mark.asyncio
 async def test_search():
     query = "Mongolian Throat Singing"

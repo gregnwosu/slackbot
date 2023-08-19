@@ -1,8 +1,9 @@
 from enum import Enum
 from langchain.chat_models import ChatOpenAI
-
 import os
+from dotenv import find_dotenv, load_dotenv
 
+load_dotenv(find_dotenv())
 class LLM(Enum):
     Gorilla = ChatOpenAI(
                 openai_api_base="http://zanino.millennium.berkeley.edu:8000/v1",
@@ -16,5 +17,5 @@ class LLM(Enum):
     GPT3_5_TURBO = ChatOpenAI(
             model_name="gpt-3.5-turbo",
             temperature=1,
-            openai_api_key=os.environ["OPENAI_API_KEY"]),
+            openai_api_key=os.environ["OPENAI_API_KEY"])
     
