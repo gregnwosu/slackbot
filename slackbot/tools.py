@@ -9,6 +9,7 @@ from slackbot.agent import Agents
 from slackbot.search import search_bing
 from slackbot.speak import speak
 from dataclasses import dataclass
+from langchain.chat_models import ChatOpenAI
 import openai
 import os
 from dotenv import load_dotenv, find_dotenv
@@ -43,7 +44,7 @@ class Conversation:
         tools: List[Tool] = [ Tool(
                     name=Tools[nm].name,
                     func=not_implemented, 
-                    coroutine=partial(Tools[nm].value.coroutine if Tools[nm].value.coroutine else self.ask, memory=self.memory, channel=channel, agent=agent, level=level),
+                    coroutine=partial(Tools[nm].value.coroutine if Tools[nm].value.coroutine else self.ask, memory=self.memory, channel=channel, agent=Agents[nm] if hasattr(Agents, nm) else Agents.Aria, level=level),
                     description=Tools[nm].value.description)
                     for nm in agent.value.tool_names]
         tools_description = "\n\t".join([f"{tool.name}:{tool.description}"for tool in tools])
@@ -55,9 +56,9 @@ class Conversation:
                 memory=memory,
                 prompt=agent.value.prompt_template)
         if level > 0:
-            answer = await initialised_agent.arun(input=agent.value.prompt_template.format(input_question, input_question=input_question, level=level, tools_description=tools_description))
+            answer = await initialised_agent.arun(input=agent.value.prompt_template.format( input_question=input_question, level=level, tools_description=tools_description))
         else:
-            answer = await initialised_agent.arun(input=f"please summarise the answer to the question: {input_question}. You may not call any functions or use any tools.", tools=tools )
+            answer = await initialised_agent.arun(input=f"please summarise the answer to the question: {input_question}. You may not call any functions or use any tools." )
         
         return answer
 
@@ -73,18 +74,22 @@ class ToolDetails:
 
 async def get_gorilla_response(input_question:str, memory: ConversationSummaryBufferMemory,  
                                agent: Agents, channel: str = None, level: int =None):
-    openai.api_key = os.environ["OPENAI_API_KEY"]
-    completion = openai.ChatCompletion.create(
-        model="gorilla-7b-hf-v1",
-        openai_api_key=os.environ["OPENAI_API_KEY"],
-        messages=[{"role": "user", "content": input_question}]
-
-    )
-    print(f"""  GORILLA RESPONSE:
-********************************************************************************
-{completion.choices[0].message.content}
-""")
-    return completion.choices[0].message.content
+    gorilla_llm: ChatOpenAI = agent.value.model
+    
+    chat_and_code = await gorilla_llm.apredict(input_question)
+    code = chat_and_code.split(">>>:")[-1].strip("\n")
+    chat = chat_and_code.split(">>>:")[0].strip("\n")
+    print(f""" ***********************************************************
+          ***********************GORILLA START {agent.value.display_name}***************************""")
+    print(f"  SAYS {chat=}")
+    print(f"  CODE {code=}")
+    print("EXECUTING")
+    #code_result = exec(code)
+    print("EXECUTED")
+    #print("CODE RESULT", code_result)
+    print(""" ***********************************************************
+          ***********************GORILLA END***************************""")
+    return chat
 
 
 class Tools(Enum):
@@ -97,7 +102,7 @@ class Tools(Enum):
     Gorilla=ToolDetails(
                 name="Gorilla",
                 coroutine=get_gorilla_response,
-                description="Gorilla is a language model can take a problem and generate an expert to be used as a tool by Aria. He is best used  to generate a new expert when the problem is too complex for Geoffrey to solve on his own or when the problem requires expert knowledge.",
+                description="ONLY USE THIS TOOL TO GENERATE CODE FOR Specific Scientifc, Legal, Physics, Questions. Gorilla should not be used to answer general knowledge questions, instead Ask Geoffrey or Aria or BingSearch.",
             )
     Geoffrey=ToolDetails(
                 name="Geoffrey",

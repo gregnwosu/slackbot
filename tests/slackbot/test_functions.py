@@ -25,11 +25,11 @@ async def test_convo():
 
 @pytest.mark.asyncio
 async def test_convo2():
-    convo = Conversation(agent = None, level=3, memory=ConversationSummaryBufferMemory(llm=OpenAI()), channel="admin")
+    convo = Conversation(agent = None, level=3, memory=ConversationSummaryBufferMemory(llm=OpenAI(model="gpt-4")), channel="admin")
     result = await convo.ask(
         agent=Agents.Aria,
-        input_question="Why do modern day caucasians want to hide the fact they are descended from the ancient Edomites?",
-        level=3,
+        input_question="religon can be seen as a social virus as, just like a conventional virus it has a method of replication (evangelism), infection (indoctrination) and incubation? Likewise chain letters are social virii. What other forms of social virii can you imagine?",
+        level=2,
         channel = convo.channel,
         memory=convo.memory,
     )

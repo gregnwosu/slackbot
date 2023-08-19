@@ -22,7 +22,7 @@ class Agents(Enum):
         "Aria",
         LLM.GPT3_5_TURBO.value,
         PromptTemplates.Aria.value,
-        ["Aria", "Gorilla", "Geoffrey"],
+        ["Aria", "Gorilla", "Geoffrey", "Speak", "SearchBing"],
         AsyncWebClient(token=os.environ["SLACK_BOT_TOKEN"]),
     )
     Gorilla = Agent(
