@@ -12,6 +12,7 @@ from langchain.prompts.chat import (
     SystemMessagePromptTemplate,
 )
 from langchain.chains import ConversationChain
+from slackbot.llm import LLM
 
 from langchain import OpenAI
 
@@ -22,8 +23,6 @@ from tenacity import retry, stop_after_attempt
 
 load_dotenv(find_dotenv())
 
-
-SERPAPI_API_KEY = os.environ["SERPAPI_API_KEY"]
 
 
 
@@ -39,34 +38,23 @@ class Agents(Enum):
     Aria = (
         "Aria",
         os.environ["SLACK_BOT_TOKEN"],
-        ChatOpenAI(
-            model_name="gpt-3.5-turbo",
-            temperature=1,
-            openai_api_key=os.environ["OPENAI_API_KEY"],
-        ),
+        LLM.GPT3_5_TURBO.value
     )
     Daisuke = (
         "Daisuke",
         os.environ["SLACK_BOT_TOKEN"],
-        ChatOpenAI(
-            model_name="gpt-3.5-turbo",
-            temperature=1,
-            openai_api_key=os.environ["OPENAI_API_KEY"],
-        ),
+        LLM.Gorilla.value
+        
     )
     Geoffrey = (
         "Geoffrey",
         os.environ["SLACK_BOT_TOKEN"],
-        ChatOpenAI(
-            model_name="gpt-4",
-            temperature=0,
-            openai_api_key=os.environ["OPENAI_API_KEY"],
-        ),
+        LLM.GPT4.value
     )
 
     def __init__(self, name: str, slack_key: str, model: Any) -> None:
         super().__init__()
-        # self.name = name
+        self.display_name = name
         self.slack_key = slack_key
         self.model = model
         self.slack_client: AsyncWebClient = AsyncWebClient(token=self.slack_key)
@@ -80,12 +68,7 @@ class Agents(Enum):
                 description="Adria is a language model that can answer questions and generate text. Shes fast friendly and mildy creative always ready to help",
             ),]
         return [
-            # Tool(
-            #     name="Search",
-            #     func=SerpAPIWrapper(serpapi_api_key=os.environ["SERPAPI_API_KEY"]).run,
-            #     coroutine=SerpAPIWrapper(serpapi_api_key=os.environ["SERPAPI_API_KEY"]).arun,
-            #     description="Useful when you need to answer questions about current events. You should ask targeted questions."
-            # ),
+         
             Tool(
                 name="Aria",
                 func=Agents.Aria.make_ask(level=level, memory=memory),
@@ -152,13 +135,10 @@ class Agents(Enum):
                     agent=AgentType.OPENAI_MULTI_FUNCTIONS,
                     verbose=True,
                     memory=memory,
-                    prompt=template,
-                )
+                    prompt=template)
                 answer = await llm.arun(input=template)
             else:
-                system_message_prompt = SystemMessagePromptTemplate.from_template(
-                    template
-                )
+                system_message_prompt = SystemMessagePromptTemplate.from_template(template)
 
                 chat = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=1)
                 chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt])

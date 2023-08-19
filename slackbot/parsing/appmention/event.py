@@ -1,6 +1,6 @@
 import pydantic
 import datetime as dt
-from typing import List, Optional, Dict
+from typing import List, Optional
 from logging import Logger
 logger = Logger(__name__)
 
@@ -9,7 +9,7 @@ from slackbot.parsing.base.model import EventType, BlockData
 class AppMentionEvent(pydantic.BaseModel):
     client_msg_id: str
     type: EventType
-    text:  str 
+    text: str 
     user: str
     ts:  dt.datetime
     blocks: List[BlockData]

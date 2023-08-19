@@ -1,13 +1,11 @@
 from slackbot.parsing.file.model import MimeType
 from slackbot.vault import get_secret
-import os
 from azure.cognitiveservices.speech import (
     SpeechSynthesizer,
     SpeechSynthesisOutputFormat,
     SpeechSynthesisResult,
 )
 from dotenv import load_dotenv, find_dotenv
-from tenacity import retry, stop_after_attempt
 
 load_dotenv(find_dotenv())
 import azure.cognitiveservices.speech as speechsdk

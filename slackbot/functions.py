@@ -1,6 +1,6 @@
 from typing import Any, Coroutine
 from langchain.chat_models import ChatOpenAI
-from langchain.chains import LLMChain, ConversationChain
+from langchain.chains import ConversationChain
 from langchain.agents import initialize_agent, load_tools
 from langchain.agents.agent import AgentExecutor
 from langchain.agents.agent_toolkits import ZapierToolkit
@@ -9,7 +9,6 @@ from langchain.llms import OpenAI
 from langchain.agents.agent_types import AgentType
 from langchain.memory import ConversationBufferMemory 
 from langchain.utilities.zapier import ZapierNLAWrapper
-import numpy as np
 import openai
 #import sounddevice as sd
 import soundfile as sf

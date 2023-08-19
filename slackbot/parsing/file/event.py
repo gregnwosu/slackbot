@@ -1,18 +1,12 @@
 import re
 import aiohttp
 from slack_sdk.web.async_client import AsyncWebClient
-from dataclasses import dataclass
 import pydantic
-from enum import Enum 
 import datetime as dt
-from typing import List, Optional, Dict
-from urllib.parse import urlparse
-from urllib.parse import ParseResult    
+from typing import List, Optional
 from logging import Logger
-from slack_sdk import WebClient
-from slackbot.parsing.base.model import EventType, BlockType, BlockElementType, BlockElementDataType, BlockElementData, BlockElement, BlockData
-from slackbot.parsing.file.model import MimeType, FileType, FileMode, FileSubType, Locale, Preview, TranscriptionStatus, Transcription, FileAccess, FileShare, FileShares
-from aiohttp import BasicAuth, web
+from slackbot.parsing.base.model import EventType
+from slackbot.parsing.file.model import MimeType, FileType, FileMode, FileSubType, Transcription, FileAccess, FileShares
 logger = Logger(__name__)
 
 class FileDetails(pydantic.BaseModel):
@@ -24,7 +18,7 @@ class FileEvent(pydantic.BaseModel):
     file: FileDetails
     #channel_id: str
     event_ts: dt.datetime
-    
+
     @pydantic.validator('type')
     @classmethod
     def convert_to_event_type(cls, value):
