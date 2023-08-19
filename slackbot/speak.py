@@ -26,7 +26,15 @@ async def text_to_speech(text: str) -> bytes:
     )
 
     result: SpeechSynthesisResult = synthesizer.speak_text_async(text).get()
-    result.audio_data
+    print(f""" 
+          *** result {result} ***
+    *********************************************
+    *** synthesizing speech: {text} ***
+    *********************************************
+    ***  Speech synthesis result status: {result.reason} ***
+    {len(result.audio_data)} bytes of audio returned
+    
+    """)
     data: bytes = result.audio_data
     return data
 
@@ -35,8 +43,8 @@ async def speak( input_question: str, channel:str, agent: Agents, memory=None, l
 
     response = await agent.value.slack_client.files_upload_v2(
         channel=channel,
-        file=data,
-        filename="audio.mp3",
+        content=data,
+        title="audio.mp3",
         filetype=MimeType.AUDIO_MP3.value,
         initial_comment=input_question,
     )

@@ -1,25 +1,13 @@
 import aiohttp
 
 from slackbot.vault import get_secret
+from slackbot.agent import Agents
 
-'''
-This sample makes a call to the Bing Web Search API with a query and returns relevant web search.
-Documentation: https://docs.microsoft.com/en-us/bing/search-apis/bing-web-search/overview
-'''
 
-# Add your Bing Search V7 subscription key and endpoint to your environment variables.
-
-# # Query term(s) to search for. 
-# query = "Microsoft"
-
-# # Construct a request
-# mkt = 'en-US'
-# params = { 'q': query, 'mkt': mkt }
-# headers = { 'Ocp-Apim-Subscription-Key': subscription_key }
 
 mkt = 'en-GB'
 
-async def search_bing(input_question:str,  agent, memory=None, channel=None, level=None):
+async def search_bing(input_question: str,  agent: Agents =None, memory=None, channel=None, level=None):
     primary_access_key = await get_secret("bing-service-access-key")
     endpoint = await get_secret("bing-service-endpoint")
     headers = {"Ocp-Apim-Subscription-Key": primary_access_key}
