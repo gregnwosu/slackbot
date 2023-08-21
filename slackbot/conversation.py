@@ -89,7 +89,7 @@ class Conversation:
         llm: AgentExecutor = initialize_agent(
             tools,
             agent.value.model,
-            agent=AgentType.OPENAI_MULTI_FUNCTIONS,
+            agent=AgentType.OPENAI_FUNCTIONS,
             verbose=True,
             #memory=memory,
             retriever=vectorstore.as_retriever(),
