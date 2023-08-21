@@ -89,7 +89,7 @@ class Conversation:
         llm: AgentExecutor = initialize_agent(
             tools,
             agent.value.model,
-            agent=AgentType.CHAT_CONVERSATIONAL_REACT_DESCRIPTION,
+            agent=AgentType.OPENAI_MULTI_FUNCTIONS,
             verbose=True,
             #memory=memory,
             retriever=vectorstore.as_retriever(),
@@ -103,10 +103,11 @@ class Conversation:
         #if level > 0:
         answer =  await llm.arun(
            input=  chat_prompt_template_with_values,
-           chat_history=memory.load_memory_variables({})['history']
-            
+           chat_history=memory.load_memory_variables({})['history'],
+           parser=parser,
+           handle_parsing_errors=f"Check your output and make sure it conforms to the following format: {parser.get_format_instructions()} ",
         )
-        # answer = parser.parse(answer)
+        answer = parser.parse(answer)
         # print(f"{answer=}")
 
         # qa = ConversationalRetrievalChain.from_llm(llm=llm, retriever=vectorstore.as_retriever(), memory=memory)

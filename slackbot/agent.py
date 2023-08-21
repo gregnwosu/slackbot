@@ -21,9 +21,9 @@ class Agent:
 class Agents(Enum):
     Aria = Agent(
         "Aria",
-        LLM.GPT3_5_TURBO.value,
+        LLM.GPT4.value,
         PromptTemplates.Aria.value,
-        ["Aria", "Gorilla", "Geoffrey", "Speak", "SearchBing"],
+        ["Aria"],#  "Geoffrey", ],#"Speak", "SearchBing", "Gorilla",],
         AsyncWebClient(token=os.environ["SLACK_BOT_TOKEN"]),
     )
     Gorilla = Agent(
@@ -37,6 +37,6 @@ class Agents(Enum):
         "Geoffrey",
         LLM.GPT4.value,
         PromptTemplates.Geoffrey.value,
-        ["SearchBing", "Gorilla"],
+        ["SearchBing"],# "Gorilla"],
         AsyncWebClient(token=os.environ["SLACK_BOT_TOKEN"]),
     )
