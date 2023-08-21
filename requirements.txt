@@ -25,6 +25,9 @@ soundfile
 keyboard
 elevenlabs
 uvicorn[standard]
+# vector store
+chromadb
+
 # ASGI for azure web  service
 uvloop
 httptools

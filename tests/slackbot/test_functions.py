@@ -10,6 +10,7 @@ import elevenlabs
 import os
 from slackbot.search import search_bing
 from slackbot.speak import speak
+from langchain.chat_models import ChatOpenAI
 
 
 load_dotenv(find_dotenv())
@@ -25,10 +26,9 @@ async def test_convo():
 # print(f"Result is {result=}")
 
 
-@pytest.mark.skip
 @pytest.mark.asyncio
 async def test_convo2():
-    convo = Conversation(agent = None, level=3, memory=ConversationSummaryBufferMemory(llm=OpenAI(model_name="gpt-4")), channel="C0595A85N4R")
+    convo = Conversation(agent = None, level=3, memory=ConversationSummaryBufferMemory(llm=OpenAI(model_name="gpt-4"), memory_key="history", return_messages=True), channel="C0595A85N4R")
     result = await convo.ask(
         agent=Agents.Aria,
         input_question="What is the likelihood of a nuclear war in the next 10 years?",
@@ -61,7 +61,7 @@ async def test_search():
     # check if running from azure webapp
     print(data)
 
-
+@pytest.mark.skip
 @pytest.mark.asyncio
 async def test_speak():
     query = "Tell me that you love me"
