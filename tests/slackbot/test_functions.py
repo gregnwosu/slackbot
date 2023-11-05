@@ -4,8 +4,7 @@ from slackbot.agent import Agents
 from slackbot.conversation import Conversation
 from slackbot.speak import text_to_speech
 from dotenv import load_dotenv, find_dotenv
-from langchain.memory import ConversationSummaryBufferMemory
-from langchain import OpenAI
+
 import elevenlabs
 import os
 from slackbot.search import search_bing
@@ -17,9 +16,10 @@ load_dotenv(find_dotenv())
 
 @pytest.mark.skip
 async def test_convo():
-    await convo(
-        input="what is the capital of Bolivia", expert_name="Dave", channel="admin"
-    )
+    # await convo(
+    #     input="what is the capital of Bolivia", expert_name="Dave", channel="admin"
+    # )
+    pass
 
 
 # print(f"Result is {result=}")
@@ -28,13 +28,13 @@ async def test_convo():
 @pytest.mark.skip
 @pytest.mark.asyncio
 async def test_convo2():
-    convo = Conversation(agent = None, level=3, memory=ConversationSummaryBufferMemory(llm=OpenAI(model_name="gpt-4")), channel="C0595A85N4R")
+    convo = Conversation(agent = [], channel="C0595A85N4R")
     result = await convo.ask(
         agent=Agents.Aria,
         input_question="What is the likelihood of a nuclear war in the next 10 years?",
-        level=2,
+       
         channel = convo.channel,
-        memory=convo.memory,
+
     )
     
 
