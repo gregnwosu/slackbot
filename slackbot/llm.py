@@ -1,5 +1,5 @@
 from enum import Enum
-from langchain.chat_models import ChatOpenAI
+
 import os
 from dotenv import find_dotenv, load_dotenv
 

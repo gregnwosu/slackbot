@@ -4,7 +4,7 @@ from typing import List, Optional
 
 from autogen.agentchat.conversable_agent import ConversableAgent
 
-from slackbot import utils
+
 from slackbot.agent import Agents
 from slackbot.tools import Tools
 
