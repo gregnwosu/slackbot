@@ -2,9 +2,16 @@ from enum import Enum
 
 import os
 from dotenv import find_dotenv, load_dotenv
-
+from dataclasses import dataclass
 load_dotenv(find_dotenv())
 
+
+@dataclass 
+class ChatOpenAI:
+    openai_api_base: str = "https://api.openai.com/v1"
+    openai_api_key: str = os.environ["OPENAI_API_KEY"]
+    model: str = "davinci"
+    verbose: bool = False
 
 class LLM(Enum):
     Gorilla = ChatOpenAI(
