@@ -11,6 +11,8 @@ class ChatOpenAI:
     openai_api_base: str = "https://api.openai.com/v1"
     openai_api_key: str = os.environ["OPENAI_API_KEY"]
     model: str = "davinci"
+    model_name: str = "gpt-3"
+    temperature: float = 0.7
     verbose: bool = False
 
 class LLM(Enum):
