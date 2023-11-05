@@ -1,5 +1,5 @@
 import pytest
-from slackbot.functions import convo
+
 from slackbot.agent import Agents
 from slackbot.conversation import Conversation
 from slackbot.speak import text_to_speech
