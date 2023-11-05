@@ -72,7 +72,6 @@ REDIS_URL = os.environ["REDIS_URL"]
 REDIS_KEY = os.environ["REDIS_KEY"]
 
 
-
 async def authorize():
     return AuthorizeResult()
 
