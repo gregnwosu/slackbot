@@ -6,7 +6,8 @@ from autogen.agentchat.conversable_agent import ConversableAgent
 
 
 from slackbot.agent import Agents
-from slackbot.tools import Tools
+
+from typing import List, Optional
 
 
 def not_implemented(input_question: str):
@@ -17,7 +18,7 @@ def not_implemented(input_question: str):
 
 @dataclass
 class Conversation:
-    agents: list[ConversableAgent]
+    agents: List[ConversableAgent]
     channel: str
     
     @utils.redis_memory_decorator
