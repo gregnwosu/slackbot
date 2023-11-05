@@ -40,7 +40,7 @@ from slackbot.parsing.message.event import MessageSubType
 import slackbot.functions as functions
 from slackbot.conversation import Conversation
 
-from slackbot.utils import get_cache, get_memory_for_channel
+from slackbot.utils import get_cache
 
 # Configure the logging level and format
 logging.basicConfig(
@@ -196,7 +196,7 @@ async def handle_file_changed(body, say) -> None:
         extra_info = f", extra info is {cached_text}" if cached_text else ""
         ai_request = f"hi please service this request: \n {transcription}  {extra_info}"
 
-        channel_memory = await get_memory_for_channel(slack_channel)
+        # channel_memory = await get_memory_for_channel(slack_channel)
         convo = Conversation(
              agents=[Agents.Aria],
              channel=slack_channel
