@@ -5,7 +5,7 @@ from typing import List
 
 from slack_sdk.web.async_client import AsyncWebClient
 from autogen.agentchat.conversable_agent import ConversableAgent
-from slackbot.llm import LLM
+
 from slackbot.prompts import PromptTemplates
 from chromadb.utils import embedding_functions
 from autogen import AssistantAgent, UserProxyAgent, config_list_from_json
