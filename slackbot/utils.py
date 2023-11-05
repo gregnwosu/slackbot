@@ -7,12 +7,10 @@ from typing import Optional
 
 import aioredis
 from dotenv import find_dotenv, load_dotenv
-from langchain.memory import ConversationSummaryBufferMemory
+
 # from aiocache.serializers import PickleSerializer
 # from aiocache.serializers import PickleSerializer
-from langchain.memory.chat_message_histories.in_memory import \
-    ChatMessageHistory
-from langchain.schema import messages_from_dict, messages_to_dict
+
 
 from slackbot.llm import LLM
 
