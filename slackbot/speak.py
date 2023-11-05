@@ -1,11 +1,11 @@
 from dataclasses import dataclass
-
+from slack_sdk.web.async_client import AsyncWebClient
 import azure.cognitiveservices.speech as speechsdk
 from azure.cognitiveservices.speech import (SpeechSynthesisOutputFormat,
                                             SpeechSynthesisResult,
                                             SpeechSynthesizer)
 from dotenv import find_dotenv, load_dotenv
-
+from typing import Optional
 from slackbot.agent import Agents
 from slackbot.vault import get_secret
 
@@ -58,6 +58,7 @@ class InMemoryStream(speechsdk.audio.PullAudioInputStreamCallback):
         elif result.reason == speechsdk.ResultReason.Canceled:
             cancellation_details = result.cancellation_details
             return f"Speech Recognition canceled: {cancellation_details.reason}. {cancellation_details.error_details}"
+        return "Error"
 
 
 async def text_to_speech(text: str) -> bytes:
@@ -79,11 +80,12 @@ async def text_to_speech(text: str) -> bytes:
 
 
 async def speak(
-    input_question: str, channel: str, agent: Agents, memory=None, level=None
+    input_question: str, channel: str, agent: Agents, memory=None, level=None, 
+    slack_client: AsyncWebClient=Optional[None]
 ) -> str:
     data = await text_to_speech(input_question)
 
-    response = await agent.value.slack_client.files_upload_v2(
+    response = await slack_client.files_upload_v2(
         channel=channel,
         content=data,
         title="audio.mp3",
