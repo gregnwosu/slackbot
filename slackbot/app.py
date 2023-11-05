@@ -23,7 +23,7 @@ from slack_sdk.signature import SignatureVerifier
 from slack_sdk.web.async_client import AsyncWebClient
 from starlette.responses import Response
 import slackbot.functions as functions
-from slackbot.conversation import Conversation
+
 from slackbot.parsing.appmention.event import AppMentionEvent
 
 from slackbot.agent import Agents
@@ -150,6 +150,8 @@ async def get_bot_user_id():
         print(f"Error: {e}")
 
 
+# TODO this should, read the speech if it is a sound file as a directive
+# if it is any other type of file it should be considered data and  form part of the RAG vector store for the channel
 @app.event("file_created")
 async def handle_file_created(body, say):
     """downloads the file transcribes it and sends it back to the user"""
@@ -175,7 +177,7 @@ async def handle_file_changed(body, say) -> None:
     file_event: FileEvent = FileEvent(**body["event"])
     file_info: FileInfo = await file_event.file_info(cached_slack_client())
 
-    channel = list(file_info.shares.public)[0] if file_info.shares else "C0595A85N4R"
+    slack_channel = list(file_info.shares.public)[0] if file_info.shares else "C0595A85N4R"
 
     transcription = await file_info.vtt_txt(SLACK_BOT_TOKEN)
     # if logger.isEnabledFor(logging.DEBUG):
@@ -186,31 +188,30 @@ async def handle_file_changed(body, say) -> None:
         if not cached_text:
             keys = await bot_cache.keys()
             if logger.isEnabledFor(logging.DEBUG):
-                await say(f"File Changed: Cache miss {keys=}", channel=channel)
+                await say(f"File Changed: Cache miss {keys=}", channel=slack_channel)
 
         else:
             if logger.isEnabledFor(logging.DEBUG):
-                await say(f"File Changed: Cache hit {cached_text=}", channel=channel)
+                await say(f"File Changed: Cache hit {cached_text=}", channel=slack_channel)
         slack_client: AsyncWebClient = cached_slack_client()
         extra_info = f", extra info is {cached_text}" if cached_text else ""
         ai_request = f"hi please service this request: \n {transcription}  {extra_info}"
 
-        channel_memory = await get_memory_for_channel(channel)
+        channel_memory = await get_memory_for_channel(slack_channel)
         convo = Conversation(
-            agent=None, level=3, memory=channel_memory, channel=channel
+             agents=[Agents.Aria],
+             channel=slack_channel
         )
         ai_answer = await convo.ask(
             agent=Agents.Aria,
             input_question=ai_request,
-            level=2,
-            channel=convo.channel,
-            memory=convo.memory,
+            channel=convo.channel
         )
 
         audio_bytes = await functions.generate_audio(ai_answer, bot_cache)
 
         response = await slack_client.files_upload(
-            channels=[channel],
+            channels=[slack_channel],
             file=audio_bytes,
             filename="audio.mp3",
             initial_comment=ai_answer,
