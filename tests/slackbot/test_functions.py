@@ -1,11 +1,10 @@
 import pytest
-from slackbot.functions import convo
+
 from slackbot.agent import Agents
 from slackbot.conversation import Conversation
 from slackbot.speak import text_to_speech
 from dotenv import load_dotenv, find_dotenv
-from langchain.memory import ConversationSummaryBufferMemory
-from langchain import OpenAI
+from slack_sdk.web.async_client import AsyncWebClient
 import elevenlabs
 import os
 from slackbot.search import search_bing
@@ -17,9 +16,10 @@ load_dotenv(find_dotenv())
 
 @pytest.mark.skip
 async def test_convo():
-    await convo(
-        input="what is the capital of Bolivia", expert_name="Dave", channel="admin"
-    )
+    # await convo(
+    #     input="what is the capital of Bolivia", expert_name="Dave", channel="admin"
+    # )
+    pass
 
 
 # print(f"Result is {result=}")
@@ -28,13 +28,13 @@ async def test_convo():
 @pytest.mark.skip
 @pytest.mark.asyncio
 async def test_convo2():
-    convo = Conversation(agent = None, level=3, memory=ConversationSummaryBufferMemory(llm=OpenAI(model_name="gpt-4")), channel="C0595A85N4R")
+    convo = Conversation(agent = [], channel="C0595A85N4R")
     result = await convo.ask(
         agent=Agents.Aria,
         input_question="What is the likelihood of a nuclear war in the next 10 years?",
-        level=2,
+       
         channel = convo.channel,
-        memory=convo.memory,
+
     )
     
 
@@ -65,6 +65,6 @@ async def test_search():
 @pytest.mark.asyncio
 async def test_speak():
     query = "Tell me that you love me"
-    
-    await speak(input_question=query, agent=Agents.Aria, channel="C0595A85N4R")
+    slack_client = AsyncWebClient(token=os.environ["SLACK_BOT_TOKEN"])
+    await speak(input_question=query, agent=Agents.Aria, channel="C0595A85N4R", slack_client=slack_client)
     
