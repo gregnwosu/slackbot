@@ -18,7 +18,6 @@ aioredis
 requests
 types-requests
 tenacity
-fastapi[uvicorn]
 slack_bolt
 aiohttp
 httpx
@@ -27,11 +26,12 @@ async-lru
 soundfile
 keyboard
 elevenlabs
-uvicorn[standard]
 # ASGI for azure web  service
 uvloop
 httptools
 gunicorn
+uvicorn[standard]
+fastapi
 
 # tests
 pytest
