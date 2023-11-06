@@ -1,5 +1,8 @@
 python-dotenv
+
+
 pyautogen[retrievechat]
+
 pydantic==1.10.12
 tiktoken
 openai
@@ -15,7 +18,7 @@ aioredis
 requests
 types-requests
 tenacity
-fastapi
+fastapi[uvicorn]
 slack_bolt
 aiohttp
 httpx
