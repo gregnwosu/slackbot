@@ -257,9 +257,7 @@ async def handle_message(body: dict, say):
                 try:
                     text_cache: aioredis.Redis = get_cache()
                     if logger.isEnabledFor(logging.DEBUG):
-                        await say(
-                            f"*************caching key and  values {fileinfo.id=} {text=} {text_cache=}"
-                        )
+                        await say(f"*************caching key and  values {fileinfo.id=} {text=} {text_cache=}")
                     await text_cache.set(fileinfo.id, text, ex=dt.timedelta(minutes=5))
                     # cache the text for the file
                     keys = await text_cache.keys()
