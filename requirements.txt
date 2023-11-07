@@ -1,9 +1,9 @@
 python-dotenv
-
-
-pyautogen[retrievechat]
-
+# gunicorn
+# uvicorn[standard]
+#fastapi[uvicorn]
 pydantic==1.10.12
+fastapi
 tiktoken
 openai
 slack-sdk
@@ -18,6 +18,7 @@ aioredis
 requests
 types-requests
 tenacity
+
 slack_bolt
 aiohttp
 httpx
@@ -29,9 +30,6 @@ elevenlabs
 # ASGI for azure web  service
 uvloop
 httptools
-gunicorn
-uvicorn[standard]
-fastapi
 
 # tests
 pytest
@@ -39,17 +37,12 @@ pytest-cov
 pytest-env
 starlette
 pytest-asyncio
-
 # speech
-
 azure-cognitiveservices-speech
-
 # dev
 pre-commit
-
 azure-keyvault-secrets
 azure-identity
-
 # gorilla
 transformers[sentencepiece] 
 datasets
@@ -57,3 +50,4 @@ datasets
 jax
 jaxlib
 flax
+pyautogen[retrievechat]
