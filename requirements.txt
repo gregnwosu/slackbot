@@ -27,10 +27,10 @@ async-lru
 soundfile
 keyboard
 elevenlabs
-uvicorn[standard]
 # ASGI for azure web  service
 uvloop
 httptools
+
 # tests
 pytest
 pytest-cov
