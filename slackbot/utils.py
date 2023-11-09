@@ -36,9 +36,6 @@ def get_cache() -> aioredis.Redis:
 
 
 
-
-
-
 # python
 # Copy code
 # @redis_memory_decorator
