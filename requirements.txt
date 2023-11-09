@@ -15,6 +15,7 @@ aioredis
 requests
 types-requests
 tenacity
+pyautogen[retrievechat]
 
 slack_bolt
 aiohttp
