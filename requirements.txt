@@ -1,6 +1,9 @@
 python-dotenv
-langchain
+# gunicorn
+# uvicorn[standard]
+#fastapi[uvicorn]
 pydantic==1.10.12
+fastapi
 tiktoken
 openai
 slack-sdk
@@ -15,7 +18,7 @@ aioredis
 requests
 types-requests
 tenacity
-fastapi
+
 slack_bolt
 aiohttp
 httpx
@@ -24,11 +27,9 @@ async-lru
 soundfile
 keyboard
 elevenlabs
-uvicorn[standard]
 # ASGI for azure web  service
 uvloop
 httptools
-gunicorn
 
 # tests
 pytest
@@ -36,17 +37,12 @@ pytest-cov
 pytest-env
 starlette
 pytest-asyncio
-
 # speech
-
 azure-cognitiveservices-speech
-
 # dev
 pre-commit
-
 azure-keyvault-secrets
 azure-identity
-
 # gorilla
 transformers[sentencepiece] 
 datasets
@@ -54,3 +50,4 @@ datasets
 jax
 jaxlib
 flax
+pyautogen[retrievechat]

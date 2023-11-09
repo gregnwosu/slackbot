@@ -1,8 +1,7 @@
 
 import pytest 
 from slackbot import app, utils
-from langchain.memory import ConversationSummaryBufferMemory
-from langchain import OpenAI
+
 from dotenv import find_dotenv, load_dotenv
 from slackbot.llm import LLM
 
@@ -16,15 +15,5 @@ async def test_redis_cache():
     assert actual == "nukkk"
     await redis.close()
     
-
-@pytest.mark.asyncio
-async def test_cache_memory():
-        redis =utils.get_cache() 
-        await redis.flushall()
-        memory=ConversationSummaryBufferMemory(llm=LLM.GPT4.value)
-        await utils.cache_channel_memory(channel_id="test2", channel_memory_cache=redis, memory=memory)
-        channel_memory = await utils.get_memory_from_cache(channel_id="test2", channel_memory_cache=redis)
-        assert channel_memory is not None
-        assert isinstance(channel_memory, ConversationSummaryBufferMemory)
 
     
