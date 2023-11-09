@@ -5,7 +5,7 @@ from slackbot.conversation import Conversation
 from slackbot.speak import text_to_speech
 from dotenv import load_dotenv, find_dotenv
 from slack_sdk.web.async_client import AsyncWebClient
-import elevenlabs
+# import elevenlabs
 import os
 from slackbot.search import search_bing
 from slackbot.speak import speak
@@ -48,8 +48,7 @@ async def test_text_to_speech():
     data = await text_to_speech(text)
     assert data is not None
     # check if running from azure webapp
-    if "GITHUB_ACTIONS" not in os.environ:
-        elevenlabs.play(data)
+    
 
 @pytest.mark.skip
 @pytest.mark.asyncio

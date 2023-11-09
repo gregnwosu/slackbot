@@ -4,7 +4,7 @@ import tempfile
 from typing import Any, Coroutine
 
 import aioredis
-import elevenlabs
+# import elevenlabs
 import openai
 
 # import sounddevice as sd
@@ -13,15 +13,15 @@ from cachetools import TTLCache, cached
 
 
 
-async def generate_audio(
-    text, cache: aioredis.Redis, voice="Bella", model="eleven_monolingual_v1"
-):
-    if result := await cache.get(text):
-        return result
-    elevenlabs.set_api_key(os.environ["ELEVENLABS_API_KEY"])
-    audio = elevenlabs.generate(text=text, voice=voice, model=model)
-    await cache.set(text, audio, ex=dt.timedelta(minutes=5))
-    return audio
+# async def generate_audio(
+#     text, cache: aioredis.Redis, voice="Bella", model="eleven_monolingual_v1"
+# ):
+#     if result := await cache.get(text):
+#         return result
+#     elevenlabs.set_api_key(os.environ["ELEVENLABS_API_KEY"])
+#     audio = elevenlabs.generate(text=text, voice=voice, model=model)
+#     await cache.set(text, audio, ex=dt.timedelta(minutes=5))
+#     return audio
 
 
 # TODO this needs to be changed to use OpenAI function calling.
@@ -50,8 +50,8 @@ def transcribe_audio(recording, fs):
 
 
 
-def play_generated_audio(text, voice="Bella", model="eleven_monolingual_v1"):
-    audio = elevenlabs.generate(text=text, voice=voice, model=model)
-    elevenlabs.play(audio)
+# def play_generated_audio(text, voice="Bella", model="eleven_monolingual_v1"):
+#     audio = elevenlabs.generate(text=text, voice=voice, model=model)
+#     elevenlabs.play(audio)
 
 
