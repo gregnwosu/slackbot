@@ -15,7 +15,7 @@ aioredis
 requests
 types-requests
 tenacity
-pyautogen[retrievechat]
+# pyautogen[retrievechat]
 
 slack_bolt
 aiohttp
@@ -26,8 +26,7 @@ soundfile
 keyboard
 
 #elevenlabs
-uvicorn[standard]
-
+uvicorn
 # ASGI for azure web  service
 uvloop
 httptools
@@ -36,16 +35,16 @@ httptools
 pytest
 pytest-cov
 pytest-env
-starlette
+
 pytest-asyncio
 # speech
 azure-cognitiveservices-speech
 # dev
-pre-commit
+# pre-commit
 azure-keyvault-secrets
 azure-identity
 # gorilla
-transformers[sentencepiece] 
+#transformers[sentencepiece] 
 #datasets
 # gorilla flax
 # jax
