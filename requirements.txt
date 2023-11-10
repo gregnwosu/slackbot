@@ -15,6 +15,7 @@ aioredis
 requests
 types-requests
 tenacity
+starlette
 # pyautogen[retrievechat]
 
 slack_bolt

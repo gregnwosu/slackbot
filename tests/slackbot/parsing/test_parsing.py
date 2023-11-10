@@ -8,7 +8,7 @@ from slackbot.parsing.base.model import BlockData, BlockElement, BlockElementDat
 from slackbot.parsing.file.model import FileAccess, FileMode, FileShare, FileShares, FileSubType, FileType, Locale, MimeType, Preview, Transcription, TranscriptionStatus
 from slackbot.parsing.file.event import FileInfo, FileEvent, FileDetails
 import dotenv
-from starlette.testclient import TestClient
+
 from slackbot import app 
 from fastapi import status
 
