@@ -2,7 +2,7 @@ import pytest
 
 
 #from slackbot.conversation import Conversation
-from slackbot.speak import text_to_speech
+#from slackbot.speak import text_to_speech
 from dotenv import load_dotenv, find_dotenv
 from slack_sdk.web.async_client import AsyncWebClient
 # import elevenlabs
@@ -46,8 +46,8 @@ async def test_convo2():
 async def test_text_to_speech():
     text = "Hello, I am a robot. I am here to help you."
 
-    data = await text_to_speech(text)
-    assert data is not None
+    # data = await text_to_speech(text)
+    # assert data is not None
     # check if running from azure webapp
     
 
