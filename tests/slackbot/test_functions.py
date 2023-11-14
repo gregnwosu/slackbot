@@ -1,7 +1,7 @@
 import pytest
 
 
-from slackbot.conversation import Conversation
+#from slackbot.conversation import Conversation
 from slackbot.speak import text_to_speech
 from dotenv import load_dotenv, find_dotenv
 from slack_sdk.web.async_client import AsyncWebClient
@@ -28,14 +28,15 @@ async def test_convo():
 @pytest.mark.skip
 @pytest.mark.asyncio
 async def test_convo2():
-    convo = Conversation(agent = [], channel="C0595A85N4R")
-    result = await convo.ask(
+    pass
+    # convo = Conversation(agent = [], channel="C0595A85N4R")
+    # result = await convo.ask(
        
-        input_question="What is the likelihood of a nuclear war in the next 10 years?",
+    #     input_question="What is the likelihood of a nuclear war in the next 10 years?",
        
-        channel = convo.channel,
+    #     channel = convo.channel,
 
-    )
+    # )
     
 
 # test text to speech
