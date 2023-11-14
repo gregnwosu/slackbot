@@ -8,7 +8,7 @@ from slack_sdk.web.async_client import AsyncWebClient
 # import elevenlabs
 import os
 #from slackbot.search import search_bing
-from slackbot.speak import speak
+#from slackbot.speak import speak
 
 
 load_dotenv(find_dotenv())
