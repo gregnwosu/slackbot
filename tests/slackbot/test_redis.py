@@ -1,6 +1,6 @@
 
 import pytest 
-from slackbot import app, utils
+from slackbot import  utils
 
 from dotenv import find_dotenv, load_dotenv
 from slackbot.llm import LLM
