@@ -26,7 +26,7 @@ import slackbot.functions as functions
 
 from slackbot.parsing.appmention.event import AppMentionEvent
 
-from slackbot.agent import Agents
+#from slackbot.agent import Agents
 from dotenv import find_dotenv, load_dotenv
 import logging
 
@@ -197,25 +197,25 @@ async def handle_file_changed(body, say) -> None:
         ai_request = f"hi please service this request: \n {transcription}  {extra_info}"
 
         # channel_memory = await get_memory_for_channel(slack_channel)
-        convo = Conversation(
-             agents=[Agents.Aria],
-             channel=slack_channel
-        )
-        ai_answer = await convo.ask(
-            agent=Agents.Aria,
-            input_question=ai_request,
-            channel=convo.channel
-        )
+        # convo = Conversation(
+        #      agents=[Agents.Aria],
+        #      channel=slack_channel
+        # )
+        # ai_answer = await convo.ask(
+        #     agent=Agents.Aria,
+        #     input_question=ai_request,
+        #     channel=convo.channel
+        # )
 
-        audio_bytes = await functions.generate_audio(ai_answer, bot_cache)
+        # audio_bytes = await functions.generate_audio(ai_answer, bot_cache)
 
-        response = await slack_client.files_upload(
-            channels=[slack_channel],
-            file=audio_bytes,
-            filename="audio.mp3",
-            initial_comment=ai_answer,
-            filetype=MimeType.AUDIO_MP3.value,
-        )
+        # response = await slack_client.files_upload(
+        #     channels=[slack_channel],
+        #     file=audio_bytes,
+        #     filename="audio.mp3",
+        #     initial_comment=ai_answer,
+        #     filetype=MimeType.AUDIO_MP3.value,
+        # )
         return None
     except Exception as e:
         await say(f"Error {e=}", channel="C0595A85N4R")
