@@ -1,6 +1,6 @@
 import pytest
 
-from slackbot.agent import Agents
+
 from slackbot.conversation import Conversation
 from slackbot.speak import text_to_speech
 from dotenv import load_dotenv, find_dotenv
@@ -30,7 +30,7 @@ async def test_convo():
 async def test_convo2():
     convo = Conversation(agent = [], channel="C0595A85N4R")
     result = await convo.ask(
-        agent=Agents.Aria,
+       
         input_question="What is the likelihood of a nuclear war in the next 10 years?",
        
         channel = convo.channel,
