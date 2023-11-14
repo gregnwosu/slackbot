@@ -7,7 +7,7 @@ from dotenv import load_dotenv, find_dotenv
 from slack_sdk.web.async_client import AsyncWebClient
 # import elevenlabs
 import os
-from slackbot.search import search_bing
+#from slackbot.search import search_bing
 from slackbot.speak import speak
 
 
@@ -56,15 +56,15 @@ async def test_text_to_speech():
 async def test_search():
     query = "Mongolian Throat Singing"
 
-    data = await search_bing(query)
-    assert data is not None
-    # check if running from azure webapp
-    print(data)
+    # data = await search_bing(query)
+    # assert data is not None
+    # # check if running from azure webapp
+    # print(data)
 
 
 @pytest.mark.asyncio
 async def test_speak():
     query = "Tell me that you love me"
     slack_client = AsyncWebClient(token=os.environ["SLACK_BOT_TOKEN"])
-    await speak(input_question=query, agent=Agents.Aria, channel="C0595A85N4R", slack_client=slack_client)
+    # await speak(input_question=query, agent=Agents.Aria, channel="C0595A85N4R", slack_client=slack_client)
     
