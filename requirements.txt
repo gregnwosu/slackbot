@@ -3,6 +3,7 @@ pydantic==1.10.12
 fastapi
 tiktoken
 openai
+instructor
 slack-sdk
 slack-bolt
 google-api-python-client
