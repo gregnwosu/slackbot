@@ -38,7 +38,7 @@ resource "azurerm_linux_web_app" "slackbotwebapp" {
     always_on        = false
     app_command_line = "gunicorn -w 4 -b 0.0.0.0:8000 -k uvicorn.workers.UvicornWorker slackbot.app:api"
     application_stack {
-      python_version = "3.8"
+      python_version = "3.9"
     }
   }
   logs {

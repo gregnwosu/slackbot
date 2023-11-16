@@ -1,8 +1,9 @@
 python-dotenv
-pydantic==1.10.12
+pydantic
 fastapi
 tiktoken
 openai
+instructor
 slack-sdk
 slack-bolt
 google-api-python-client
