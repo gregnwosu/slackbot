@@ -1,7 +1,3 @@
-
-import sys
-import os 
-
 import datetime as dt
 import functools
 import logging
@@ -13,8 +9,9 @@ from functools import wraps
 import aioredis
 import requests
 from aiocache import cached
+
 from dotenv import find_dotenv, load_dotenv
-from fastapi import FastAPI, HTTPException, Request, Response
+from fastapi import FastAPI, HTTPException, Request
 from slack_bolt.adapter.fastapi.async_handler import AsyncSlackRequestHandler
 from slack_bolt.async_app import AsyncApp
 from slack_bolt.authorization import AuthorizeResult
@@ -22,24 +19,16 @@ from slack_sdk.errors import SlackApiError
 from slack_sdk.signature import SignatureVerifier
 from slack_sdk.web.async_client import AsyncWebClient
 from starlette.responses import Response
-import slackbot.functions as functions
 
+from slackbot import speak
+from slackbot.instruct import user_proxy_assistant
+from slackbot.instruct.user_proxy_assistant import _client as client, SendMessage
+from slackbot.instruct.utils import get_completion
 from slackbot.parsing.appmention.event import AppMentionEvent
-
-#from slackbot.agent import Agents
-from dotenv import find_dotenv, load_dotenv
-import logging
-
 # from aiocache.serializers import PickleSerializer
 from slackbot.parsing.file.event import FileEvent, FileInfo
 from slackbot.parsing.file.model import MimeType
 from slackbot.parsing.message.event import MessageSubType
-
-
-
-import slackbot.functions as functions
-from slackbot.conversation import Conversation
-
 from slackbot.utils import get_cache
 
 # Configure the logging level and format
@@ -71,6 +60,10 @@ SLACK_BOT_USER_ID = os.environ["SLACK_BOT_USER_ID"]
 REDIS_URL = os.environ["REDIS_URL"]
 REDIS_KEY = os.environ["REDIS_KEY"]
 
+
+
+user_proxy = user_proxy_assistant.create(client)
+user_proxy_tools = [SendMessage]
 
 async def authorize():
     return AuthorizeResult()
@@ -195,27 +188,21 @@ async def handle_file_changed(body, say) -> None:
         slack_client: AsyncWebClient = cached_slack_client()
         extra_info = f", extra info is {cached_text}" if cached_text else ""
         ai_request = f"hi please service this request: \n {transcription}  {extra_info}"
+        thread = client.beta.threads.create()
+        while True:
+            user_message = input("User: ")
 
-        # channel_memory = await get_memory_for_channel(slack_channel)
-        # convo = Conversation(
-        #      agents=[Agents.Aria],
-        #      channel=slack_channel
-        # )
-        # ai_answer = await convo.ask(
-        #     agent=Agents.Aria,
-        #     input_question=ai_request,
-        #     channel=convo.channel
-        # )
+            response = await get_completion(user_message, user_proxy, user_proxy_tools, thread)
 
-        # audio_bytes = await functions.generate_audio(ai_answer, bot_cache)
+            audio_bytes = await speak.text_to_speech(response)
 
-        # response = await slack_client.files_upload(
-        #     channels=[slack_channel],
-        #     file=audio_bytes,
-        #     filename="audio.mp3",
-        #     initial_comment=ai_answer,
-        #     filetype=MimeType.AUDIO_MP3.value,
-        # )
+            speech_upload_response = await slack_client.files_upload(
+                channels=[slack_channel],
+                file=audio_bytes,
+                filename="audio.mp3",
+                initial_comment=response,
+                filetype=MimeType.AUDIO_MP3.value,
+            )
         return None
     except Exception as e:
         await say(f"Error {e=}", channel="C0595A85N4R")
