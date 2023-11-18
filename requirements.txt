@@ -28,7 +28,8 @@ soundfile
 keyboard
 
 #elevenlabs
-uvicorn
+uvicorn[standard]
+gunicorn
 # ASGI for azure web  service
 uvloop
 httptools
