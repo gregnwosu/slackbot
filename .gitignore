@@ -12,3 +12,4 @@ terraform/terraform.tfstate.backup
 terraform/.terraform.lock.hcl
 terraform/terraform.tfstate
 azure_credentials.json
+.idea
