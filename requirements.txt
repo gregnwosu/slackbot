@@ -53,4 +53,6 @@ azure-identity
 # jax
 # jaxlib
 # flax
+pyautogen[retrievechat]
+chromadb
 
