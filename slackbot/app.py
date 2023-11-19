@@ -1,33 +1,36 @@
-
-from aiohttp import BasicAuth
-from slackbot.parsing.appmention.event import  AppMentionEvent
-import os
 import datetime as dt
-from slack_sdk.web.async_client import AsyncWebClient
+import functools
+import logging
+import os
+import sys
+import time
+from functools import wraps
+
+import aioredis
+import requests
+from aiocache import cached
+
+from dotenv import find_dotenv, load_dotenv
+from fastapi import FastAPI, HTTPException, Request
+from slack_bolt.adapter.fastapi.async_handler import AsyncSlackRequestHandler
+from slack_bolt.async_app import AsyncApp
+from slack_bolt.authorization import AuthorizeResult
 from slack_sdk.errors import SlackApiError
 from slack_sdk.signature import SignatureVerifier
-from fastapi import FastAPI, Request
+from slack_sdk.web.async_client import AsyncWebClient
 from starlette.responses import Response
-from slack_bolt.async_app import AsyncApp
-from slack_bolt.adapter.fastapi.async_handler import AsyncSlackRequestHandler
-from fastapi import FastAPI, Request, HTTPException, Response
-from dotenv import find_dotenv, load_dotenv
-import logging
-from functools import wraps
-import time
-import functools
-from aiocache import cached
+
+from slackbot import speak
+from slackbot.instruct import user_proxy_assistant
+from slackbot.instruct.user_proxy_assistant import _client as client, SendMessage
+from slackbot.instruct.utils import get_completion
+from slackbot.parsing.appmention.event import AppMentionEvent
 # from aiocache.serializers import PickleSerializer
-import sys
-from slackbot.parsing.file.event import FileInfo, FileEvent
-from slack_bolt.authorization import AuthorizeResult
-import cachetools
-import aioredis
-from aioredis import Redis 
+from slackbot.parsing.file.event import FileEvent, FileInfo
 from slackbot.parsing.file.model import MimeType
-from slackbot.parsing.message.event import FileShareMessageEvent, MessageSubType
-import requests
-from typing import Callable
+from slackbot.parsing.message.event import MessageSubType
+from slackbot.utils import get_cache
+
 # Configure the logging level and format
 logging.basicConfig(
     level=logging.INFO,
@@ -41,9 +44,12 @@ logger = logging.getLogger(__name__)
 class BearerAuth(requests.auth.AuthBase):
     def __init__(self, token):
         self.token = token
+
     def __call__(self, r):
         r.headers["authorization"] = "Bearer " + self.token
         return r
+
+
 # Load environment variables from .env file
 load_dotenv(find_dotenv())
 
@@ -55,27 +61,26 @@ REDIS_URL = os.environ["REDIS_URL"]
 REDIS_KEY = os.environ["REDIS_KEY"]
 
 
-def get_cache()-> aioredis.Redis: 
-    return aioredis.Redis(host=REDIS_URL, password=REDIS_KEY, ssl=True, port=6380, db=0, decode_responses=True)
-    
-    
-#cachetools.TTLCache(maxsize=100, ttl=300)
 
+user_proxy = user_proxy_assistant.create(client)
+user_proxy_tools = [SendMessage]
 
 async def authorize():
     return AuthorizeResult()
+
+
 # Initialize the Slack app
 app = AsyncApp(token=SLACK_BOT_TOKEN, signing_secret=SLACK_SIGNING_SECRET)
 handler: AsyncSlackRequestHandler = AsyncSlackRequestHandler(app)
 
 # Initialize the Flask app
-api: FastAPI= FastAPI()
+api: FastAPI = FastAPI()
 
-#@require_slack_verification
+
+# @require_slack_verification
 @api.post("/slack/events")
 async def slack_events(request: Request):
     return await handler.handle(request)
-
 
 
 def require_slack_verification(f):
@@ -84,11 +89,14 @@ def require_slack_verification(f):
         if not await verify_slack_request(f):
             abort(403)
         return f(*args, **kwargs)
+
     return decorated_function
+
 
 signature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)
 
-async def verify_slack_request(request:Request):
+
+async def verify_slack_request(request: Request):
     # Get the request headers
     timestamp = request.headers.get("X-Slack-Request-Timestamp", "")
     signature = request.headers.get("X-Slack-Signature", "")
@@ -98,7 +106,7 @@ async def verify_slack_request(request:Request):
     if abs(current_timestamp - int(timestamp)) > 60 * 5:
         raise HTTPException(status_code=403)
 
-    body= await request.body()
+    body = await request.body()
     # Verify the request signature
     if not signature_verifier.is_valid(
         body=body.decode("utf-8"),
@@ -107,14 +115,17 @@ async def verify_slack_request(request:Request):
     ):
         raise HTTPException(status_code=403)
 
+
 @functools.lru_cache(maxsize=1)
 def cached_slack_client() -> AsyncWebClient:
-     slack_client: AsyncWebClient = AsyncWebClient(token=os.environ["SLACK_BOT_TOKEN"])
-     return slack_client
+    slack_client: AsyncWebClient = AsyncWebClient(token=os.environ["SLACK_BOT_TOKEN"])
+    return slack_client
+
 
 @cached(ttl=60)
 async def get_app_mention_for_file_info_id(file_info_id: str) -> str:
-     raise ValueError(f" text for {file_info_id} Not in cache")
+    raise ValueError(f" text for {file_info_id} Not in cache")
+
 
 async def get_bot_user_id():
     """
@@ -131,15 +142,19 @@ async def get_bot_user_id():
         print(f"Error: {e}")
 
 
+# TODO this should, read the speech if it is a sound file as a directive
+# if it is any other type of file it should be considered data and  form part of the RAG vector store for the channel
 @app.event("file_created")
 async def handle_file_created(body, say):
-    """ downloads the file transcribes it and sends it back to the user"""
+    """downloads the file transcribes it and sends it back to the user"""
     print(f"File Created:, I'll get right on that! {body=}")
-    logger.warn(f"File Created:, I'll get right on that! {body=}")
+    logger.debug(f"File Created:, I'll get right on that! {body=}")
+
 
 @app.event("file_shared")
 async def handle_file_shared(body, say) -> None:
     return None
+
 
 @app.event("file_change")
 async def handle_file_changed(body, say) -> None:
@@ -151,28 +166,53 @@ async def handle_file_changed(body, say) -> None:
         say (callable): A function for sending a response to the channel.
     """
     # failes because of no channel id
-    channel = "C0595A85N4R"
-    await say(f"File Changed:, I'll get right on that! {body=}", channel=channel)
     file_event: FileEvent = FileEvent(**body["event"])
     file_info: FileInfo = await file_event.file_info(cached_slack_client())
-    logger.warn(f"File Changed: File Info {file_info=}")
-    await say(f"File Changed: Calling with {file_info=}", channel=channel)
+
+    slack_channel = list(file_info.shares.public)[0] if file_info.shares else "C0595A85N4R"
+
     transcription = await file_info.vtt_txt(SLACK_BOT_TOKEN)
-    await say(f"Retrieving Transcription  {transcription=}", channel=channel)
-    with get_cache() as _text_cache:
-        text_cache: aioredis.Redis = _text_cache
-        cached_text: str =text_cache.get(file_info.id)
+    # if logger.isEnabledFor(logging.DEBUG):
+
+    try:
+        bot_cache: aioredis.Redis = get_cache()
+        cached_text: str = await bot_cache.get(file_info.id)
         if not cached_text:
-            await say(f"Cache miss {text_cache.keys()=}", channel=channel)
-            return None
+            keys = await bot_cache.keys()
+            if logger.isEnabledFor(logging.DEBUG):
+                await say(f"File Changed: Cache miss {keys=}", channel=slack_channel)
+
         else:
-            await say(f"Cache hit {cached_text=}", channel=channel)
-            return None
-        #channel = model.channel
-    
+            if logger.isEnabledFor(logging.DEBUG):
+                await say(f"File Changed: Cache hit {cached_text=}", channel=slack_channel)
+        slack_client: AsyncWebClient = cached_slack_client()
+        extra_info = f", extra info is {cached_text}" if cached_text else ""
+        ai_request = f"hi please service this request: \n {transcription}  {extra_info}"
+        thread = client.beta.threads.create()
+        while True:
+            user_message = input("User: ")
+
+            response = await get_completion(user_message, user_proxy, user_proxy_tools, thread)
+
+            audio_bytes = await speak.text_to_speech(response)
+
+            speech_upload_response = await slack_client.files_upload(
+                channels=[slack_channel],
+                file=audio_bytes,
+                filename="audio.mp3",
+                initial_comment=response,
+                filetype=MimeType.AUDIO_MP3.value,
+            )
+        return None
+    except Exception as e:
+        await say(f"Error {e=}", channel="C0595A85N4R")
+        raise e
+    finally:
+        await bot_cache.close()
+
 
 @app.event("message")
-async def handle_message(body: dict, say, get_text_cache: Callable[[], aioredis.Redis] = get_cache):
+async def handle_message(body: dict, say):
     """
     Event listener for mentions in Slack.
     When the bot is mentioned, this function processes the text and sends a response.
@@ -180,30 +220,48 @@ async def handle_message(body: dict, say, get_text_cache: Callable[[], aioredis.
         body (dict): The event data received from Slack.
         say (callable): A function for sending a response to the channel.
     """
-    await say(f"{body=}")
+
     event = body["event"]
-     
+
     if sub_type := event.get("subtype", None):
         model = MessageSubType[sub_type].value(**event)
     else:
         model = MessageSubType.message.value(**event)
-    
+
     text = body["event"]["text"]
     mention = f"<@{SLACK_BOT_USER_ID}>"
     text = text.replace(mention, "").strip()
-    
+
     await say("Message event, I'll get right on that!")
-    if isinstance(model, MessageSubType.file_share.value)  :
+
+    if isinstance(model, MessageSubType.file_share.value):
         for fileinfo in model.files:
-            if fileinfo.mimetype in [MimeType.AUDIO_WEBM.value, MimeType.AUDIO_MP4.value]:
-                with get_text_cache() as _text_cache:
-                    text_cache: aioredis.Redis = _text_cache
-                    await text_cache.set(fileinfo.id,  text, expire=dt.timedelta(minutes=5))
+            if fileinfo.mimetype in [
+                MimeType.AUDIO_WEBM.value,
+                MimeType.AUDIO_MP4.value,
+            ]:
+                say(f"************getting cache for text {fileinfo.id=} {text=}")
+                try:
+                    text_cache: aioredis.Redis = get_cache()
+                    if logger.isEnabledFor(logging.DEBUG):
+                        await say(f"*************caching key and  values {fileinfo.id=} {text=} {text_cache=}")
+                    await text_cache.set(fileinfo.id, text, ex=dt.timedelta(minutes=5))
                     # cache the text for the file
-                    await say(f" caching key and  values {fileinfo.id=} {text=}")
-                    await say(f" cache keys {list(text_cache.keys())=}")
-                    await say(f"Need to wait for audio to be transcribed for  {fileinfo}", channel=model.channel)
+                    keys = await text_cache.keys()
+                    if logger.isEnabledFor(logging.DEBUG):
+                        await say(f"cache keys {keys=}")
+                        await say(
+                            f"Need to wait for audio to be transcribed for  {fileinfo}",
+                            channel=model.channel,
+                        )
+                except Exception as e:
+                    await say(f"Error {e=}")
+                    raise e
+                finally:
+                    await text_cache.close()
+
     return model
+
 
 @app.event("app_mention")
 async def handle_mentions(body: dict, say):
@@ -214,8 +272,8 @@ async def handle_mentions(body: dict, say):
         body (dict): The event data received from Slack.
         say (callable): A function for sending a response to the channel.
     """
-    await say(f"{body=}")
-    model = AppMentionEvent(**body['event'])
+
+    model = AppMentionEvent(**body["event"])
     client = cached_slack_client()
     text = body["event"]["text"]
     mention = f"<@{SLACK_BOT_USER_ID}>"
@@ -224,29 +282,23 @@ async def handle_mentions(body: dict, say):
     logging.debug("Received text: " + text.replace("\n", " "))
 
     await say("Sure, I'll get right on that!")
-    await say(f"{model=}")
-    
-    await client.chat_postMessage(
-        channel='#admin',
-        text="Hello  tsts")
+
     return Response(status_code=200, content="OKieDokie")
-    
-    
+
+
 @api.get("/")
 async def root(req: Request):
     client = cached_slack_client()
-    await client.chat_postMessage(
-        channel='#admin',
-        text="Hello world!")    
+    cache = await get_cache()
+    await cache.flushall()
     return Response(status_code=200, content="OK")
 
 
-#https://api.slack.com/types/file#authentication
-#https://slackbotwebapp.azurewebsites.net/slack/events
+# https://api.slack.com/types/file#authentication
+# https://slackbotwebapp.azurewebsites.net/slack/events
 # Run the fastapi app
 if __name__ == "__main__":
     import uvicorn
+
     logging.info("Fast API app started")
     uvicorn.run("slackbot.app:api", host="0.0.0.0", port=8000, reload=True)
-
-

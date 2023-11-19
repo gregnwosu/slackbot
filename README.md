@@ -1,16 +1,64 @@
-# ToDO
+[![Build and deploy Python app to Azure Web App - slackbotwebapp](https://github.com/gregnwosu/slackbot/actions/workflows/main_slackbotwebapp.yml/badge.svg)](https://github.com/gregnwosu/slackbot/actions/workflows/main_slackbotwebapp.yml)
 
-forest of thoughts prompting
-https://www.youtube.com/watch?v=y6SVA3aAfco&t=322s
+# todo:
+## re-engineer architecture  so that
+am expert is made of :
+   - a platform,
+   - a model
+   - a prompt template
+   - tools
 
-distrbute cache
-https://www.youtube.com/watch?v=QSFIK2Ytbh4
+## add petals platform
+  https://youtu.be/8jEGVaRKmFc?t=316
+  
+## add gorilla
+make gorilla capabale to build experts
+ - make gorilla capable to save experts
+ - make gorilla capalbe to discover models
+ - make gorilla capable to ask experts for prompt templates
 
+# gotchas
+sometimes the deployment template for bing services doesnt work
+you will have to delete it using the resources id first 
+```az resource delete resource id```
+openai function calling to other experts
+Needed to go to AD in azure portal and add myapp to directory readers, i dont think this can be done in terraform
+Option 1: Azure Portal
+
+Go to the Azure portal (https://portal.azure.com) and navigate to "Azure Active Directory."
+Select "Roles and administrators" from the left-hand menu.
+Click on "Directory Readers."
+Click on "Add assignments."
+Search for the service principal or user account you are using in Terraform and select it.
+Click "Add" to grant the "Directory Readers" role.
 # Slack AI Assistant with Python & LangChain
 
 Here's a step-by-step guide to creating a Slack bot, installing it in a workspace, setting up a Python code with Flask, and using ngrok.
 
 Interacting with AI agents via Slack provides a more natural way of communication and provides an integration with your team's workflow and allows for the integration of multiple bots for various tasks. This can improve efficiency and streamline communication, while also allowing the AI agents to become an integral part of your team.
+
+To add "Application.ReadWrite.OwnedBy" and "RoleManagement.ReadWrite.Directory" application permissions to a service principal in Azure, you need to configure these permissions in the Azure Active Directory (Azure AD) app registration associated with the service principal. Here's how you can do it:
+
+Open the Azure portal (https://portal.azure.com/) and sign in with an account that has the necessary permissions to manage app registrations.
+
+Navigate to "Azure Active Directory" from the left-hand menu.
+
+Under "Manage," click on "App registrations."
+
+Find and select the app registration corresponding to the service principal you want to update.
+
+In the app registration overview page, click on "API permissions."
+
+Click on the "Add a permission" button.
+
+In the "Request API permissions" pane, select "Microsoft Graph" as the API.
+
+In the "Application permissions" section, search for "Application.ReadWrite.OwnedBy" and "RoleManagement.ReadWrite.Directory."
+
+Select both of these permissions and click on the "Add permissions" button to add them to the app registration.
+
+After adding the permissions, click on the "Grant admin consent for {your organization}" button to grant consent for the added permissions. This will ensure that the app registration (service principal) has the required permissions.
+
 
 ## Part 1 — Slack Setup
 
@@ -190,3 +238,29 @@ For video tutorials on how to use the LangChain library and run experiments, vis
 # resources
 
 https://www.youtube.com/watch?v=imDfPmMKEjM&t=31s
+
+<!-- BEGIN_TF_DOCS -->
+## Requirements
+
+No requirements.
+
+## Providers
+
+No providers.
+
+## Modules
+
+No modules.
+
+## Resources
+
+No resources.
+
+## Inputs
+
+No inputs.
+
+## Outputs
+
+No outputs.
+<!-- END_TF_DOCS -->

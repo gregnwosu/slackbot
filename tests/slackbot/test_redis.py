@@ -1,22 +1,19 @@
-import aioredis
+
 import pytest 
-from slackbot import app
+from slackbot import  utils
 
+from dotenv import find_dotenv, load_dotenv
+from slackbot.llm import LLM
 
-
-
+load_dotenv(find_dotenv())
 @pytest.mark.skip
+@pytest.mark.asyncio
 async def test_redis_cache():
-    redis = app.get_cache() 
-    # await redis.set("test", "test")
-    # actual = await redis.get("test")
-    # assert actual == "test"
-    redis.close()
+  async with utils.get_cache() as redis:
+    await redis.set("test", "nukkk")
+    actual = await redis.get("test")
+    assert actual == "nukkk"
+    await redis.close()
     
-    # async with await app.get_cache() as redis:
-    #     await redis.set("test", "test")
-    #     assert await redis.get("test") == "test"
-    #     await redis.delete("test")
-    #     assert await redis.get("test") == None
 
     

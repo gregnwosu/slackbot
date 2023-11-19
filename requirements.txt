@@ -1,32 +1,56 @@
 python-dotenv
-langchain
+pydantic
+fastapi
+tiktoken
 openai
+instructor
 slack-sdk
 slack-bolt
 google-api-python-client
 google-auth-oauthlib
 google-auth-httplib2
+google-search-results
 beautifulsoup4
 aiocache
 aioredis
 requests
 types-requests
+tenacity
+starlette
+# pyautogen[retrievechat]
 
-fastapi
 slack_bolt
 aiohttp
 httpx
+async-lru
 # needed for voice
 soundfile
 keyboard
-elevenlabs
+
+#elevenlabs
 uvicorn[standard]
+gunicorn
 # ASGI for azure web  service
 uvloop
 httptools
-gunicorn
 
 # tests
 pytest
 pytest-cov
-starlette
+pytest-env
+
+pytest-asyncio
+# speech
+azure-cognitiveservices-speech
+# dev
+# pre-commit
+azure-keyvault-secrets
+azure-identity
+# gorilla
+#transformers[sentencepiece] 
+#datasets
+# gorilla flax
+# jax
+# jaxlib
+# flax
+

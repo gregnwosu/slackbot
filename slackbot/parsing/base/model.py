@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import List, Optional, Dict
+from typing import List, Optional
 import pydantic
 class ChannelType(Enum):
     group = "group"
@@ -20,12 +20,14 @@ class BlockElementData(pydantic.BaseModel):
     user_id: Optional[str] = None
     text: Optional[str] = None
     @pydantic.validator('type')
+    @classmethod
     def convert_to_blockelementdata_type(cls, value):
         return BlockElementDataType(value)
 class BlockElement(pydantic.BaseModel):
     type: BlockElementType
     elements: List[BlockElementData]
     @pydantic.validator('type')
+    @classmethod
     def convert_to_blockelement_type(cls, value):
         return BlockElementType(value)
 class BlockData(pydantic.BaseModel):
