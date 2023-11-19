@@ -6,6 +6,9 @@ resource "azurerm_key_vault" "slackbot_secrets" {
   purge_protection_enabled  = true
   enable_rbac_authorization = true
   tenant_id                 = data.azurerm_client_config.current.tenant_id
+
+
+
 }
 
 resource "azurerm_key_vault_access_policy" "slackbot_app" {
