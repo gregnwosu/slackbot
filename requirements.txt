@@ -27,6 +27,7 @@ async-lru
 soundfile
 keyboard
 
+
 #elevenlabs
 uvicorn[standard]
 gunicorn
@@ -54,3 +55,5 @@ azure-identity
 # jaxlib
 # flax
 
+pyautogen[retrievechat]
+chromadb
