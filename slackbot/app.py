@@ -4,12 +4,10 @@ import logging
 import os
 import sys
 import time
-from functools import wraps
 
 import aioredis
 import requests
 from aiocache import cached
-
 from dotenv import find_dotenv, load_dotenv
 from fastapi import FastAPI, HTTPException, Request
 from slack_bolt.adapter.fastapi.async_handler import AsyncSlackRequestHandler
@@ -20,11 +18,10 @@ from slack_sdk.signature import SignatureVerifier
 from slack_sdk.web.async_client import AsyncWebClient
 from starlette.responses import Response
 
-from slackbot import speak
-from slackbot.instruct import user_proxy_assistant
-from slackbot.instruct.user_proxy_assistant import _client as client, SendMessage
-from slackbot.instruct.utils import get_completion
-from slackbot.parsing.appmention.event import AppMentionEvent
+# from slackbot import speak
+# from slackbot.instruct import user_proxy_assistant
+# from slackbot.instruct.user_proxy_assistant import _client as client, SendMessage
+# from slackbot.instruct.utils import get_completion
 # from aiocache.serializers import PickleSerializer
 from slackbot.parsing.file.event import FileEvent, FileInfo
 from slackbot.parsing.file.model import MimeType
@@ -61,9 +58,8 @@ REDIS_URL = os.environ["REDIS_URL"]
 REDIS_KEY = os.environ["REDIS_KEY"]
 
 
-
-user_proxy = user_proxy_assistant.create(client)
-user_proxy_tools = [SendMessage]
+# user_proxy = user_proxy_assistant.create(client)
+# user_proxy_tools = [SendMessage]
 
 async def authorize():
     return AuthorizeResult()
@@ -83,14 +79,14 @@ async def slack_events(request: Request):
     return await handler.handle(request)
 
 
-def require_slack_verification(f):
-    @wraps(f)
-    async def decorated_function(*args, **kwargs):
-        if not await verify_slack_request(f):
-            abort(403)
-        return f(*args, **kwargs)
-
-    return decorated_function
+# def require_slack_verification(f):
+#     @wraps(f)
+#     async def decorated_function(*args, **kwargs):
+#         if not await verify_slack_request(f):
+#             abort(403)
+#         return f(*args, **kwargs)
+#
+#     return decorated_function
 
 
 signature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)
@@ -171,7 +167,7 @@ async def handle_file_changed(body, say) -> None:
 
     slack_channel = list(file_info.shares.public)[0] if file_info.shares else "C0595A85N4R"
 
-    transcription = await file_info.vtt_txt(SLACK_BOT_TOKEN)
+    # transcription = await file_info.vtt_txt(SLACK_BOT_TOKEN)
     # if logger.isEnabledFor(logging.DEBUG):
 
     try:
@@ -185,24 +181,22 @@ async def handle_file_changed(body, say) -> None:
         else:
             if logger.isEnabledFor(logging.DEBUG):
                 await say(f"File Changed: Cache hit {cached_text=}", channel=slack_channel)
-        slack_client: AsyncWebClient = cached_slack_client()
-        extra_info = f", extra info is {cached_text}" if cached_text else ""
-        ai_request = f"hi please service this request: \n {transcription}  {extra_info}"
-        thread = client.beta.threads.create()
-        while True:
-            user_message = input("User: ")
+        # slack_client: AsyncWebClient = cached_slack_client()
+        # extra_info = f", extra info is {cached_text}" if cached_text else ""
+        # ai_request = f"hi please service this request: \n {transcription}  {extra_info}"
+        # thread = client.beta.threads.create()
 
-            response = await get_completion(user_message, user_proxy, user_proxy_tools, thread)
-
-            audio_bytes = await speak.text_to_speech(response)
-
-            speech_upload_response = await slack_client.files_upload(
-                channels=[slack_channel],
-                file=audio_bytes,
-                filename="audio.mp3",
-                initial_comment=response,
-                filetype=MimeType.AUDIO_MP3.value,
-            )
+        # response = await get_completion(user_message, user_proxy, user_proxy_tools, thread)
+        #
+        # audio_bytes = await speak.text_to_speech(response)
+        #
+        # speech_upload_response = await slack_client.files_upload(
+        #     channels=[slack_channel],
+        #     file=audio_bytes,
+        #     filename="audio.mp3",
+        #     initial_comment=response,
+        #     filetype=MimeType.AUDIO_MP3.value,
+        # )
         return None
     except Exception as e:
         await say(f"Error {e=}", channel="C0595A85N4R")
@@ -258,6 +252,7 @@ async def handle_message(body: dict, say):
                     await say(f"Error {e=}")
                     raise e
                 finally:
+
                     await text_cache.close()
 
     return model
@@ -273,12 +268,13 @@ async def handle_mentions(body: dict, say):
         say (callable): A function for sending a response to the channel.
     """
 
-    model = AppMentionEvent(**body["event"])
-    client = cached_slack_client()
+    # model = AppMentionEvent(**body["event"])
+    # client = cached_slack_client()
     text = body["event"]["text"]
-    mention = f"<@{SLACK_BOT_USER_ID}>"
-    text = text.replace(mention, "").strip()
-    logging.debug(f"{type(model)=}")
+    # mention = f"<@{SLACK_BOT_USER_ID}>"
+    # text = text.replace(mention, "").strip()
+    # logging.debug(f"{type(model)=}")
+
     logging.debug("Received text: " + text.replace("\n", " "))
 
     await say("Sure, I'll get right on that!")
@@ -288,9 +284,9 @@ async def handle_mentions(body: dict, say):
 
 @api.get("/")
 async def root(req: Request):
-    client = cached_slack_client()
-    cache = await get_cache()
-    await cache.flushall()
+    # client = cached_slack_client()
+    # cache = await get_cache()
+    # await cache.flushall()
     return Response(status_code=200, content="OK")
 
 
