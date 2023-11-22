@@ -19,7 +19,7 @@ class FileEvent(pydantic.BaseModel):
     #channel_id: str
     event_ts: dt.datetime
 
-    @pydantic.validator('type')
+    @pydantic.field_validator('type')
     @classmethod
     def convert_to_event_type(cls, value):
         return EventType(value)
