@@ -1,56 +1,51 @@
 python-dotenv
 pydantic
 fastapi
-tiktoken
+#tiktoken
 openai
 instructor
 slack-sdk
 slack-bolt
-google-api-python-client
-google-auth-oauthlib
-google-auth-httplib2
-google-search-results
-beautifulsoup4
+#google-api-python-client
+#google-auth-oauthlib
+#google-auth-httplib2
+#google-search-results
+#beautifulsoup4
 aiocache
 aioredis
 requests
-types-requests
+#types-requests
 tenacity
 starlette
 # pyautogen[retrievechat]
 
 slack_bolt
 aiohttp
-httpx
+#httpx
 async-lru
 # needed for voice
 soundfile
-keyboard
+#keyboard
 
 #elevenlabs
 uvicorn[standard]
 gunicorn
 # ASGI for azure web  service
 uvloop
-httptools
+#httptools
 
 # tests
 pytest
 pytest-cov
 pytest-env
 
-pytest-asyncio
+#pytest-asyncio
 # speech
 azure-cognitiveservices-speech
 # dev
 # pre-commit
 azure-keyvault-secrets
 azure-identity
-# gorilla
-#transformers[sentencepiece] 
-#datasets
-# gorilla flax
-# jax
-# jaxlib
-# flax
+
+
 uvloop
