@@ -18,6 +18,7 @@ from slack_sdk.signature import SignatureVerifier
 from slack_sdk.web.async_client import AsyncWebClient
 from starlette.responses import Response
 
+from slackbot.parsing.appmention.event import AppMentionEvent
 # from slackbot import speak
 # from slackbot.instruct import user_proxy_assistant
 # from slackbot.instruct.user_proxy_assistant import _client as client, SendMessage
@@ -268,8 +269,8 @@ async def handle_mentions(body: dict, say):
         say (callable): A function for sending a response to the channel.
     """
 
-    # model = AppMentionEvent(**body["event"])
-    # client = cached_slack_client()
+    model = AppMentionEvent(**body["event"])
+    client = cached_slack_client()
     text = body["event"]["text"]
     # mention = f"<@{SLACK_BOT_USER_ID}>"
     # text = text.replace(mention, "").strip()
@@ -284,9 +285,9 @@ async def handle_mentions(body: dict, say):
 
 @api.get("/")
 async def root(req: Request):
-    # client = cached_slack_client()
-    # cache = await get_cache()
-    # await cache.flushall()
+    client = cached_slack_client()
+    cache = await get_cache()
+    await cache.flushall()
     return Response(status_code=200, content="OK")
 
 
@@ -295,6 +296,5 @@ async def root(req: Request):
 # Run the fastapi app
 if __name__ == "__main__":
     import uvicorn
-
     logging.info("Fast API app started")
     uvicorn.run("slackbot.app:api", host="0.0.0.0", port=8000, reload=True)
