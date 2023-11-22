@@ -28,13 +28,14 @@ resource "azurerm_linux_web_app" "slackbotwebapp" {
     "ARM_CLIENT_ID"                  = var.ARM_CLIENT_ID
     "ARM_CLIENT_SECRET"              = var.ARM_CLIENT_SECRET
     "ARM_TENANT_ID"                  = var.ARM_TENANT_ID
+    "WEBSITE_RUN_FROM_PACKAGE"       = 1
 
     #get variable from the environment
 
   }
   site_config {
     always_on        = false
-    app_command_line = "gunicorn -w 4 -b 0.0.0.0:8000 -k uvicorn.workers.UvicornWorker slackbot.app:api"
+    app_command_line = "gunicorn -w 2 -b 0.0.0.0:8000 -k uvicorn.workers.UvicornWorker slackbot.app:api"
     application_stack {
       python_version = "3.9"
     }
@@ -46,6 +47,4 @@ resource "azurerm_linux_web_app" "slackbotwebapp" {
 
     }
   }
-
-
 }
