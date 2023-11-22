@@ -19,14 +19,14 @@ class BlockElementData(pydantic.BaseModel):
     type: BlockElementDataType
     user_id: Optional[str] = None
     text: Optional[str] = None
-    @pydantic.validator('type')
+    @pydantic.field_validator('type')
     @classmethod
     def convert_to_blockelementdata_type(cls, value):
         return BlockElementDataType(value)
 class BlockElement(pydantic.BaseModel):
     type: BlockElementType
     elements: List[BlockElementData]
-    @pydantic.validator('type')
+    @pydantic.field_validator('type')
     @classmethod
     def convert_to_blockelement_type(cls, value):
         return BlockElementType(value)
@@ -35,7 +35,7 @@ class BlockData(pydantic.BaseModel):
     block_id: str
     elements : List[BlockElement]
 
-    @pydantic.validator('type')
+    @pydantic.field_validator('type')
     @classmethod
     def convert_to_block_type(cls, value):
         return BlockType(value)
