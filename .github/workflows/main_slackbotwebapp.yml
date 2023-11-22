@@ -34,7 +34,25 @@ jobs:
           cache: 'pip'
 
       - name: python install
-        working-directory: ${{ env.WORKING_DIRECTORY }}
+        env:
+          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          SLACK_BOT_TOKEN: ${{secrets.TF_VAR_SLACK_BOT_TOKEN}}
+          SLACK_SIGNING_SECRET: ${{secrets.TF_VAR_SLACK_SIGNING_SECRET}}
+          SLACK_BOT_USER_ID: ${{secrets.TF_VAR_SLACK_BOT_USER_ID}}
+          SERPAPI_API_KEY: ${{secrets.TF_VAR_SERPAPI_API_KEY}}
+          OPENAI_API_KEY: ${{secrets.TF_VAR_OPENAI_API_KEY}}
+          AZURE_SUBSCRIPTION_ID: ${{secrets.TF_VAR_AZURE_SUBSCRIPTION_ID}}
+          HUGGING_FACE_API_KEY: ${{secrets.HUGGING_FACE_API_KEY}}
+          ZAPIER_API_KEY: ${{secrets.ZAPIER_API_KEY}}
+          ELEVENLABS_API_KEY: ${{secrets.ELEVENLABS_API_KEY}}
+          REDIS_URL: ${{secrets.REDIS_URL}}
+          REDIS_KEY: ${{secrets.REDIS_KEY}}
+          VAULT_URL: ${{secrets.VAULT_URL}}
+          working-directory: ${{ env.WORKING_DIRECTORY }}
         run: |
          #sudo apt install python${{ env.PYTHON_VERSION }}-venv
          python -m venv --copies antenv
