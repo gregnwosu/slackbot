@@ -3,7 +3,11 @@
 # More info on Python, GitHub Actions, and Azure App Service: https://aka.ms/python-webapps-actions
 
 name: Build and deploy Python app to Azure Web App - slackbotwebapp
-
+env:
+  AZURE_WEBAPP_NAME: 'slackbotwebapp'    # set this to your application's name
+  WORKING_DIRECTORY: '.'        # set this to the path to your path of working directory inside github repository, defaults to the repository root
+  PYTHON_VERSION: '3.9'        # set the version to use
+  STARTUP_COMMAND: ''
 on:
   pull_request:
     branches:
@@ -14,36 +18,22 @@ on:
       - main
   workflow_dispatch:
 
+
+
 jobs:
-  build:
+  buildandtest:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
-
-      - uses: FedericoCarboni/setup-ffmpeg@v2
    
       - name: Set up Python version
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
+          python-version: ${{ env.PYTHON_VERSION }}
           cache: 'pip'
 
-
-      - name: Create and start virtual environment
-        run: |
-          python -m venv venv
-          source venv/bin/activate
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-
-      - name: Build Coverage File
-        run: |
-          python -m pytest tests --cache-clear --doctest-modules --junitxml=junit/test-results.xml --cov=slackbot --cov-report=xml --cov-report=html
+      - name: python install
         env:
           PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
@@ -62,6 +52,14 @@ jobs:
           REDIS_URL: ${{secrets.REDIS_URL}}
           REDIS_KEY: ${{secrets.REDIS_KEY}}
           VAULT_URL: ${{secrets.VAULT_URL}}
+          working-directory: ${{ env.WORKING_DIRECTORY }}
+        run: |
+         #sudo apt install python${{ env.PYTHON_VERSION }}-venv
+         python -m venv --copies antenv
+         source antenv/bin/activate
+         pip install setuptools
+         pip install -r requirements.txt
+         python -m pytest tests --cache-clear --doctest-modules --junitxml=junit/test-results.xml --cov=slackbot --cov-report=xml --cov-report=html
 
       # - name: Comment coverage
       #   uses: coroo/pytest-coverage-commentator@v1.0.2
@@ -72,11 +70,11 @@ jobs:
           name: python-app
           path: |
             .
-            !venv/
+            !antenv/
 
   test:
     runs-on: ubuntu-latest
-    needs: build
+    needs: buildandtest
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
@@ -92,6 +90,11 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - uses: azure/appservice-settings@v1
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          mask-inputs: false
+          general-settings-json: '{"linuxFxVersion": "PYTHON|${{ env.PYTHON_VERSION }}"}'
 
 
 
@@ -287,6 +290,9 @@ jobs:
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
         with:
-          app-name: 'slackbotwebapp'
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          package: ${{ env.WORKING_DIRECTORY }}
           slot-name: 'Production'
+          startup-command: ${{ env.STARTUP_COMMAND }}
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2822AFA1DDBD4A388A20C6EC72438710 }}
+
