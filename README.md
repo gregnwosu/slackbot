@@ -1,6 +1,6 @@
 [![Build and deploy Python app to Azure Web App - slackbotwebapp](https://github.com/gregnwosu/slackbot/actions/workflows/main_slackbotwebapp.yml/badge.svg)](https://github.com/gregnwosu/slackbot/actions/workflows/main_slackbotwebapp.yml)
 
-# todo:
+# todo: 
 ## re-engineer architecture  so that
 am expert is made of :
    - a platform,
