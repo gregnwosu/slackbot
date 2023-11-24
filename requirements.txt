@@ -38,8 +38,7 @@ uvloop
 pytest
 pytest-cov
 pytest-env
-
-#pytest-asyncio
+pytest-asyncio
 # speech
 azure-cognitiveservices-speech
 # dev
