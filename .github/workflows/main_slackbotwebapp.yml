@@ -284,7 +284,10 @@ jobs:
           TF_VAR_VAULT_URL: ${{secrets.VAULT_URL}}
           VAULT_URL: ${{secrets.VAULT_URL}}
 
-
+      - name: Log in to Azure CLI using service principal
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: 'Deploy to Azure Web App'
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         uses: azure/webapps-deploy@v2
@@ -293,6 +296,7 @@ jobs:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           package: ${{ env.WORKING_DIRECTORY }}
           slot-name: 'Production'
-          startup-command: ${{ env.STARTUP_COMMAND }}
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2822AFA1DDBD4A388A20C6EC72438710 }}
+          #startup-command: ${{ env.STARTUP_COMMAND }}
+          #publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2822AFA1DDBD4A388A20C6EC72438710 }}
+
 
