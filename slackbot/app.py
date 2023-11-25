@@ -294,7 +294,7 @@ async def root(req: Request):
 # https://api.slack.com/types/file#authentication
 # https://slackbotwebapp.azurewebsites.net/slack/events
 # Run the fastapi app
-if __name__ == "__main__":
-    import uvicorn
-    logging.info("Fast API app started")
-    uvicorn.run("slackbot.app:api", host="0.0.0.0", port=8000, reload=True)
+# if __name__ == "__main__":
+#     import uvicorn
+#     logging.info("Fast API app started")
+#     uvicorn.run("slackbot.app:api", host="0.0.0.0", port=8000, reload=True)
