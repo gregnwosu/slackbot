@@ -36,7 +36,7 @@ resource "azurerm_linux_web_app" "slackbotwebapp" {
   }
   site_config {
     always_on        = false
-    app_command_line = "apt-get update -yy && apt-get install -yy uvicorn[standard] gunicorn && gunicorn  -w 2 -b 0.0.0.0:8000 -k uvicorn.workers.UvicornWorker slackbot.app:api"
+    app_command_line = "gunicorn -w 2 -b 0.0.0.0:8000 -k uvicorn.workers.UvicornWorker slackbot.app:api"
     application_stack {
       python_version = "3.9"
     }
