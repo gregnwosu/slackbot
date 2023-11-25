@@ -28,7 +28,7 @@ resource "azurerm_linux_web_app" "slackbotwebapp" {
     "ARM_CLIENT_ID"                  = var.ARM_CLIENT_ID
     "ARM_CLIENT_SECRET"              = var.ARM_CLIENT_SECRET
     "ARM_TENANT_ID"                  = var.ARM_TENANT_ID
-    "WEBSITE_RUN_FROM_PACKAGE"       = "true"
+#    "WEBSITE_RUN_FROM_PACKAGE"       = "true"
 
     #get variable from the environment
 
