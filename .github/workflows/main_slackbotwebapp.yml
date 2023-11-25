@@ -251,6 +251,11 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - uses: azure/appservice-settings@v1
+      with:
+       app-name: ${{ env.AZURE_WEBAPP_NAME }}
+       mask-inputs: false
+       general-settings-json: '{"linuxFxVersion": "PYTHON|${{ env.PYTHON_VERSION }}"}'
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       id: deploy-to-webapp
