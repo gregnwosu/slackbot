@@ -1,6 +1,9 @@
 python-dotenv
 pydantic
 fastapi
+uvicorn[standard]
+uvloop
+httptools
 #tiktoken
 openai
 instructor
@@ -21,18 +24,18 @@ pyautogen[retrievechat]
 
 slack_bolt
 aiohttp
-#httpx
+httpx
 async-lru
 # needed for voice
 soundfile
 #keyboard
 
 #elevenlabs
-uvicorn[standard]
-gunicorn
+
+#gunicorn
 # ASGI for azure web  service
-uvloop
-#httptools
+
+
 
 # tests
 pytest
@@ -47,4 +50,4 @@ azure-keyvault-secrets
 azure-identity
 
 
-uvloop
+
