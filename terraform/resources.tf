@@ -13,7 +13,7 @@ resource "azurerm_linux_web_app" "slackbotwebapp" {
   location            = var.resource_group_location
   service_plan_id     = azurerm_service_plan.serviceplan.id
   app_settings = {
-    "SCM_DO_BUILD_DURING_DEPLOYMENT" = "1"
+    "SCM_DO_BUILD_DURING_DEPLOYMENT" = "true"
     "SLACK_BOT_TOKEN"                = var.SLACK_BOT_TOKEN
     "SLACK_SIGNING_SECRET"           = var.SLACK_SIGNING_SECRET
     "SLACK_BOT_USER_ID"              = var.SLACK_BOT_USER_ID
@@ -28,7 +28,7 @@ resource "azurerm_linux_web_app" "slackbotwebapp" {
     "ARM_CLIENT_ID"                  = var.ARM_CLIENT_ID
     "ARM_CLIENT_SECRET"              = var.ARM_CLIENT_SECRET
     "ARM_TENANT_ID"                  = var.ARM_TENANT_ID
-    "WEBSITE_RUN_FROM_PACKAGE"       = 1
+    "WEBSITE_RUN_FROM_PACKAGE"       = "true"
 
     #get variable from the environment
 
