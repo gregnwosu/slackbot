@@ -262,12 +262,16 @@ jobs:
 #       mask-inputs: false
 #       general-settings-json: '{"linuxFxVersion": "PYTHON|${{ env.PYTHON_VERSION }}"}'
     - name: Deploy to Azure Web App
-      uses: azure/webapps-deploy@v2
+      uses: azure/webapps-deploy@v3
       id: deploy-to-webapp
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        #package: ${{ env.WORKING_DIRECTORY }}
+        type: zip
+        clean: true
+        restart: true
+        target-path: /home/site/wwwroot
+        package: ${{ env.WORKING_DIRECTORY }}
         #startup-command: ${{ env.STARTUP_COMMAND }}
         slot-name: 'Production'
         # todo are we using publish profile?
