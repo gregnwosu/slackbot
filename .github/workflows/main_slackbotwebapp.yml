@@ -262,15 +262,15 @@ jobs:
 #       mask-inputs: false
 #       general-settings-json: '{"linuxFxVersion": "PYTHON|${{ env.PYTHON_VERSION }}"}'
     - name: Deploy to Azure Web App
-      uses: azure/webapps-deploy@v3
+      uses: azure/webapps-deploy@v2
       id: deploy-to-webapp
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        type: zip
-        clean: true
-        restart: true
-        target-path: /home/site/wwwroot
+        #type: zip
+        #clean: true
+        #restart: true
+        #target-path: /home/site/wwwroot
         package: ${{ env.WORKING_DIRECTORY }}
         #startup-command: ${{ env.STARTUP_COMMAND }}
         slot-name: 'Production'
