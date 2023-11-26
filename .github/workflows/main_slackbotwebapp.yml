@@ -267,8 +267,8 @@ jobs:
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        package: ${{ env.WORKING_DIRECTORY }}
-        startup-command: ${{ env.STARTUP_COMMAND }}
+        #package: ${{ env.WORKING_DIRECTORY }}
+        #startup-command: ${{ env.STARTUP_COMMAND }}
         slot-name: 'Production'
         # todo are we using publish profile?
         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2822AFA1DDBD4A388A20C6EC72438710 }}
