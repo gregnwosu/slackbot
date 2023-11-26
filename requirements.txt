@@ -4,6 +4,8 @@ fastapi
 uvicorn[standard]
 uvloop
 httptools
+starlette
+gunicorn
 #tiktoken
 openai
 instructor
@@ -32,7 +34,7 @@ soundfile
 
 #elevenlabs
 
-#gunicorn
+
 # ASGI for azure web  service
 
 
