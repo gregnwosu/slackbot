@@ -22,7 +22,7 @@ requests
 #types-requests
 tenacity
 starlette
-pyautogen[retrievechat]
+#pyautogen[retrievechat]
 
 slack_bolt
 aiohttp
