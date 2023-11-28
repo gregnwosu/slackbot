@@ -64,7 +64,6 @@ jobs:
           name: python-app
           path: |
             .
-            !antenv/
             !tests/
             !.git/
 
