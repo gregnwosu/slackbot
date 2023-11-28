@@ -13,7 +13,7 @@ resource "azurerm_linux_web_app" "slackbotwebapp" {
   location            = var.resource_group_location
   service_plan_id     = azurerm_service_plan.serviceplan.id
   app_settings = {
-    "SCM_DO_BUILD_DURING_DEPLOYMENT" = "true"
+    #"SCM_DO_BUILD_DURING_DEPLOYMENT" = "true"
     "ENABLE_ORYX_BUILD"              = "true"
     "SLACK_BOT_TOKEN"                = var.SLACK_BOT_TOKEN
     "SLACK_SIGNING_SECRET"           = var.SLACK_SIGNING_SECRET
