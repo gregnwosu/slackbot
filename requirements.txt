@@ -24,7 +24,7 @@ tenacity
 starlette
 #pyautogen[retrievechat]
 
-slack_bolt
+Flask
 aiohttp
 httpx
 async-lru
