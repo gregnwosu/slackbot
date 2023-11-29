@@ -4,8 +4,8 @@ from slack_sdk.web.client import WebClient
 from agency_swarm.tools import BaseTool
 from pydantic import Field
 
-client: WebClient = Field(default=WebClient(token=os.environ['SLACK_API_TOKEN']),
-                               description="The Slack client used to send text messages to the user.")
+client: WebClient = Field(default=WebClient(token=os.environ['SLACK_BOT_TOKEN']),
+                          description="The Slack client used to send text messages to the user.")
 
 
 class SlackTexter(BaseTool):
