@@ -30,9 +30,7 @@ httpx
 async-lru
 # needed for voice
 soundfile
-#keyboard
-
-#elevenlabs
+git+https://github.com/gregnwosu/agency-swarm.git
 
 
 # ASGI for azure web  service
