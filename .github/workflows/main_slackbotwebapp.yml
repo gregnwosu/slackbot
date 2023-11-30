@@ -64,6 +64,8 @@ jobs:
           name: python-app
           path: |
             .
+            antenv/
+            slackbot/
             !tests/
             !.git/
 
@@ -155,7 +157,7 @@ jobs:
       - name: Terraform Plan
         id: plan
         if: github.event_name == 'pull_request'
-        run: terraform plan -no-color
+        run: terraform plan -no-color 
         working-directory: terraform
         env:
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
