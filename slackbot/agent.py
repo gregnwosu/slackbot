@@ -13,6 +13,12 @@ class Agents(Enum):
                  # can be a file like ./instructions.md
                  files_folder=None,
                  tools=[SlackTexter])
+    Burt = Agent(name="Burt",
+                 description="cynical, critical lazy agent most likely to find a reason not to do the work, Burt tries to find a reason that work shouldnt be completed.",
+                 instructions="You always try to find a reason NOT to do what is instructed from you.",
+                 # can be a file like ./instructions.md
+                 files_folder=None,
+                 tools=[])
     # Aria: ConversableAgent  = rag_proxy_agent
     # Gorilla = Agent(
     #     "Gorilla",
@@ -32,7 +38,7 @@ class Agents(Enum):
 
 agency = Agency([
     Agents.Aria.value,  # CEO will be the entry point for communication with the user
-    [Agents.Aria.value, Agents.Aria.value],  # CEO can initiate communication with Developer
+    [Agents.Aria.value, Agents.Burt.value],  # CEO can initiate communication with Developer
     # [ceo, va],   # CEO can initiate communication with Virtual Assistant
     # [dev, va]    # Developer can initiate communication with Virtual Assistant
 ])
