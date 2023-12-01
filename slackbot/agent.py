@@ -32,7 +32,7 @@ class Agents(Enum):
 
 agency = Agency([
     Agents.Aria.value,  # CEO will be the entry point for communication with the user
-    # [ceo, dev],  # CEO can initiate communication with Developer
+    [Agents.Aria.value, Agents.Aria.value],  # CEO can initiate communication with Developer
     # [ceo, va],   # CEO can initiate communication with Virtual Assistant
     # [dev, va]    # Developer can initiate communication with Virtual Assistant
 ])
