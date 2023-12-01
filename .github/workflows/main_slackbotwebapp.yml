@@ -57,30 +57,30 @@ jobs:
          pip install setuptools
          pip install -r requirements.txt
          python -m pytest tests --cache-clear --doctest-modules --junitxml=junit/test-results.xml --cov=slackbot --cov-report=xml --cov-report=html
- 
+      - name: Zip artifact for deployment
+        run: zip release.zip ./* -r
       - name: Upload artifact for deployment jobs
-        uses: actions/upload-artifact@v2
+
+        uses: actions/upload-artifact@v3
         with:
           name: python-app
-          path: |
-            .
-            !tests/
-            !.git/
+          path: release.zip
 
   terraform:
-
     runs-on: ubuntu-latest
     needs: buildandtest
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
         with:
           name: python-app
           path: .
+
+      - name: unzip artifact for deployment
+        run: unzip release.zip
 
       # - name: Log in to Azure CLI using service principal
       #   uses: azure/login@v1
@@ -193,7 +193,6 @@ jobs:
             #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
             #### Terraform Validation 🤖${{ steps.validate.outputs.stdout }}
             #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
-
             <details><summary>Show Plan</summary>
 
             \`\`\`${process.env.PLAN}\`\`\`
@@ -251,15 +250,12 @@ jobs:
       with:
         name: python-app
         path: .
+    - name: unzip artifact for deployment
+      run: unzip release.zip
     - name: Log in to Azure CLI using service principal
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-#    - uses: azure/appservice-settings@v1
-#      with:
-#       app-name: ${{ env.AZURE_WEBAPP_NAME }}
-#       mask-inputs: false
-#       general-settings-json: '{"linuxFxVersion": "PYTHON|${{ env.PYTHON_VERSION }}"}'
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       id: deploy-to-webapp
