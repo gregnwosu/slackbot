@@ -18,7 +18,7 @@ class Agents(Enum):
                  instructions="You always try to find a reason NOT to do what is instructed from you.",
                  # can be a file like ./instructions.md
                  files_folder=None,
-                 tools=[])
+                 tools=[SlackTexter])
     # Aria: ConversableAgent  = rag_proxy_agent
     # Gorilla = Agent(
     #     "Gorilla",
