@@ -1,30 +1,18 @@
 from enum import Enum
 
+from agency_swarm import Agent
+from agency_swarm import Agency
 
-# from chromadb.utils import embedding_functions
-# from autogen import AssistantAgent, UserProxyAgent, config_list_from_json
-# from autogen.agentchat.contrib.retrieve_assistant_agent import RetrieveAssistantAgent
-# from autogen.agentchat.contrib.retrieve_user_proxy_agent import RetrieveUserProxyAgent
-# Load LLM inference endpoints from an env variable or a file
-# openai_key = os.environ.get("OPENAI_KEY")
-# config_list = [{'model': 'gpt-4', 'api_key': openai_key},]
-# openai_ef = embedding_functions.OpenAIEmbeddingFunction(
-#         api_key=openai_key,
-#         model_name="text-embedding-ada-002",
-#     )
-# assistant = RetrieveAssistantAgent("assistant", system_message="You are a helpful assistant.", llm_config={"config_list": config_list})
-# rag_proxy_agent = RetrieveUserProxyAgent("ragproxyagent",
-#                                         retrieve_config={
-#                                             "task": "qa",
-#                                             "docs_path": "/home/greg/Documents/gregvsesta",
-#                                             "embedding_function": openai_ef
-#                                         },
-#                                         code_execution_config={"work_dir": "coding"})
-
+from slackbot.slack import SlackTexter
 
 
 class Agents(Enum):
-    Aria = None
+    Aria = Agent(name="Aria",
+                 description="Responsible for client communication, task planning and management. Aria is responsible for commnicating with the User through Slack, and seeking for actions that carry significant or substantial consequences, while actions with trivial or inconsequential outcomes  be approved by herself.",
+                 instructions="You must converse with other agents to ensure complete task execution.",
+                 # can be a file like ./instructions.md
+                 files_folder=None,
+                 tools=[SlackTexter])
     # Aria: ConversableAgent  = rag_proxy_agent
     # Gorilla = Agent(
     #     "Gorilla",
@@ -40,3 +28,11 @@ class Agents(Enum):
     #     ["SearchBing", "Gorilla"],
     #     AsyncWebClient(token=os.environ["SLACK_BOT_TOKEN"]),
     # )
+
+
+agency = Agency([
+    Agents.Aria.value,  # CEO will be the entry point for communication with the user
+    # [ceo, dev],  # CEO can initiate communication with Developer
+    # [ceo, va],   # CEO can initiate communication with Virtual Assistant
+    # [dev, va]    # Developer can initiate communication with Virtual Assistant
+])

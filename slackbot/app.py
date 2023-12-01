@@ -18,6 +18,7 @@ from slack_sdk.signature import SignatureVerifier
 from slack_sdk.web.async_client import AsyncWebClient
 from starlette.responses import Response
 
+from slackbot import agent
 from slackbot.parsing.appmention.event import AppMentionEvent
 # from slackbot import speak
 # from slackbot.instruct import user_proxy_assistant
@@ -58,9 +59,6 @@ SLACK_BOT_USER_ID = os.environ["SLACK_BOT_USER_ID"]
 REDIS_URL = os.environ["REDIS_URL"]
 REDIS_KEY = os.environ["REDIS_KEY"]
 
-
-# user_proxy = user_proxy_assistant.create(client)
-# user_proxy_tools = [SendMessage]
 
 async def authorize():
     return AuthorizeResult()
@@ -272,14 +270,10 @@ async def handle_mentions(body: dict, say):
     model = AppMentionEvent(**body["event"])
     client = cached_slack_client()
     text = body["event"]["text"]
-    # mention = f"<@{SLACK_BOT_USER_ID}>"
-    # text = text.replace(mention, "").strip()
-    # logging.debug(f"{type(model)=}")
-
-    logging.debug("Received text: " + text.replace("\n", " "))
-
-    await say("Sure, I'll get right on that!")
-
+    mention = f"<@{SLACK_BOT_USER_ID}>"
+    text = text.replace(mention, "").strip()
+    prompt = f"Slack Channel: {model.channel} \n Slack User: {model.user} \n Agency Please Respond The Following Text: {text}"
+    agent.agency.get_completion(prompt)
     return Response(status_code=200, content="OKieDokie")
 
 
