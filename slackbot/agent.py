@@ -14,13 +14,13 @@ class Agents(Enum):
                  description="Responsible for client communication, task planning and management. Aria is responsible for commnicating with the User through Slack, and seeking for actions that carry significant or substantial consequences, while actions with trivial or inconsequential outcomes  be approved by herself.",
                  instructions="You must converse with other agents to ensure complete task execution.",
                  # can be a file like ./instructions.md
-                 files_folder=None,
+                 files_folder="/tmp",
                  tools=[UselessTool])
     Burt = Agent(name="Burt",
                  description="cynical, critical lazy agent most likely to find a reason not to do the work, Burt tries to find a reason that work shouldnt be completed.",
                  instructions="You always try to find a reason NOT to do what is instructed from you.",
                  # can be a file like ./instructions.md
-                 files_folder=None,
+                 files_folder="/tmp",
                  tools=[UselessTool])
     # Aria: ConversableAgent  = rag_proxy_agent
     # Gorilla = Agent(
