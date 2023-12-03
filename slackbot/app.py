@@ -266,14 +266,15 @@ async def handle_mentions(body: dict, say):
         body (dict): The event data received from Slack.
         say (callable): A function for sending a response to the channel.
     """
-
+    from agency_swarm.messages import MessageOutput
     model = AppMentionEvent(**body["event"])
     client = cached_slack_client()
     text = body["event"]["text"]
     mention = f"<@{SLACK_BOT_USER_ID}>"
     text = text.replace(mention, "").strip()
     prompt = f"Slack Channel: {model.channel} \n Slack User: {model.user} \n Agency Please Respond The Following Text: {text}"
-    agent.agency.get_completion(prompt)
+    for message_output in agent.agency.get_completion(prompt):
+        await say(message_output.content, channel=model.channel)
     return Response(status_code=200, content="OKieDokie")
 
 
