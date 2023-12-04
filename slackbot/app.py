@@ -277,7 +277,7 @@ async def handle_mentions(body: dict, say):
     conversation = agent.agency.get_completion(prompt)
     for msg_output in conversation:
         await say(msg_output.content, channel=model.channel)
-return Response(status_code=200, content="OKieDokie")
+    return Response(status_code=200, content="OKieDokie")
 
 
 @api.get("/")
