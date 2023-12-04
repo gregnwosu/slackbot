@@ -273,6 +273,7 @@ async def handle_mentions(body: dict, say):
     mention = f"<@{SLACK_BOT_USER_ID}>"
     text = text.replace(mention, "").strip()
     prompt = f"Slack Channel: {model.channel} \n Slack User: {model.user} \n Agency Please Respond The Following Text: {text}"
+    await say("got your message sending it to the agent swarm", channel=model.channel)
     conversation = agent.agency.get_completion(prompt)
     msg_output = next(conversation)
     await say(msg_output.content, channel=model.channel)
