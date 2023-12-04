@@ -275,12 +275,8 @@ async def handle_mentions(body: dict, say):
     prompt = f"Slack Channel: {model.channel} \n Slack User: {model.user} \n Agency Please Respond The Following Text: {text}"
     await say("got your message sending it to the agent swarm", channel=model.channel)
     conversation = agent.agency.get_completion(prompt)
-    msg_output = next(conversation)
-    await say(msg_output.content, channel=model.channel)
-    msg_output = next(conversation)
-    await say(msg_output.content, channel=model.channel)
-    msg_output = next(conversation)
-    await say(msg_output.content, channel=model.channel)
+    for msg_output in conversation:
+        await say(msg_output.content, channel=model.channel)
     return Response(status_code=200, content="OKieDokie")
 
 
