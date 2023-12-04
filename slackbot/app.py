@@ -277,6 +277,10 @@ async def handle_mentions(body: dict, say):
     conversation = agent.agency.get_completion(prompt)
     msg_output = next(conversation)
     await say(msg_output.content, channel=model.channel)
+    msg_output = next(conversation)
+    await say(msg_output.content, channel=model.channel)
+    msg_output = next(conversation)
+    await say(msg_output.content, channel=model.channel)
     return Response(status_code=200, content="OKieDokie")
 
 
