@@ -274,8 +274,8 @@ async def handle_mentions(body: dict, say):
     text = text.replace(mention, "").strip()
     prompt = f"Slack Channel: {model.channel} \n Slack User: {model.user} \n Agency Please Respond The Following Text: {text}"
     conversation = agent.agency.get_completion(prompt)
-    for message_output in conversation:
-        await say(message_output, channel=model.channel)
+    msg_output = next(conversation)
+    await say(msg_output.content, channel=model.channel)
     return Response(status_code=200, content="OKieDokie")
 
 
