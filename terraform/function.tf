@@ -1,10 +1,11 @@
 resource "azurerm_linux_function_app" "function_app" {
-  name                        = "slackbotfunctionapp"
-  resource_group_name         = azurerm_resource_group.LangChain-Experiments.name
-  location                    = var.resource_group_location
-  service_plan_id             = azurerm_service_plan.serviceplan.id
-  storage_account_name        = azurerm_storage_account.gnwosutfstatestorageacc.name
-  https_only                  = true
+  name                 = "slackbotfunctionapp"
+  resource_group_name  = azurerm_resource_group.LangChain-Experiments.name
+  location             = var.resource_group_location
+  service_plan_id      = azurerm_service_plan.serviceplan.id
+  storage_account_name = azurerm_storage_account.gnwosutfstatestorageacc.name
+  https_only           = true
+
   functions_extension_version = "~4"
   storage_account {
     access_key   = azurerm_storage_account.gnwosutfstatestorageacc.primary_access_key
@@ -37,12 +38,18 @@ resource "azurerm_linux_function_app" "function_app" {
     "FUNCTIONS_WORKER_RUNTIME"       = "python"
     "AzureWebJobsFeatureFlags"       = "EnableWorkerIndexing"
     "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.app_insights.instrumentation_key
+    "APPINSIGHTS_CONNECTION_STRING"  = "InstrumentationKey=${azurerm_application_insights.app_insights.instrumentation_key}"
   }
 
   site_config {
+
+    ftps_state = "Disabled"
     application_stack {
       python_version = "3.10"
     }
+  }
+  identity {
+    type = "SystemAssigned"
   }
 
 }
