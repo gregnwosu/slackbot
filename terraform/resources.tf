@@ -14,23 +14,23 @@ resource "azurerm_linux_web_app" "slackbotwebapp" {
   service_plan_id     = azurerm_service_plan.serviceplan.id
   app_settings = {
 
-  # "SCM_DO_BUILD_DURING_DEPLOYMENT" = "true"
+    # "SCM_DO_BUILD_DURING_DEPLOYMENT" = "true"
 
-    "ENABLE_ORYX_BUILD"              = "true"
-    "SLACK_BOT_TOKEN"                = var.SLACK_BOT_TOKEN
-    "SLACK_SIGNING_SECRET"           = var.SLACK_SIGNING_SECRET
-    "SLACK_BOT_USER_ID"              = var.SLACK_BOT_USER_ID
-    "SERPAPI_API_KEY"                = var.SERPAPI_API_KEY
-    "OPENAI_API_KEY"                 = var.OPENAI_API_KEY
-    "HUGGING_FACE_API_KEY"           = var.HUGGING_FACE_API_KEY
-    "VAR_ZAPIER_API_KEY"             = var.ZAPIER_API_KEY
-    "ELEVENLABS_API_KEY"             = var.ELEVENLABS_API_KEY
-    "REDIS_KEY"                      = var.REDIS_KEY
-    "REDIS_URL"                      = var.REDIS_URL
-    "VAULT_URL"                      = var.VAULT_URL
-    "ARM_CLIENT_ID"                  = var.ARM_CLIENT_ID
-    "ARM_CLIENT_SECRET"              = var.ARM_CLIENT_SECRET
-    "ARM_TENANT_ID"                  = var.ARM_TENANT_ID
+    "ENABLE_ORYX_BUILD"    = "true"
+    "SLACK_BOT_TOKEN"      = var.SLACK_BOT_TOKEN
+    "SLACK_SIGNING_SECRET" = var.SLACK_SIGNING_SECRET
+    "SLACK_BOT_USER_ID"    = var.SLACK_BOT_USER_ID
+    "SERPAPI_API_KEY"      = var.SERPAPI_API_KEY
+    "OPENAI_API_KEY"       = var.OPENAI_API_KEY
+    "HUGGING_FACE_API_KEY" = var.HUGGING_FACE_API_KEY
+    "VAR_ZAPIER_API_KEY"   = var.ZAPIER_API_KEY
+    "ELEVENLABS_API_KEY"   = var.ELEVENLABS_API_KEY
+    "REDIS_KEY"            = var.REDIS_KEY
+    "REDIS_URL"            = var.REDIS_URL
+    "VAULT_URL"            = var.VAULT_URL
+    "ARM_CLIENT_ID"        = var.ARM_CLIENT_ID
+    "ARM_CLIENT_SECRET"    = var.ARM_CLIENT_SECRET
+    "ARM_TENANT_ID"        = var.ARM_TENANT_ID
     #"WEBSITE_RUN_FROM_PACKAGE"       = "true"
 
     #get variable from the environment
