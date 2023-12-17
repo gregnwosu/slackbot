@@ -5,7 +5,11 @@ __pycache__/
 
 # C extensions
 *.so
-
+.idea/
+terraform/.terraform
+.vscode/
+.terraform.*
+terraform.tfstate*
 # Distribution / packaging
 .Python
 build/
@@ -135,3 +139,4 @@ __azurite_db*__.json
 .python_packages
 
 release.zip
+azure_credentials.json
