@@ -1,10 +1,9 @@
 import os
 from slack_sdk.web.async_client import AsyncWebClient
 from slack_sdk.web.client import WebClient
-from agency_swarm.tools import BaseTool
+
+# from agency_swarm.tools import BaseTool
 from pydantic import Field
-
-
 
 
 # class SlackTexter(BaseTool):
@@ -28,11 +27,14 @@ from pydantic import Field
 #         return "message sent" if response["ok"] else f"message not sent: response was {response}"
 
 
-class UselessTool(BaseTool):
-    """
-    This tool is useless and does nothing.
-    """
-
-    def run(self):
-        return "succesfully did nothing" if response["ok"] else f"message not sent: response was {response}"
-
+# class UselessTool(BaseTool):
+#     """
+#     This tool is useless and does nothing.
+#     """
+#
+#     def run(self):
+#         return (
+#             "succesfully did nothing"
+#             if response["ok"]
+#             else f"message not sent: response was {response}"
+#         )
