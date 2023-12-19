@@ -264,15 +264,15 @@ jobs:
         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2822AFA1DDBD4A388A20C6EC72438710 }}
 
 
-    # - name: 'Run Azure Functions Action'
-    #   uses: Azure/functions-action@v1
-    #   id: deploy-to-functionapp
-    #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    #   with:
-    #     app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-    #     package: release.zip
-    #     publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2822AFA1DDBD4A388A20C6EC72438710 }}
-    #     scm-do-build-during-deployment: true
-    #     enable-oryx-build: true
+    - name: 'Run Azure Functions Action'
+      uses: Azure/functions-action@v1
+      id: deploy-to-functionapp
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      with:
+        app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+        package: release.zip
+        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2822AFA1DDBD4A388A20C6EC72438710 }}
+        scm-do-build-during-deployment: true
+        enable-oryx-build: true
 
 
