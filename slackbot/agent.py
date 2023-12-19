@@ -3,7 +3,8 @@ from enum import Enum
 # from agency_swarm import Agent
 # from agency_swarm import Agency
 import tempfile
-from slackbot.slack import UselessTool
+
+# from slackbot.slack import UselessTool
 
 # from agency_swarm import set_openai_key
 import os
