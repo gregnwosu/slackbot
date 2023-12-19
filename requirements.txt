@@ -30,7 +30,7 @@ httpx
 async-lru
 # needed for voice
 soundfile
-git+https://github.com/gregnwosu/agency-swarm.git
+#git+https://github.com/gregnwosu/agency-swarm.git
 
 
 # ASGI for azure web  service
@@ -50,4 +50,4 @@ azure-keyvault-secrets
 azure-identity
 
 
-
+azure-functions
