@@ -253,7 +253,7 @@ jobs:
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        type: zip
+        #type: zip
         #clean: true
         #restart: true
         #target-path: /home/site/wwwroot
@@ -262,6 +262,7 @@ jobs:
         slot-name: 'Production'
         # todo are we using publish profile?
         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2822AFA1DDBD4A388A20C6EC72438710 }}
+
 
     - name: 'Run Azure Functions Action'
       uses: Azure/functions-action@v1
@@ -274,4 +275,4 @@ jobs:
         scm-do-build-during-deployment: true
         enable-oryx-build: true
 
-# deploy function app as https://github.com/Azure/actions-workflow-samples/blob/master/FunctionApp/linux-python-functionapp-on-azure.yml
+
