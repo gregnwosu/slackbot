@@ -253,7 +253,7 @@ jobs:
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        type: zip
+        #type: zip
         #clean: true
         #restart: true
         #target-path: /home/site/wwwroot
