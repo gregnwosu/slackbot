@@ -76,7 +76,7 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     steps:
       - name: Download artifact from build job
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.7
         with:
           name: python-app
           path: .
@@ -238,7 +238,7 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     steps:
     - name: Download artifact from build job
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4.1.7
       with:
         name: python-app
         path: .
